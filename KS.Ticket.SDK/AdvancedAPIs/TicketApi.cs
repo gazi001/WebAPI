@@ -734,7 +734,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                             FormulaSummary = data.summary,
                             hotelcode = data.hotelcode,
                             //maxnum=int.Parse( data.pro_num),
-                            
+
                             flag = 0,
                         };
                         db.Formula_t.Add(formula);
