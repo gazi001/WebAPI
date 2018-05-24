@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="33c6d2e36c3f41a2ae8de46ee9d48976" Name="关系图1">
+        <EntityTypeShape EntityType="MemberModel.OpenidToMobile_t" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MemberModel.CRM_DCB" Width="1.5" PointX="8.21077982718627" PointY="16.314118541923406" />
+        <EntityTypeShape EntityType="MemberModel.MemberBindInfo" Width="1.5" PointX="8.8439330909605758" PointY="29.661574019892875" />
+        <EntityTypeShape EntityType="MemberModel.UserScene" Width="1.5" PointX="3.0507471557011581" PointY="13.599956488981823" />
+        <EntityTypeShape EntityType="MemberModel.bindopenidlog" Width="1.5" PointX="6.475969621201962" PointY="4.3624379208136528" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

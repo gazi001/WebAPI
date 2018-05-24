@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KS.Model.Mall.MallRequest
+{
+    public class GetCarouselFigureModel:ConmmonUserToken
+    {
+<<<<<<< HEAD
+        public string hotelcode { get; set; }
+    }
+
+}
+=======
+        //获取轮播图Getlp_img_json
+        public string hotelcode { get; set; }
+    }
+
+}
+>>>>>>> e121aebfa3ab0f7d73f0ca941521259969e785e7

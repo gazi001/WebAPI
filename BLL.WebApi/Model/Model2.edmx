@@ -1,0 +1,488 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MemberModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="MemberModelStoreContainer">
+          <EntitySet Name="bindopenidlog" EntityType="MemberModel.Store.bindopenidlog" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CRM_DCB" EntityType="MemberModel.Store.CRM_DCB" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MemberBindInfo" EntityType="MemberModel.Store.MemberBindInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OpenidToMobile_t" EntityType="MemberModel.Store.OpenidToMobile_t" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserScene" EntityType="MemberModel.Store.UserScene" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="bindopenidlog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="bosscard" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="isbind" Type="nvarchar" MaxLength="50" />
+          <Property Name="bindnum" Type="nvarchar" MaxLength="50" />
+          <Property Name="usercode" Type="nvarchar" MaxLength="50" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="type" Type="varchar" MaxLength="50" />
+          <Property Name="hotelcode" Type="varchar" MaxLength="50" />
+          <Property Name="grouptype" Type="varchar" MaxLength="50" />
+          <Property Name="realbosscard" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CRM_DCB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="hotelgroup" Type="varchar" MaxLength="50" />
+          <Property Name="tjcode" Type="varchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="500" />
+          <Property Name="source" Type="nvarchar" MaxLength="50" />
+          <Property Name="totalscore" Type="decimal" Scale="2" />
+          <Property Name="greenscore" Type="decimal" Scale="2" />
+          <Property Name="ticketscore" Type="decimal" Scale="2" />
+          <Property Name="xfscore" Type="decimal" Scale="2" />
+          <Property Name="openid" Type="nvarchar" MaxLength="500" />
+          <Property Name="hy_name" Type="varchar" MaxLength="50" />
+          <Property Name="usertype" Type="varchar" MaxLength="50" />
+          <Property Name="cardtype" Type="varchar" MaxLength="50" />
+          <Property Name="realbosscard" Type="varchar" MaxLength="50" />
+          <Property Name="bosscard" Type="varchar" MaxLength="50" />
+          <Property Name="cardhotel" Type="varchar" MaxLength="50" />
+          <Property Name="nation" Type="varchar" MaxLength="150" />
+          <Property Name="country" Type="varchar" MaxLength="150" />
+          <Property Name="weixinnumber" Type="varchar" MaxLength="150" />
+          <Property Name="remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="bosshk" Type="nvarchar" MaxLength="50" />
+          <Property Name="ratecode" Type="nvarchar" MaxLength="50" />
+          <Property Name="hy_kh" Type="varchar" MaxLength="200" />
+          <Property Name="hy_sex" Type="varchar" MaxLength="50" />
+          <Property Name="hy_zjlx" Type="varchar" MaxLength="50" />
+          <Property Name="hy_zjhm" Type="varchar" MaxLength="150" />
+          <Property Name="hy_jg" Type="varchar" MaxLength="500" />
+          <Property Name="hy_sr_m" Type="varchar" MaxLength="50" />
+          <Property Name="hy_sr_r" Type="varchar" MaxLength="50" />
+          <Property Name="hy_sr_nl" Type="int" />
+          <Property Name="hy_sjhm" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dz_sf" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dz_djs" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dz_sx" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dz_jd" Type="varchar" MaxLength="200" />
+          <Property Name="hy_yzbm" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dcyq1" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dcyq_qt" Type="varchar" MaxLength="150" />
+          <Property Name="hy_cph" Type="varchar" MaxLength="150" />
+          <Property Name="hy_dw_name" Type="varchar" MaxLength="200" />
+          <Property Name="hy_dw_dz_sf" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dw_dz_djs" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dw_dz_sx" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dw_dz_jd" Type="varchar" MaxLength="200" />
+          <Property Name="hy_dw_xz" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dw_zw" Type="varchar" MaxLength="50" />
+          <Property Name="hy_lxdh" Type="varchar" MaxLength="50" />
+          <Property Name="hy_Email" Type="varchar" MaxLength="50" />
+          <Property Name="hy_qq_msn" Type="varchar" MaxLength="50" />
+          <Property Name="hy_zp_path" Type="varchar" MaxLength="500" />
+          <Property Name="hy_qmz_path" Type="varchar" MaxLength="500" />
+          <Property Name="hy_dcyq2" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dcyq3" Type="varchar" MaxLength="50" />
+          <Property Name="hy_dcyq4" Type="varchar" MaxLength="50" />
+          <Property Name="hy_wx" Type="varchar" MaxLength="50" />
+          <Property Name="hy_xyk" Type="varchar" MaxLength="50" />
+          <Property Name="hy_ljxf" Type="decimal" Scale="2" />
+          <Property Name="hy_mrhbj" Type="decimal" Scale="2" />
+          <Property Name="hy_mrhzs" Type="decimal" Scale="2" />
+          <Property Name="hy_jhtwo" Type="varchar" MaxLength="50" />
+          <Property Name="hy_jhthree" Type="varchar" MaxLength="50" />
+          <Property Name="hy_jhfour" Type="varchar" MaxLength="50" />
+          <Property Name="hy_jhsix" Type="varchar" MaxLength="50" />
+          <Property Name="hy_jhseven" Type="varchar" MaxLength="50" />
+          <Property Name="hy_jheight" Type="varchar" MaxLength="50" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="hy_bjye" Type="decimal" Scale="2" />
+          <Property Name="hy_zsye" Type="decimal" Scale="2" />
+          <Property Name="hy_mrhgme" Type="decimal" Scale="2" />
+          <Property Name="hy_jhone" Type="varchar" MaxLength="50" />
+          <Property Name="hy_jhfive" Type="varchar" MaxLength="50" />
+          <Property Name="hy_jhlv" Type="varchar" MaxLength="50" />
+          <Property Name="hy_jhsw" Type="varchar" MaxLength="50" />
+          <Property Name="birthday" Type="datetime" />
+          <Property Name="state" Type="varchar" MaxLength="50" />
+          <Property Name="arr" Type="datetime" />
+          <Property Name="saleid" Type="varchar" MaxLength="50" />
+          <Property Name="lasttime" Type="datetime" />
+          <Property Name="lasttime1" Type="datetime" />
+          <Property Name="bjye" Type="decimal" Scale="2" />
+          <Property Name="zqye" Type="decimal" Scale="2" />
+          <Property Name="jfye" Type="decimal" Scale="2" />
+        </EntityType>
+        <EntityType Name="MemberBindInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="hy_sjhm" Type="varchar" MaxLength="50" />
+          <Property Name="hy_kh" Type="varchar" MaxLength="50" />
+          <Property Name="openid" Type="varchar" MaxLength="50" />
+          <Property Name="source" Type="varchar" MaxLength="50" />
+          <Property Name="tjcode" Type="varchar" MaxLength="50" />
+          <Property Name="hotelcode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OpenidToMobile_t">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="hotelcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="grouptype" Type="nvarchar" MaxLength="50" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="openidnum" Type="int" />
+          <Property Name="realbosscard" Type="nvarchar" MaxLength="50" />
+          <Property Name="bosscard" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserScene">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="hotelcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="hotelgroupcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="usercode" Type="nvarchar" MaxLength="50" />
+          <Property Name="scene" Type="nvarchar" MaxLength="50" />
+          <Property Name="flag" Type="int" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="scenename" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MemberModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MemberEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="OpenidToMobile_t" EntityType="MemberModel.OpenidToMobile_t" />
+          <EntitySet Name="CRM_DCB" EntityType="MemberModel.CRM_DCB" />
+          <EntitySet Name="MemberBindInfoes" EntityType="MemberModel.MemberBindInfo" />
+          <EntitySet Name="UserScenes" EntityType="MemberModel.UserScene" />
+          <EntitySet Name="bindopenidlogs" EntityType="MemberModel.bindopenidlog" />
+        </EntityContainer>
+        <EntityType Name="OpenidToMobile_t">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="mobile" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="hotelcode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="addtime" Type="DateTime" Precision="3" />
+          <Property Type="Int32" Name="openidnum" />
+          <Property Type="String" Name="grouptype" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="realbosscard" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bosscard" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CRM_DCB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="hotelgroup" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="tjcode" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="address" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="source" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="totalscore" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="greenscore" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="ticketscore" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="xfscore" Precision="18" Scale="2" />
+          <Property Type="String" Name="openid" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="hy_name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="usertype" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="cardtype" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="realbosscard" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="bosscard" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="cardhotel" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="nation" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="country" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="weixinnumber" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="remark" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bosshk" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ratecode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="hy_kh" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_sex" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_zjlx" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_zjhm" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_jg" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_sr_m" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_sr_r" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="hy_sr_nl" />
+          <Property Type="String" Name="hy_sjhm" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dz_sf" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dz_djs" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dz_sx" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dz_jd" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_yzbm" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dcyq1" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dcyq_qt" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_cph" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dw_name" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dw_dz_sf" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dw_dz_djs" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dw_dz_sx" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dw_dz_jd" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dw_xz" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dw_zw" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_lxdh" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_Email" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_qq_msn" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_zp_path" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_qmz_path" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dcyq2" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dcyq3" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_dcyq4" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_wx" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_xyk" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="hy_ljxf" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="hy_mrhbj" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="hy_mrhzs" Precision="18" Scale="2" />
+          <Property Type="String" Name="hy_jhtwo" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_jhthree" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_jhfour" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_jhsix" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_jhseven" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_jheight" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="addtime" Precision="3" />
+          <Property Type="Decimal" Name="hy_bjye" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="hy_zsye" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="hy_mrhgme" Precision="18" Scale="2" />
+          <Property Type="String" Name="hy_jhone" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_jhfive" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_jhlv" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_jhsw" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="birthday" Precision="3" />
+          <Property Type="String" Name="state" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="arr" Precision="3" />
+          <Property Type="String" Name="saleid" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="lasttime" Precision="3" />
+          <Property Type="DateTime" Name="lasttime1" Precision="3" />
+          <Property Type="Decimal" Name="bjye" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="zqye" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="jfye" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="MemberBindInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="hy_sjhm" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hy_kh" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="openid" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="source" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="tjcode" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserScene">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="hotelgroupcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="usercode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="scene" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="flag" />
+          <Property Type="DateTime" Name="addtime" Precision="3" />
+          <Property Type="String" Name="name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="scenename" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="bindopenidlog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="bosscard" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="mobile" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="isbind" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="bindnum" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="usercode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="addtime" Precision="3" />
+          <Property Type="String" Name="type" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="grouptype" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="realbosscard" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MemberModelStoreContainer" CdmEntityContainer="MemberEntities">
+          <EntitySetMapping Name="OpenidToMobile_t">
+            <EntityTypeMapping TypeName="MemberModel.OpenidToMobile_t">
+              <MappingFragment StoreEntitySet="OpenidToMobile_t">
+                <ScalarProperty Name="bosscard" ColumnName="bosscard" />
+                <ScalarProperty Name="realbosscard" ColumnName="realbosscard" />
+                <ScalarProperty Name="grouptype" ColumnName="grouptype" />
+                <ScalarProperty Name="openidnum" ColumnName="openidnum" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CRM_DCB">
+            <EntityTypeMapping TypeName="MemberModel.CRM_DCB">
+              <MappingFragment StoreEntitySet="CRM_DCB">
+                <ScalarProperty Name="jfye" ColumnName="jfye" />
+                <ScalarProperty Name="zqye" ColumnName="zqye" />
+                <ScalarProperty Name="bjye" ColumnName="bjye" />
+                <ScalarProperty Name="lasttime1" ColumnName="lasttime1" />
+                <ScalarProperty Name="lasttime" ColumnName="lasttime" />
+                <ScalarProperty Name="saleid" ColumnName="saleid" />
+                <ScalarProperty Name="arr" ColumnName="arr" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="hy_jhsw" ColumnName="hy_jhsw" />
+                <ScalarProperty Name="hy_jhlv" ColumnName="hy_jhlv" />
+                <ScalarProperty Name="hy_jhfive" ColumnName="hy_jhfive" />
+                <ScalarProperty Name="hy_jhone" ColumnName="hy_jhone" />
+                <ScalarProperty Name="hy_mrhgme" ColumnName="hy_mrhgme" />
+                <ScalarProperty Name="hy_zsye" ColumnName="hy_zsye" />
+                <ScalarProperty Name="hy_bjye" ColumnName="hy_bjye" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="hy_jheight" ColumnName="hy_jheight" />
+                <ScalarProperty Name="hy_jhseven" ColumnName="hy_jhseven" />
+                <ScalarProperty Name="hy_jhsix" ColumnName="hy_jhsix" />
+                <ScalarProperty Name="hy_jhfour" ColumnName="hy_jhfour" />
+                <ScalarProperty Name="hy_jhthree" ColumnName="hy_jhthree" />
+                <ScalarProperty Name="hy_jhtwo" ColumnName="hy_jhtwo" />
+                <ScalarProperty Name="hy_mrhzs" ColumnName="hy_mrhzs" />
+                <ScalarProperty Name="hy_mrhbj" ColumnName="hy_mrhbj" />
+                <ScalarProperty Name="hy_ljxf" ColumnName="hy_ljxf" />
+                <ScalarProperty Name="hy_xyk" ColumnName="hy_xyk" />
+                <ScalarProperty Name="hy_wx" ColumnName="hy_wx" />
+                <ScalarProperty Name="hy_dcyq4" ColumnName="hy_dcyq4" />
+                <ScalarProperty Name="hy_dcyq3" ColumnName="hy_dcyq3" />
+                <ScalarProperty Name="hy_dcyq2" ColumnName="hy_dcyq2" />
+                <ScalarProperty Name="hy_qmz_path" ColumnName="hy_qmz_path" />
+                <ScalarProperty Name="hy_zp_path" ColumnName="hy_zp_path" />
+                <ScalarProperty Name="hy_qq_msn" ColumnName="hy_qq_msn" />
+                <ScalarProperty Name="hy_Email" ColumnName="hy_Email" />
+                <ScalarProperty Name="hy_lxdh" ColumnName="hy_lxdh" />
+                <ScalarProperty Name="hy_dw_zw" ColumnName="hy_dw_zw" />
+                <ScalarProperty Name="hy_dw_xz" ColumnName="hy_dw_xz" />
+                <ScalarProperty Name="hy_dw_dz_jd" ColumnName="hy_dw_dz_jd" />
+                <ScalarProperty Name="hy_dw_dz_sx" ColumnName="hy_dw_dz_sx" />
+                <ScalarProperty Name="hy_dw_dz_djs" ColumnName="hy_dw_dz_djs" />
+                <ScalarProperty Name="hy_dw_dz_sf" ColumnName="hy_dw_dz_sf" />
+                <ScalarProperty Name="hy_dw_name" ColumnName="hy_dw_name" />
+                <ScalarProperty Name="hy_cph" ColumnName="hy_cph" />
+                <ScalarProperty Name="hy_dcyq_qt" ColumnName="hy_dcyq_qt" />
+                <ScalarProperty Name="hy_dcyq1" ColumnName="hy_dcyq1" />
+                <ScalarProperty Name="hy_yzbm" ColumnName="hy_yzbm" />
+                <ScalarProperty Name="hy_dz_jd" ColumnName="hy_dz_jd" />
+                <ScalarProperty Name="hy_dz_sx" ColumnName="hy_dz_sx" />
+                <ScalarProperty Name="hy_dz_djs" ColumnName="hy_dz_djs" />
+                <ScalarProperty Name="hy_dz_sf" ColumnName="hy_dz_sf" />
+                <ScalarProperty Name="hy_sjhm" ColumnName="hy_sjhm" />
+                <ScalarProperty Name="hy_sr_nl" ColumnName="hy_sr_nl" />
+                <ScalarProperty Name="hy_sr_r" ColumnName="hy_sr_r" />
+                <ScalarProperty Name="hy_sr_m" ColumnName="hy_sr_m" />
+                <ScalarProperty Name="hy_jg" ColumnName="hy_jg" />
+                <ScalarProperty Name="hy_zjhm" ColumnName="hy_zjhm" />
+                <ScalarProperty Name="hy_zjlx" ColumnName="hy_zjlx" />
+                <ScalarProperty Name="hy_sex" ColumnName="hy_sex" />
+                <ScalarProperty Name="hy_kh" ColumnName="hy_kh" />
+                <ScalarProperty Name="ratecode" ColumnName="ratecode" />
+                <ScalarProperty Name="bosshk" ColumnName="bosshk" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="weixinnumber" ColumnName="weixinnumber" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="nation" ColumnName="nation" />
+                <ScalarProperty Name="cardhotel" ColumnName="cardhotel" />
+                <ScalarProperty Name="bosscard" ColumnName="bosscard" />
+                <ScalarProperty Name="realbosscard" ColumnName="realbosscard" />
+                <ScalarProperty Name="cardtype" ColumnName="cardtype" />
+                <ScalarProperty Name="usertype" ColumnName="usertype" />
+                <ScalarProperty Name="hy_name" ColumnName="hy_name" />
+                <ScalarProperty Name="openid" ColumnName="openid" />
+                <ScalarProperty Name="xfscore" ColumnName="xfscore" />
+                <ScalarProperty Name="ticketscore" ColumnName="ticketscore" />
+                <ScalarProperty Name="greenscore" ColumnName="greenscore" />
+                <ScalarProperty Name="totalscore" ColumnName="totalscore" />
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="tjcode" ColumnName="tjcode" />
+                <ScalarProperty Name="hotelgroup" ColumnName="hotelgroup" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberBindInfoes">
+            <EntityTypeMapping TypeName="MemberModel.MemberBindInfo">
+              <MappingFragment StoreEntitySet="MemberBindInfo">
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="tjcode" ColumnName="tjcode" />
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="openid" ColumnName="openid" />
+                <ScalarProperty Name="hy_kh" ColumnName="hy_kh" />
+                <ScalarProperty Name="hy_sjhm" ColumnName="hy_sjhm" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserScenes">
+            <EntityTypeMapping TypeName="MemberModel.UserScene">
+              <MappingFragment StoreEntitySet="UserScene">
+                <ScalarProperty Name="scenename" ColumnName="scenename" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="scene" ColumnName="scene" />
+                <ScalarProperty Name="usercode" ColumnName="usercode" />
+                <ScalarProperty Name="hotelgroupcode" ColumnName="hotelgroupcode" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bindopenidlogs">
+            <EntityTypeMapping TypeName="MemberModel.bindopenidlog">
+              <MappingFragment StoreEntitySet="bindopenidlog">
+                <ScalarProperty Name="realbosscard" ColumnName="realbosscard" />
+                <ScalarProperty Name="grouptype" ColumnName="grouptype" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="usercode" ColumnName="usercode" />
+                <ScalarProperty Name="bindnum" ColumnName="bindnum" />
+                <ScalarProperty Name="isbind" ColumnName="isbind" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="bosscard" ColumnName="bosscard" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

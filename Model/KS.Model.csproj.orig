@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5658DB08-6FDB-4AE8-8AA6-65F887C74C6A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KS.Model</RootNamespace>
+    <AssemblyName>KS.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiResultModel\GetServiceListModel.cs" />
+    <Compile Include="ApiResultModel\PaySuccessServiceModel.cs" />
+    <Compile Include="ApiResultModel\QueryOrderModel.cs" />
+    <Compile Include="ApiResultModel\QueryTradeNoModel.cs" />
+    <Compile Include="BaseEntities.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="Mall\MallRequest\CommomCs\ConmmonUserToken.cs" />
+    <Compile Include="Mall\MallRequest\GetActivityModel.cs" />
+    <Compile Include="Mall\MallRequest\GetBosscardModel.cs" />
+    <Compile Include="Mall\MallRequest\GetBuyProductModel.cs" />
+    <Compile Include="Mall\MallRequest\GetBuyProductSingleModel.cs" />
+    <Compile Include="Mall\MallRequest\GetClassModel.cs" />
+    <Compile Include="Mall\MallRequest\GetCodeToGoodsModel.cs" />
+    <Compile Include="Mall\MallRequest\GetGoodsModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductImgModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductPriceModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductScoreModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductScSearchModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductSingleModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProducttypeModel.cs" />
+    <Compile Include="Mall\MallRequest\SetbuyproductModel.cs" />
+    <Compile Include="Mall\MallRequest\SetbuyProductSingleModel.cs" />
+    <Compile Include="Mall\MallRequest\SetProductScModel.cs" />
+    <Compile Include="Mall\MallRequest\SetProductScoreModel.cs" />
+    <Compile Include="Mall\MallRequest\StopBuyProductModel.cs" />
+    <Compile Include="Mall\MallRequest\StopProductScModel.cs" />
+    <Compile Include="Mall\MallResponse\GetActivityResult.cs" />
+    <Compile Include="Mall\MallRequest\GetCarouselFigureModel.cs" />
+    <Compile Include="Mall\MallResponse\GetBosscardResult.cs" />
+    <Compile Include="Mall\MallResponse\GetBuyProductResult.cs" />
+    <Compile Include="Mall\MallResponse\GetBuyProductSingleResult.cs" />
+    <Compile Include="Mall\MallResponse\GetCarouselFigureResult.cs" />
+    <Compile Include="Mall\MallResponse\GetClassResult.cs" />
+    <Compile Include="Mall\MallResponse\GetCodeToGoodsResult.cs" />
+    <Compile Include="Mall\MallResponse\GetGoodsResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductImgResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductPriceResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductScoreResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductScSearchResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductSingleResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductTypeResult.cs" />
+    <Compile Include="Mall\MallResponse\ProductScSearchResult.cs" />
+    <Compile Include="Mall\MallRequest\ProductScSearchModel.cs" />
+    <Compile Include="Mall\MallResponse\SetbuyproductResult.cs" />
+
+    <Compile Include="Mall\MallResponse\SetProductScoreResult.cs" />
+
+    <Compile Include="Mall\MallResponse\SetbuyProductSingleResult.cs" />
+
+    <Compile Include="Mall\MallResponse\SetProductScResult.cs" />
+    <Compile Include="Mall\MallResponse\StopBuyProductResult.cs" />
+    <Compile Include="Mall\MallResponse\StopProductScResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

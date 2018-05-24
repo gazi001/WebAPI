@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RM.Common.DotNetModel
+{
+    public enum PicType
+    {
+        封面图 = 0,
+        轮播图 = 1,
+    }
+    public enum UserLevel
+    {
+        管理员 = 0,
+        普通用户 = 1,
+    }
+    public enum BusinessState
+    {
+
+        发布 = 0,
+        下单 = 1,
+        流转 = 2, //购买
+        核销使用 = 3,
+        下架 = 4,
+<<<<<<< HEAD
+       
+       
+=======
+>>>>>>> e50c92bc9d203324391c37c468ae87b3af5a9dc5
+    }
+    public enum StatusCode
+    {
+        成功 = 200,
+        没有实体数据 = 201,
+        更新失败 = 202,
+        接口调用失败=203,
+        程序异常 = 500,
+    }
+    public enum Flag
+    {
+        启用=0,
+        停用=1,
+    }
+}

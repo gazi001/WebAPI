@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{F1DAC157-5CF0-4ABE-AB30-E1B0EADA5354}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <AssemblyName>RM.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>RM.Common</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Gma.QrCodeNet.Encoding.Net45, Version=0.4.0.0, Culture=neutral, PublicKeyToken=e8a75d24b142be49, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Gma.QrCodeNet.Encoding.Net45.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\project\projects\projects\WxCardTest\WxCardTest\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="ThoughtWorks.QRCode, Version=1.0.4778.30637, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DotNetBean\CookieHelper.cs" />
+    <Compile Include="DotNetBean\RequestSession.cs" />
+    <Compile Include="DotNetBean\SessionUser.cs" />
+    <Compile Include="DotNetCode\CacheHelper.cs" />
+    <Compile Include="DotNetCode\CommonHelper.cs" />
+    <Compile Include="DotNetCode\ConvertHelper.cs" />
+    <Compile Include="DotNetCode\DateTimeHelper.cs" />
+    <Compile Include="DotNetCode\LogHelper.cs" />
+    <Compile Include="DotNetCode\OrderHelper.cs" />
+    <Compile Include="DotNetCode\PinyinHelper.cs" />
+    <Compile Include="DotNetCode\RequestHelper.cs" />
+    <Compile Include="DotNetCode\RMBHelper.cs" />
+    <Compile Include="DotNetCode\SqlFilterHelper.cs" />
+    <Compile Include="DotNetCode\SqlParam.cs" />
+    <Compile Include="DotNetCode\StringHelper.cs" />
+    <Compile Include="DotNetCode\ValidateUtil.cs" />
+    <Compile Include="DotNetCode\WxHelper.cs" />
+    <Compile Include="DotNetConfig\ConfigHelper.cs" />
+    <Compile Include="DotNetData\DataTableHelper.cs" />
+    <Compile Include="DotNetData\HashtableHelper.cs" />
+    <Compile Include="DotNetData\ReaderToIListHelper.cs" />
+    <Compile Include="DotNetData\XMLHelper.cs" />
+    <Compile Include="DotNetEamil\SMTPManager.cs" />
+    <Compile Include="DotNetEncrypt\DESEncrypt.cs" />
+    <Compile Include="DotNetEncrypt\Md5Helper.cs" />
+    <Compile Include="DotNetFile\DirFileHelper.cs" />
+    <Compile Include="DotNetFile\FileDownHelper.cs" />
+    <Compile Include="DotNetFile\FileHelper.cs" />
+    <Compile Include="DotNetFile\FTPHelper.cs" />
+    <Compile Include="DotNetFile\GZipHelper.cs" />
+    <Compile Include="DotNetFile\UploadHelper.cs" />
+    <Compile Include="DotNetHttp\HttpHepler.cs" />
+    <Compile Include="DotNetImage\ImageHelper.cs" />
+    <Compile Include="DotNetImage\method\imagesUp.ashx.cs">
+      <DependentUpon>imagesUp.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="DotNetImage\method\Uploader.cs" />
+    <Compile Include="DotNetJson\JsonHelper.cs" />
+    <Compile Include="DotNetModel\Enum.cs" />
+    <Compile Include="DotNetModel\JsonResult.cs" />
+    <Compile Include="DotNetUI\ControlBindHelper.cs" />
+    <Compile Include="DotNetUI\ExcelHelper.cs" />
+    <Compile Include="DotNetUI\IPScanerHelper.cs" />
+    <Compile Include="DotNetUI\ShowMsgHelper.cs" />
+    <Compile Include="DotNetUI\WebHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DotNetImage\method\imagesUp.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model\KS.Model.csproj">
+      <Project>{5658db08-6fdb-4ae8-8aa6-65f887c74c6a}</Project>
+      <Name>KS.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

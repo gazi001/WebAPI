@@ -1,0 +1,89 @@
+﻿测试地址：http://183.134.78.209:8003
+1、首页活动活动，商品，轮播图
+     调用地址：/Mall/Index
+	 参数格式：Json
+	 请求方式：POST
+	 请求参数：
+	 {
+		"flag": 0,
+		"hotelcode": "KSHZ",
+		"user": "",
+		"token": ""
+	}
+2、获取所有分类
+	 调用地址：/Mall/GetClass
+	 参数格式：Json
+	 请求方式：POST
+	 请求参数：
+	 {
+		"type": 0,
+		"hotelcode": "KSHZ",
+		"user": "",
+		"token": ""
+	}
+3、查询单个分类下商品
+	 调用地址：/Mall/GetProductType
+	 参数格式：Json
+	 请求方式：POST
+	 请求参数：
+	 {
+		"type": 0,
+		"hotelcode": "KSHZ",
+		"user": "",
+		"token": ""
+	}
+4、修改订单状态
+	 调用地址：/Mall/SetOrderRemark
+	 参数格式：Json
+	 请求方式：POST
+	 请求参数：
+	{
+		"ordercode": "KSHZ",
+		"ispay": "",
+		"state": "",
+		"remark": "",
+		"paymoney": "",
+		"oid": "",
+		"user": "",
+		"token": ""
+	}
+5、新增评价
+	 调用地址：/Mall/SetProductScore
+	 参数格式：Json
+	 请求方式：POST
+	 请求参数：
+	{
+		"pcode": "",
+		"score": "",
+		"remark": "KSHZ",
+		"jgxz": "",
+		"sysj": "",
+		"mobile": "",
+		"oid": "",
+		"user": "",
+		"token": ""
+	}
+6、根据手机号查询该会员所有订单
+	 调用地址：/Mall/GetOrderByMobile
+	 参数格式：Json
+	 请求方式：POST
+	 请求参数：
+	{
+		"hotelcode": "",
+		"mobile": "",
+		"user": "",
+		"token": ""
+	}
+7、 根据订单号查询订单详情
+	 调用地址：/Mall/GetOrderSingle
+	 参数格式：Json
+	 请求方式：POST
+	 请求参数：
+	{
+		"hotelcode": "",
+		"ordercode": "",
+		"user": "",
+		"token": ""
+	}
+
+

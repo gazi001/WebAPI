@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MPDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="MPDBModelStoreContainer">
+          <EntitySet Name="HotelScene_t" EntityType="MPDBModel.Store.HotelScene_t" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MemeberBalance" EntityType="MPDBModel.Store.MemeberBalance" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MPConfig" EntityType="MPDBModel.Store.MPConfig" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PrintTicket" EntityType="MPDBModel.Store.PrintTicket" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PushMsgInfo" EntityType="MPDBModel.Store.PushMsgInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TicketExpire_t" EntityType="MPDBModel.Store.TicketExpire_t" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="HotelScene_t">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="scenename" Type="nvarchar" MaxLength="50" />
+          <Property Name="hotelcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="state" Type="int" />
+        </EntityType>
+        <EntityType Name="MemeberBalance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="bosscard" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="mobile" Type="varchar" MaxLength="50" />
+          <Property Name="tmoney" Type="money" />
+          <Property Name="tmoney_dj" Type="money" />
+          <Property Name="tmoney_xf" Type="money" />
+          <Property Name="tmoney_gq" Type="money" />
+          <Property Name="tmoney_kp" Type="money" />
+          <Property Name="yhqnum" Type="int" />
+          <Property Name="AddTime" Type="datetime" />
+          <Property Name="hotelcode" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="realbosscard" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MPConfig">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AppId" Type="nvarchar" MaxLength="50" />
+          <Property Name="AppSecret" Type="nvarchar" MaxLength="100" />
+          <Property Name="ShopCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="KSHotelGroupId" Type="nvarchar" MaxLength="10" />
+          <Property Name="MchId" Type="nvarchar" MaxLength="50" />
+          <Property Name="MchKEY" Type="nvarchar" MaxLength="200" />
+          <Property Name="HotelName" Type="nvarchar" MaxLength="50" />
+          <Property Name="tenPayV3Notify" Type="nvarchar" MaxLength="200" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="flag" Type="nvarchar" MaxLength="10" />
+          <Property Name="img" Type="nvarchar" MaxLength="50" />
+          <Property Name="LvyunHotelgroupId" Type="nvarchar" MaxLength="50" />
+          <Property Name="LvyunHotelDm" Type="nvarchar" MaxLength="50" />
+          <Property Name="LvyunHotelId" Type="nvarchar" MaxLength="50" />
+          <Property Name="LvyunHotelname" Type="nvarchar" MaxLength="50" />
+          <Property Name="YQTHotelgrouptype" Type="nvarchar" MaxLength="50" />
+          <Property Name="YQTGiftId" Type="nvarchar" MaxLength="50" />
+          <Property Name="YQTGiftSonId" Type="nvarchar" MaxLength="50" />
+          <Property Name="YQTregisterId" Type="nvarchar" MaxLength="50" />
+          <Property Name="YQTOperatorId" Type="nvarchar" MaxLength="50" />
+          <Property Name="YQTRechargeId" Type="nvarchar" MaxLength="50" />
+          <Property Name="YQTRechargeableId" Type="nvarchar" MaxLength="50" />
+          <Property Name="YQTIntegralId" Type="nvarchar" MaxLength="50" />
+          <Property Name="gzh" Type="nvarchar" MaxLength="50" />
+          <Property Name="CardId" Type="nvarchar" MaxLength="100" />
+          <Property Name="WxNO" Type="nvarchar" MaxLength="50" />
+          <Property Name="TicketImg" Type="nvarchar" MaxLength="50" />
+          <Property Name="FormulaImg" Type="nvarchar" MaxLength="50" />
+          <Property Name="TicketBgImg" Type="nvarchar" MaxLength="50" />
+          <Property Name="CenterImg" Type="nvarchar" MaxLength="50" />
+          <Property Name="AliAppid" Type="nvarchar" MaxLength="200" />
+          <Property Name="MerchantPrivateKey" Type="nvarchar(max)" />
+          <Property Name="AlipayPublicKey" Type="nvarchar" MaxLength="500" />
+          <Property Name="RedirectUri" Type="nvarchar" MaxLength="200" />
+          <Property Name="QR" Type="nvarchar" MaxLength="100" />
+          <Property Name="rsvType" Type="nvarchar" MaxLength="50" />
+          <Property Name="orderUrl" Type="nvarchar" MaxLength="100" />
+          <Property Name="MerchantPublicKey" Type="nvarchar(max)" />
+          <Property Name="src" Type="nvarchar" MaxLength="50" />
+          <Property Name="market" Type="nvarchar" MaxLength="50" />
+          <Property Name="Qy" Type="nvarchar" MaxLength="50" />
+          <Property Name="qyimg" Type="nvarchar" MaxLength="50" />
+          <Property Name="nocard" Type="nvarchar" MaxLength="200" />
+          <Property Name="onsalecode" Type="nvarchar" MaxLength="200" />
+          <Property Name="shopregister" Type="nvarchar" MaxLength="50" />
+          <Property Name="indexregister" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PrintTicket">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="hotelcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="categoryid" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PushMsgInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="hotelcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="channel" Type="nvarchar" MaxLength="50" />
+          <Property Name="flag" Type="int" />
+          <Property Name="addtime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TicketExpire_t">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="WXbindingnum" Type="nvarchar" MaxLength="50" />
+          <Property Name="deadtime" Type="nvarchar" MaxLength="50" />
+          <Property Name="spacetime" Type="nvarchar" MaxLength="50" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="hotelcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="qx" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MPDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MPDBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="MemeberBalances" EntityType="MPDBModel.MemeberBalance" />
+          <EntitySet Name="MPConfigs" EntityType="MPDBModel.MPConfig" />
+          <EntitySet Name="HotelScene_t" EntityType="MPDBModel.HotelScene_t" />
+          <EntitySet Name="TicketExpire_t" EntityType="MPDBModel.TicketExpire_t" />
+          <EntitySet Name="PushMsgInfoes" EntityType="MPDBModel.PushMsgInfo" />
+          <EntitySet Name="PrintTickets" EntityType="MPDBModel.PrintTicket" />
+        </EntityContainer>
+        <EntityType Name="MemeberBalance">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="bosscard" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="mobile" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="tmoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="tmoney_dj" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="tmoney_xf" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="tmoney_gq" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="tmoney_kp" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="yhqnum" Type="Int32" />
+          <Property Type="DateTime" Name="AddTime" Precision="3" annotation:StoreGeneratedPattern="None" />
+          <Property Type="String" Name="hotelcode" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="realbosscard" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MPConfig">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="AppId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AppSecret" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ShopCode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="KSHotelGroupId" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MchId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MchKEY" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HotelName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="tenPayV3Notify" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="addtime" Precision="3" />
+          <Property Type="String" Name="flag" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="img" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LvyunHotelgroupId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LvyunHotelDm" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LvyunHotelId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LvyunHotelname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="YQTHotelgrouptype" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="YQTGiftId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="YQTGiftSonId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="YQTregisterId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="YQTOperatorId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="YQTRechargeId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="YQTRechargeableId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="gzh" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CardId" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WxNO" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TicketImg" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FormulaImg" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TicketBgImg" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CenterImg" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AliAppid" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MerchantPrivateKey" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AlipayPublicKey" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="RedirectUri" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="QR" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="rsvType" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="orderUrl" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MerchantPublicKey" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="src" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="market" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="YQTIntegralId" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Qy" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="qyimg" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="nocard" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="onsalecode" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="shopregister" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="indexregister" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HotelScene_t">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="scenename" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="addtime" Precision="3" />
+          <Property Type="Int32" Name="state" />
+        </EntityType>
+        <EntityType Name="TicketExpire_t">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="WXbindingnum" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="deadtime" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="spacetime" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="addtime" Precision="3" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="qx" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PushMsgInfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="channel" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="flag" />
+          <Property Type="DateTime" Name="addtime" Precision="3" />
+        </EntityType>
+        <EntityType Name="PrintTicket">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="categoryid" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MPDBModelStoreContainer" CdmEntityContainer="MPDBEntities">
+          <EntitySetMapping Name="MemeberBalances">
+            <EntityTypeMapping TypeName="MPDBModel.MemeberBalance">
+              <MappingFragment StoreEntitySet="MemeberBalance">
+                <ScalarProperty Name="realbosscard" ColumnName="realbosscard" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="bosscard" ColumnName="bosscard" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="tmoney" ColumnName="tmoney" />
+                <ScalarProperty Name="tmoney_dj" ColumnName="tmoney_dj" />
+                <ScalarProperty Name="tmoney_xf" ColumnName="tmoney_xf" />
+                <ScalarProperty Name="tmoney_gq" ColumnName="tmoney_gq" />
+                <ScalarProperty Name="tmoney_kp" ColumnName="tmoney_kp" />
+                <ScalarProperty Name="yhqnum" ColumnName="yhqnum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MPConfigs">
+            <EntityTypeMapping TypeName="MPDBModel.MPConfig">
+              <MappingFragment StoreEntitySet="MPConfig">
+                <ScalarProperty Name="indexregister" ColumnName="indexregister" />
+                <ScalarProperty Name="shopregister" ColumnName="shopregister" />
+                <ScalarProperty Name="onsalecode" ColumnName="onsalecode" />
+                <ScalarProperty Name="nocard" ColumnName="nocard" />
+                <ScalarProperty Name="qyimg" ColumnName="qyimg" />
+                <ScalarProperty Name="Qy" ColumnName="Qy" />
+                <ScalarProperty Name="YQTIntegralId" ColumnName="YQTIntegralId" />
+                <ScalarProperty Name="market" ColumnName="market" />
+                <ScalarProperty Name="src" ColumnName="src" />
+                <ScalarProperty Name="MerchantPublicKey" ColumnName="MerchantPublicKey" />
+                <ScalarProperty Name="orderUrl" ColumnName="orderUrl" />
+                <ScalarProperty Name="rsvType" ColumnName="rsvType" />
+                <ScalarProperty Name="QR" ColumnName="QR" />
+                <ScalarProperty Name="RedirectUri" ColumnName="RedirectUri" />
+                <ScalarProperty Name="AlipayPublicKey" ColumnName="AlipayPublicKey" />
+                <ScalarProperty Name="MerchantPrivateKey" ColumnName="MerchantPrivateKey" />
+                <ScalarProperty Name="AliAppid" ColumnName="AliAppid" />
+                <ScalarProperty Name="CenterImg" ColumnName="CenterImg" />
+                <ScalarProperty Name="TicketBgImg" ColumnName="TicketBgImg" />
+                <ScalarProperty Name="FormulaImg" ColumnName="FormulaImg" />
+                <ScalarProperty Name="TicketImg" ColumnName="TicketImg" />
+                <ScalarProperty Name="WxNO" ColumnName="WxNO" />
+                <ScalarProperty Name="CardId" ColumnName="CardId" />
+                <ScalarProperty Name="gzh" ColumnName="gzh" />
+                <ScalarProperty Name="YQTRechargeableId" ColumnName="YQTRechargeableId" />
+                <ScalarProperty Name="YQTRechargeId" ColumnName="YQTRechargeId" />
+                <ScalarProperty Name="YQTOperatorId" ColumnName="YQTOperatorId" />
+                <ScalarProperty Name="YQTregisterId" ColumnName="YQTregisterId" />
+                <ScalarProperty Name="YQTGiftSonId" ColumnName="YQTGiftSonId" />
+                <ScalarProperty Name="YQTGiftId" ColumnName="YQTGiftId" />
+                <ScalarProperty Name="YQTHotelgrouptype" ColumnName="YQTHotelgrouptype" />
+                <ScalarProperty Name="LvyunHotelname" ColumnName="LvyunHotelname" />
+                <ScalarProperty Name="LvyunHotelId" ColumnName="LvyunHotelId" />
+                <ScalarProperty Name="LvyunHotelDm" ColumnName="LvyunHotelDm" />
+                <ScalarProperty Name="LvyunHotelgroupId" ColumnName="LvyunHotelgroupId" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="tenPayV3Notify" ColumnName="tenPayV3Notify" />
+                <ScalarProperty Name="HotelName" ColumnName="HotelName" />
+                <ScalarProperty Name="MchKEY" ColumnName="MchKEY" />
+                <ScalarProperty Name="MchId" ColumnName="MchId" />
+                <ScalarProperty Name="KSHotelGroupId" ColumnName="KSHotelGroupId" />
+                <ScalarProperty Name="ShopCode" ColumnName="ShopCode" />
+                <ScalarProperty Name="AppSecret" ColumnName="AppSecret" />
+                <ScalarProperty Name="AppId" ColumnName="AppId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HotelScene_t">
+            <EntityTypeMapping TypeName="MPDBModel.HotelScene_t">
+              <MappingFragment StoreEntitySet="HotelScene_t">
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="scenename" ColumnName="scenename" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TicketExpire_t">
+            <EntityTypeMapping TypeName="MPDBModel.TicketExpire_t">
+              <MappingFragment StoreEntitySet="TicketExpire_t">
+                <ScalarProperty Name="qx" ColumnName="qx" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="spacetime" ColumnName="spacetime" />
+                <ScalarProperty Name="deadtime" ColumnName="deadtime" />
+                <ScalarProperty Name="WXbindingnum" ColumnName="WXbindingnum" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PushMsgInfoes">
+            <EntityTypeMapping TypeName="MPDBModel.PushMsgInfo">
+              <MappingFragment StoreEntitySet="PushMsgInfo">
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="channel" ColumnName="channel" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrintTickets">
+            <EntityTypeMapping TypeName="MPDBModel.PrintTicket">
+              <MappingFragment StoreEntitySet="PrintTicket">
+                <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

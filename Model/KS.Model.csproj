@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5658DB08-6FDB-4AE8-8AA6-65F887C74C6A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KS.Model</RootNamespace>
+    <AssemblyName>KS.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\DLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiResultModel\GetServiceListModel.cs" />
+    <Compile Include="ApiResultModel\PaySuccessServiceModel.cs" />
+    <Compile Include="ApiResultModel\QueryOrderModel.cs" />
+    <Compile Include="ApiResultModel\QueryTradeNoModel.cs" />
+    <Compile Include="BaseEntities.cs" />
+    <Compile Include="Booking\Response\GetRateCodexzByRoomtypeResult.cs" />
+    <Compile Include="Booking\Response\GetRoomsByDateResult.cs" />
+    <Compile Include="Common\CommonRequest\GetOpenIdForWxOpenModel.cs" />
+    <Compile Include="Common\CommonRequest\RegisterModel.cs" />
+    <Compile Include="Common\CommonResponse\CheckOpenidResult.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="CommoUserToken\ConmmonUserToken.cs" />
+    <Compile Include="Mall\MallRequest\DelCarModel.cs" />
+    <Compile Include="Mall\MallRequest\GetActivityModel.cs" />
+    <Compile Include="Common\CommonRequest\GetBosscardModel.cs" />
+    <Compile Include="Mall\MallRequest\GetBuyProductModel.cs" />
+    <Compile Include="Mall\MallRequest\GetBuyProductOtherModel.cs" />
+    <Compile Include="Mall\MallRequest\GetBuyProductSingleModel.cs" />
+    <Compile Include="Mall\MallRequest\GetClassModel.cs" />
+    <Compile Include="Mall\MallRequest\GetCodeToGoodsModel.cs" />
+    <Compile Include="Mall\MallRequest\GetMobileScoreModel.cs" />
+    <Compile Include="Mall\MallRequest\GetorderByonsalecodeModel.cs" />
+    <Compile Include="Mall\MallRequest\GetOrderTocketSNModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductPriceFHModel.cs" />
+    <Compile Include="Mall\MallRequest\GetproductPriceOthModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductScAndGetBossCard.cs" />
+    <Compile Include="Mall\MallRequest\GetProductScoreByMobileModel.cs" />
+    <Compile Include="Mall\MallRequest\PlaceOrderModel.cs" />
+    <Compile Include="Mall\MallResponse\GetGetbuttomResult.cs" />
+    <Compile Include="Member\AddMemberBindNumModel.cs" />
+    <Compile Include="Member\AddUserSceneModel.cs" />
+    <Compile Include="Member\RegisterModel.cs" />
+    <Compile Include="Member\Required.cs" />
+    <Compile Include="Ticket\TicketRequest\batchConsumeTicketModel.cs" />
+    <Compile Include="Ticket\TicketRequest\CAVTicketModel.cs" />
+    <Compile Include="Ticket\TicketRequest\CreateCategoryData.cs" />
+    <Compile Include="Ticket\TicketRequest\CreateFormulaData.cs" />
+    <Compile Include="Ticket\TicketRequest\GetConsumeModel.cs" />
+    <Compile Include="Ticket\TicketRequest\GetticketJLHXModel.cs" />
+    <Compile Include="Ticket\TicketRequest\GetticketUserByRegeditModel.cs" />
+    <Compile Include="Ticket\TicketRequest\QueryTicketAllModel.cs" />
+    <Compile Include="Ticket\TicketRequest\QueryticketNewNowxBDLYModel.cs" />
+    <Compile Include="Mall\MallRequest\SetCollectionAndGetBossCard.cs" />
+    <Compile Include="Mall\MallRequest\SetOrUpdateShopCardModel.cs" />
+    <Compile Include="Mall\MallRequest\SetProductOnSaleSingleSaleNumModel.cs" />
+    <Compile Include="Mall\MallResponse\GetBuyProductOtherResult.cs" />
+    <Compile Include="Mall\MallResponse\GetIndexProductList.cs" />
+    <Compile Include="Mall\MallResponse\GetorderByonsalecodeResult.cs" />
+    <Compile Include="Mall\MallResponse\GetproductPriceOthResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductScoreByMobileResult.cs" />
+    <Compile Include="Ticket\TicketRequest\TicketJLAddNotimeSetModel.cs" />
+    <Compile Include="Ticket\TicketRequest\TicketJLAddTicketSNNewSetModel.cs" />
+    <Compile Include="Ticket\TicketResponse\Getmember_bymobileResult.cs" />
+    <Compile Include="Ticket\TicketResponse\GetticketJLHXResult.cs" />
+    <Compile Include="Ticket\TicketResponse\GetticketUserByRegeditResult.cs" />
+    <Compile Include="Ticket\TicketResponse\Getticket_jl_hx_jsonResult.cs" />
+    <Compile Include="Ticket\TicketResponse\QuerymemberJsonResult.cs" />
+    <Compile Include="Ticket\TicketResponse\QueryTicketAllResult.cs" />
+    <Compile Include="Ticket\TicketResponse\QueryticketNewNowxBDLYResult.cs" />
+    <Compile Include="Mall\MallResponse\SetProductOnSaleSingleSaleNumResult.cs" />
+    <Compile Include="Ticket\TicketRequest\CardPaySuccessModel.cs" />
+    <Compile Include="Ticket\TicketRequest\GetbosscardbyhotelcodeandsourceModel.cs" />
+    <Compile Include="Ticket\TicketRequest\GetFormulaInfoByFormulaidModel.cs" />
+    <Compile Include="Ticket\TicketRequest\GetFormulaXgModel.cs" />
+    <Compile Include="Mall\MallRequest\GetGoodsModel.cs" />
+    <Compile Include="Mall\MallRequest\GetOrderByMobileModel.cs" />
+    <Compile Include="Mall\MallRequest\GetOrderSingleModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductImgModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductPriceModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductScoreModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductScSearchModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProductSingleModel.cs" />
+    <Compile Include="Mall\MallRequest\GetProducttypeModel.cs" />
+    <Compile Include="Mall\MallRequest\SetbuyproductModel.cs" />
+    <Compile Include="Mall\MallRequest\SetbuyProductSingleModel.cs" />
+    <Compile Include="Mall\MallRequest\SetOrderDetailsModel.cs" />
+    <Compile Include="Mall\MallRequest\SetOrderModel.cs" />
+    <Compile Include="Mall\MallRequest\SetOrderRemarkModel.cs" />
+    <Compile Include="Mall\MallRequest\SetProductScModel.cs" />
+    <Compile Include="Mall\MallRequest\SetProductScoreModel.cs" />
+    <Compile Include="Mall\MallRequest\StopBuyProductModel.cs" />
+    <Compile Include="Mall\MallRequest\StopProductScModel.cs" />
+    <Compile Include="Mall\MallResponse\GetActivityResult.cs" />
+    <Compile Include="Mall\MallRequest\GetCarouselFigureModel.cs" />
+    <Compile Include="Common\CommonResponse\GetBosscardResult.cs" />
+    <Compile Include="Mall\MallResponse\GetBuyProductResult.cs" />
+    <Compile Include="Mall\MallResponse\GetBuyProductSingleResult.cs" />
+    <Compile Include="Mall\MallResponse\GetCarouselFigureResult.cs" />
+    <Compile Include="Mall\MallResponse\GetClassResult.cs" />
+    <Compile Include="Mall\MallResponse\GetCodeToGoodsResult.cs" />
+    <Compile Include="Ticket\TicketRequest\GetMemberBalance.cs" />
+    <Compile Include="Ticket\TicketRequest\GetproductXgModel.cs" />
+    <Compile Include="Ticket\TicketRequest\MemberBalanceModel.cs" />
+    <Compile Include="Ticket\TicketRequest\SetNewHyJsonModel.cs" />
+    <Compile Include="Ticket\TicketResponse\GetbosscardbyhotelcodeandsourceResult.cs" />
+    <Compile Include="Ticket\TicketResponse\GetFormulaInfoByFormulaidResult.cs" />
+    <Compile Include="Ticket\TicketResponse\GetFormulaXgResult.cs" />
+    <Compile Include="Mall\MallResponse\GetGoodsResult.cs" />
+    <Compile Include="Mall\MallResponse\GetOrderByMobileResult.cs" />
+    <Compile Include="Mall\MallResponse\GetOrderSingleResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductImgResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductPriceResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductScoreResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductScSearchResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductSingleResult.cs" />
+    <Compile Include="Mall\MallResponse\GetProductTypeResult.cs" />
+    <Compile Include="Mall\MallResponse\ProductScSearchResult.cs" />
+    <Compile Include="Mall\MallRequest\ProductScSearchModel.cs" />
+    <Compile Include="Mall\MallResponse\SetbuyproductResult.cs" />
+    <Compile Include="Mall\MallResponse\SetbuyProductSingleResult.cs" />
+    <Compile Include="Mall\MallResponse\SetOrderDetailsResult.cs" />
+    <Compile Include="Mall\MallResponse\SetOrderRemarkResult.cs" />
+    <Compile Include="Mall\MallResponse\SetOrderResult.cs" />
+    <Compile Include="Mall\MallResponse\SetProductScoreResult.cs" />
+    <Compile Include="Mall\MallResponse\SetProductScResult.cs" />
+    <Compile Include="Mall\MallResponse\StopBuyProductResult.cs" />
+    <Compile Include="Mall\MallResponse\StopProductScResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ticket\TicketRequest\QueryTicketnewModel.cs" />
+    <Compile Include="Ticket\TicketResponse\GetproductXgResult.cs" />
+    <Compile Include="Ticket\TicketResponse\MemberBalanceResult.cs" />
+    <Compile Include="Ticket\TicketResponse\QueryTicketNewResult.cs" />
+    <Compile Include="Ticket\TicketResponse\SetdbnameResult.cs" />
+    <Compile Include="Ticket\TicketResponse\SetNewHyResult.cs" />
+    <Compile Include="Ticket\TicketResponse\TicketJLAddNotimeSetResult.cs" />
+    <Compile Include="Ticket\TicketResponse\TicketJLAddTicketSNNewSetResult.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
