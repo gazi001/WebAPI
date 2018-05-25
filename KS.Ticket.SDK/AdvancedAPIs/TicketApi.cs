@@ -613,7 +613,6 @@ namespace KS.Ticket.SDK.AdvancedAPIs
         #endregion
         private static iticketEntities db = DbContextFactory.Create(DBName.ITicketDB) as iticketEntities;
         #region 后台云券通中间层接口
-        
 
        // private 
         #region 产品定义
@@ -623,10 +622,10 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             var Isbool = "";
             switch (sflag)
             {
-                case "2":
+                case "1":
                     Isbool = isbool;
                     break;
-                case "3":
+                case "2":
                     Isbool = isbool;
                     break;
                 default:
@@ -669,6 +668,42 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             return sflag;
         }
 
+        private static string GetIscz(string sflag)
+        {
+            var Iscz = "";
+            switch (sflag)
+            {
+                case "1":
+                    Iscz = "1";
+                    break;
+                case "2":
+                    Iscz = "1";
+                    break;
+                case "3":
+                    Iscz = "1";
+                    break;
+                case "4":
+                    Iscz = "0";
+                    break;
+                case "5":
+                    Iscz = "0";
+                    break;
+              
+                case "8":
+                    Iscz = "1";
+                    break;
+                case "11":
+                    Iscz = "1";
+                    break;
+                case "10":
+                    Iscz = "1";
+                    break;
+                default:
+                    Iscz = "0";
+                    break;
+            }
+            return Iscz;
+        }
         private static string GetProNum(string type, string num,string cate_type = "")
         {
             switch (type)
@@ -741,6 +776,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                         db.SaveChanges();
 
                         //TODO:redis缓存记录产品信息
+                        var setformulafw = service.SetFormula_fw_pl_json("", "", formulaid, data.pro_arr, data.hotelcode);
                         var rangArr = data.pro_arr.Split(',');
                         foreach (var item1 in rangArr)
                         {
@@ -812,14 +848,15 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                 for (int i = 0; i < CreateCategoryData.Count; i++)
                 {
                     var sflg = GetSflag(CreateFormulaData.type, CreateCategoryData[i].cate_xz, CreateCategoryData[i].cate_type);
+                    var iscz = GetIscz(sflg);
                     if (sflg == "4" || sflg == "5")
                     {
                         var isbool = GetIsBool(sflg, CreateCategoryData[i].isbool);
                         var Categoryid = service.Setcategory_cz_json
-("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", CreateFormulaData.pro_num == "" ? "999999" : CreateFormulaData.pro_num, CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, "0", "");
+("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", CreateFormulaData.pro_num == "" ? "999999" : CreateFormulaData.pro_num, CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz, "");
                         if (Categoryid != "")
                         {
-                            SaveCategory(CreateCategoryData, CreateFormulaData, dbname, i, sflg, isbool, Categoryid);
+                            SaveCategory(CreateCategoryData, CreateFormulaData, dbname, i, sflg, isbool, Categoryid, iscz);
                         }
                         else
                         {
@@ -829,16 +866,17 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                     else
                     {
                         var isbool = GetIsBool(sflg, CreateCategoryData[i].isbool);
-                        var Categoryid = service.Setcategory_json("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", CreateFormulaData.pro_num == "" ? "999999" : CreateFormulaData.pro_num, CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, "1");
+                        var Categoryid = service.Setcategory_json("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", CreateFormulaData.pro_num == "" ? "999999" : CreateFormulaData.pro_num, CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz);
                         if (Categoryid != "")
                         {
-                            SaveCategory(CreateCategoryData, CreateFormulaData, dbname, i, sflg, isbool, Categoryid);
+                            SaveCategory(CreateCategoryData, CreateFormulaData, dbname, i, sflg, isbool, Categoryid,iscz);
                         }
                         else
                         {
                             isSet = false;
                         }
                     }
+                    
                 }
             }
             catch (Exception ex)
@@ -850,7 +888,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
 
         }
 
-        private static void SaveCategory(List<CreateCategoryData> CreateCategoryData, CreateFormulaData CreateFormulaData, SetdbnameResult dbname, int i, string sflg, string isbool, string Categoryid)
+        private static void SaveCategory(List<CreateCategoryData> CreateCategoryData, CreateFormulaData CreateFormulaData, SetdbnameResult dbname, int i, string sflg, string isbool, string Categoryid, string iscz)
         {
             var dbnameid = service.Setdbdata_json("", "", Categoryid, CreateFormulaData.data[i], dbname.id, CreateFormulaData.hotelcode);
             if (dbnameid.IndexOf("success") > -1)
@@ -884,10 +922,10 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                     hotelcode = CreateFormulaData.hotelcode,
                     HotelId = CreateFormulaData.hotelcode,
                     isbool = int.Parse(isbool),//未确定
-                    iscz = 0,
+                    iscz = int.Parse(iscz),
                     istest = 0,
                     iswxly = 0,
-                    iszs = int.Parse(CreateCategoryData[i].iszs),
+                    iszs = CreateCategoryData[i].iszs == null ? 1 : int.Parse(CreateCategoryData[i].iszs),
                     maxNum = int.Parse(CreateFormulaData.pro_num == "" ? "999999" : CreateFormulaData.pro_num),
                     moneytype = 0,
                     pic = "",
@@ -896,6 +934,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                     Summary = CreateCategoryData[i].cate_summary,
                     type = 0,
                 });
+                var setcatefw = service.Setcategory_fw_pl_json("", "", Categoryid, CreateCategoryData[i].range, CreateFormulaData.hotelcode);
                 var rangArr = CreateCategoryData[i].range.Split(',');
                 foreach (var item1 in rangArr)
                 {
@@ -916,6 +955,76 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                 }
                 db.SaveChanges();
             }
+        }
+        #endregion
+
+        #region 产品发行
+        public static object SetCRMTicketSn(SetCRMTicketSnModel data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            var ticket_create = service.ticket_create_new_json(data.user, data.token, data.id, data.hotelcode,data.num, data.FormulaId);
+            if (ticket_create.IndexOf("success") > -1)
+            {
+                var ticket_tp_create = service.ticket_tp_create_json(data.user, data.token, data.FormulaId, data.salemode, data.tmoney, data.num, data.oid, data.kpmoney, data.hotelcode);
+                if (ticket_tp_create.IndexOf("success") > -1)
+                {
+                    var ticket_tpdata_pl_create = service.ticket_tpdata_pl_create_json(data.user, data.token, data.FormulaId, data.oid, data.num, data.sessionid, data.hotelcode);
+                    if (ticket_tpdata_pl_create.IndexOf("success") > -1)
+                    {
+                        var tpdata_pl_snum = JsonHelper.GetJsonValue(ticket_tpdata_pl_create, "successnum");
+                        var tpdata_pl_fnum = JsonHelper.GetJsonValue(ticket_tpdata_pl_create, "falsenum");
+                        var SetCRM_ticketsn_pl = service.SetCRM_ticketsn_pl_json(data.user, data.token, data.usertype, data.bosscard, data.name, data.sjhm, data.birth, data.ident, data.cardhotel, data.sno, data.saleid, data.hotelcode, data.salemodeid, data.FormulaId, data.num, data.OperatorId);
+                        if (SetCRM_ticketsn_pl.IndexOf("success") > -1)
+                        {
+                            var SetCRM_ticketsn_pl_snum = JsonHelper.GetJsonValue(SetCRM_ticketsn_pl, "successnum");
+                            var SetCRM_ticketsn_pl_fnum = JsonHelper.GetJsonValue(SetCRM_ticketsn_pl, "falsenum");
+                            jsonResult.code = ApiCode.成功;
+                            jsonResult.msg = "成功";
+                            var res = new
+                            {
+                                tpdata_pl_snum = tpdata_pl_snum,
+                                tpdata_pl_fnum = tpdata_pl_fnum,
+                                SetCRM_ticketsn_pl_snum = SetCRM_ticketsn_pl_snum,
+                                SetCRM_ticketsn_pl_fnum = SetCRM_ticketsn_pl_fnum,
+                            };
+                            jsonResult.data = res;
+                            
+                        }
+                        else
+                        {
+                            jsonResult.code = ApiCode.发行失败;
+                            jsonResult.msg = "发行失败";
+                            var res = new
+                            {
+                                tpdata_pl_snum = tpdata_pl_snum,
+                                tpdata_pl_fnum = tpdata_pl_fnum,
+
+                            };
+                            jsonResult.data = res;
+
+                        }
+
+                    }
+                    else
+                    {
+                        jsonResult.code = ApiCode.封套打包数据批量生成失败;
+                        jsonResult.msg = "封套打包数据批量生成失败";
+                    }
+
+                }
+                else
+                {
+                    jsonResult.code = ApiCode.产品封套生成失败;
+                    jsonResult.msg = "产品封套生成失败";
+                }
+            }
+            else
+            {
+                jsonResult.code = ApiCode.子券生成失败;
+                jsonResult.msg = "子券生成失败";
+            }
+
+            return jsonResult;
         }
         #endregion
         #endregion

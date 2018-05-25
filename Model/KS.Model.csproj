@@ -94,6 +94,7 @@
     <Compile Include="Mall\MallResponse\GetorderByonsalecodeResult.cs" />
     <Compile Include="Mall\MallResponse\GetproductPriceOthResult.cs" />
     <Compile Include="Mall\MallResponse\GetProductScoreByMobileResult.cs" />
+    <Compile Include="Ticket\TicketRequest\SetCRMTicketSnModel.cs" />
     <Compile Include="Ticket\TicketRequest\TicketJLAddNotimeSetModel.cs" />
     <Compile Include="Ticket\TicketRequest\TicketJLAddTicketSNNewSetModel.cs" />
     <Compile Include="Ticket\TicketResponse\Getmember_bymobileResult.cs" />
