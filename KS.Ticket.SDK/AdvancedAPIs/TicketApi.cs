@@ -847,36 +847,38 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             {
                 for (int i = 0; i < CreateCategoryData.Count; i++)
                 {
-                    var sflg = GetSflag(CreateFormulaData.type, CreateCategoryData[i].cate_xz, CreateCategoryData[i].cate_type);
-                    var iscz = GetIscz(sflg);
-                    if (sflg == "4" || sflg == "5")
+                    if (CreateCategoryData[i].cate_name != null)
                     {
-                        var isbool = GetIsBool(sflg, CreateCategoryData[i].isbool);
-                        var Categoryid = service.Setcategory_cz_json
-("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", CreateFormulaData.pro_num == "" ? "999999" : CreateFormulaData.pro_num, CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz, "");
-                        if (Categoryid != "")
+                        var sflg = GetSflag(CreateFormulaData.type, CreateCategoryData[i].cate_xz, CreateCategoryData[i].cate_type);
+                        var iscz = GetIscz(sflg);
+                        if (sflg == "4" || sflg == "5")
                         {
-                            SaveCategory(CreateCategoryData, CreateFormulaData, dbname, i, sflg, isbool, Categoryid, iscz);
+                            var isbool = GetIsBool(sflg, CreateCategoryData[i].isbool);
+                            var Categoryid = service.Setcategory_cz_json
+    ("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", CreateFormulaData.pro_num == "" ? "999999" : CreateFormulaData.pro_num, CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz, "");
+                            if (Categoryid != "")
+                            {
+                                SaveCategory(CreateCategoryData, CreateFormulaData, dbname, i, sflg, isbool, Categoryid, iscz);
+                            }
+                            else
+                            {
+                                isSet = false;
+                            }
                         }
                         else
                         {
-                            isSet = false;
+                            var isbool = GetIsBool(sflg, CreateCategoryData[i].isbool);
+                            var Categoryid = service.Setcategory_json("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", CreateFormulaData.pro_num == "" ? "999999" : CreateFormulaData.pro_num, CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz);
+                            if (Categoryid != "")
+                            {
+                                SaveCategory(CreateCategoryData, CreateFormulaData, dbname, i, sflg, isbool, Categoryid, iscz);
+                            }
+                            else
+                            {
+                                isSet = false;
+                            }
                         }
                     }
-                    else
-                    {
-                        var isbool = GetIsBool(sflg, CreateCategoryData[i].isbool);
-                        var Categoryid = service.Setcategory_json("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", CreateFormulaData.pro_num == "" ? "999999" : CreateFormulaData.pro_num, CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz);
-                        if (Categoryid != "")
-                        {
-                            SaveCategory(CreateCategoryData, CreateFormulaData, dbname, i, sflg, isbool, Categoryid,iscz);
-                        }
-                        else
-                        {
-                            isSet = false;
-                        }
-                    }
-                    
                 }
             }
             catch (Exception ex)
@@ -917,7 +919,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                     ExpireDate = CreateCategoryData[i].cate_start_date.ToString(),
                     ExpireDateend = (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(),
                     flag = 0,
-                    fmoney = decimal.Parse(CreateCategoryData[i].cate_price),
+                    fmoney =CreateCategoryData[i].cate_price==null?decimal.Parse("0"): decimal.Parse(CreateCategoryData[i].cate_price),
                     fnum = 0,
                     hotelcode = CreateFormulaData.hotelcode,
                     HotelId = CreateFormulaData.hotelcode,
