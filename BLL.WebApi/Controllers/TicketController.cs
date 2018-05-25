@@ -1374,7 +1374,7 @@ namespace BLL.WebApi.Controllers
         #endregion
         // [HttpPost]
         #region 云券通后台
-        [HttpPost]
+        [HttpPost]//定义产品
         public JsonResult CreateFormula()
         {
             try
@@ -1389,6 +1389,24 @@ namespace BLL.WebApi.Controllers
                 jsonResult.code = ApiCode.程序异常;
                 jsonResult.msg = ex.ToString();
            
+            }
+
+            return this.MyJson(jsonResult);
+        }
+        [HttpPost]//发行
+        public JsonResult SetCRMTicketSn()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<SetCRMTicketSnModel>(stream);
+                jsonResult = TicketApi.SetCRMTicketSn(data);
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.ToString();
             }
 
             return this.MyJson(jsonResult);

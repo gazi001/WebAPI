@@ -959,7 +959,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
         #endregion
 
         #region 产品发行
-        public static object SetCRMTicketSn(SetCRMTicketSnModel data)
+        public static JsonReturn SetCRMTicketSn(SetCRMTicketSnModel data)
         {
             JsonReturn jsonResult = new JsonReturn();
             var ticket_create = service.ticket_create_new_json(data.user, data.token, data.id, data.hotelcode,data.num, data.FormulaId);
