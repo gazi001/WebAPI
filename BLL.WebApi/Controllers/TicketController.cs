@@ -31,7 +31,8 @@ namespace BLL.WebApi.Controllers
         private JsonReturn jsonResult = new JsonReturn();
         public ActionResult Index()
         {
-         
+            iticketEntities a = new iticketEntities();
+          
             //var str = JsonConvert.SerializeObject(data);
             return View();
         }
@@ -1371,6 +1372,12 @@ namespace BLL.WebApi.Controllers
             }
             return this.MyJson(jsonResult, "yyyy-MM-dd HH:mm:ss",NullValueHandling.Include);
         }
+
+        private bool VerifyCategroy(string hotelcode,string gdcode,string scene )
+        {
+            return true;
+ 
+        }
         #endregion
         // [HttpPost]
         #region 云券通后台
@@ -1408,9 +1415,16 @@ namespace BLL.WebApi.Controllers
                 jsonResult.code = ApiCode.程序异常;
                 jsonResult.msg = ex.ToString();
             }
+            return this.MyJson(jsonResult);
+        }
+
+        [HttpPost]//修改
+        public JsonResult UpdateFormula()
+        {
 
             return this.MyJson(jsonResult);
         }
+
         #endregion
     }
 }

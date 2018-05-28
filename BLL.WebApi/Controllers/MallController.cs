@@ -805,7 +805,7 @@ namespace BLL.WebApi.Controllers
         public JsonResult GetProductPrice(GetProductPriceModel data)
         {
             var result = MallApi.Getproduct_price_json(data);
-            if (result.returncode != "false")
+            if (result.returncode!= "false")
             {
                 jsonResult.code = ApiCode.成功;
                 jsonResult.msg = "接口调用成功";
@@ -816,6 +816,15 @@ namespace BLL.WebApi.Controllers
                 jsonResult.code = ApiCode.接口调用失败;
                 jsonResult.msg = "接口调用失败";
             }
+            return this.MyJson(jsonResult);
+        }
+        [HttpPost]// 根据适用时间和价格性质获取未支付订单数
+        public JsonResult GetNotPayOrderNumByPrice(GetProductPriceModel data)
+        {
+            var num = MallApi.GetNotPayOrderNumByPrice(data);
+            jsonResult.code = ApiCode.成功;
+            jsonResult.msg = "接口调用成功";
+            jsonResult.data = num;
             return this.MyJson(jsonResult);
         }
         /// <summary>

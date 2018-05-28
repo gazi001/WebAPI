@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="iticketModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="iticketModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="iticketModelStoreContainer">
           <EntitySet Name="Category_fw_t" EntityType="iticketModel.Store.Category_fw_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Category_t" EntityType="iticketModel.Store.Category_t" store:Type="Tables" Schema="dbo" />
@@ -145,19 +145,65 @@
           <Property Name="hotelcodenew" Type="nvarchar" MaxLength="50" />
           <Property Name="isxg" Type="int" />
         </EntityType>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="iticketModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="iticketEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="CAVRecord_t" EntityType="iticketModel.CAVRecord_t" />
-          <EntitySet Name="Category_t" EntityType="iticketModel.Category_t" />
-          <EntitySet Name="dbname_t" EntityType="iticketModel.dbname_t" />
+        <EntityContainer Name="iticketDB" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Category_fw_t" EntityType="iticketModel.Category_fw_t" />
-          <EntitySet Name="Formula_fw_t" EntityType="iticketModel.Formula_fw_t" />
+          <EntitySet Name="Category_t" EntityType="iticketModel.Category_t" />
+          <EntitySet Name="CAVRecord_t" EntityType="iticketModel.CAVRecord_t" />
           <EntitySet Name="dbdata_t" EntityType="iticketModel.dbdata_t" />
+          <EntitySet Name="dbname_t" EntityType="iticketModel.dbname_t" />
+          <EntitySet Name="Formula_fw_t" EntityType="iticketModel.Formula_fw_t" />
           <EntitySet Name="Formula_t" EntityType="iticketModel.Formula_t" />
         </EntityContainer>
+        <EntityType Name="Category_fw_t">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="hotelcode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="addtime" Type="DateTime" Precision="3" />
+          <Property Name="usehotelcode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Category_t">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+            <PropertyRef Name="hotelcode" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="hotelcode" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CategoryNamebm" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Categorycode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Summary" Type="String" MaxLength="8000" Unicode="false" FixedLength="false" />
+          <Property Name="HotelId" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="pic" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="BeginString" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="EndString" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="maxNum" Type="Int32" />
+          <Property Name="flag" Type="Int32" />
+          <Property Name="sflag" Type="Int32" />
+          <Property Name="addtime" Type="DateTime" Precision="3" />
+          <Property Name="type" Type="Int32" />
+          <Property Name="ExpireDate" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ExpireDateend" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="endnum" Type="Int32" />
+          <Property Name="dzpq" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="isbool" Type="Int32" />
+          <Property Name="moneytype" Type="Int32" />
+          <Property Name="rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="fmoney" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="iswxly" Type="Int32" />
+          <Property Name="fnum" Type="Int32" />
+          <Property Name="iszs" Type="Int32" />
+          <Property Name="iscz" Type="Int32" />
+          <Property Name="istest" Type="Int32" />
+          <Property Name="bgpic" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+        </EntityType>
         <EntityType Name="CAVRecord_t">
           <Key>
             <PropertyRef Name="id" />
@@ -196,105 +242,106 @@
           <Property Name="realbosscard" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="rate" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
-        <EntityType Name="Category_t">
+        <EntityType Name="dbdata_t">
           <Key>
-            <PropertyRef Name="CategoryId" />
-            <PropertyRef Name="hotelcode" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Type="Int32" Name="CategoryId" Nullable="false" />
-          <Property Type="String" Name="hotelcode" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CategoryName" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="CategoryNamebm" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Categorycode" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Summary" MaxLength="8000" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="HotelId" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="pic" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="BeginString" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="EndString" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="maxNum" />
-          <Property Type="Int32" Name="flag" />
-          <Property Type="Int32" Name="sflag" />
-          <Property Type="DateTime" Name="addtime" Precision="3" />
-          <Property Type="Int32" Name="type" />
-          <Property Type="String" Name="ExpireDate" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ExpireDateend" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="endnum" />
-          <Property Type="String" Name="dzpq" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="isbool" />
-          <Property Type="Int32" Name="moneytype" />
-          <Property Type="Decimal" Name="rate" Precision="18" Scale="2" />
-          <Property Type="Decimal" Name="fmoney" Precision="18" Scale="2" />
-          <Property Type="Int32" Name="iswxly" />
-          <Property Type="Int32" Name="fnum" />
-          <Property Type="Int32" Name="iszs" />
-          <Property Type="Int32" Name="iscz" />
-          <Property Type="Int32" Name="istest" />
-          <Property Type="String" Name="bgpic" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="num" Type="Int32" />
+          <Property Name="oid" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="dbnameid" Type="Int32" />
+          <Property Name="hotelcode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="dbname_t">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="dbname" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="formulaid" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Category_fw_t">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="CategoryId" />
-          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="DateTime" Name="addtime" Precision="3" />
-          <Property Type="String" Name="usehotelcode" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="dbname" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="formulaid" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="hotelcode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="Formula_fw_t">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="FormulaId" />
-          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="usehotelcode" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="dbdata_t">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="CategoryId" />
-          <Property Type="Int32" Name="num" />
-          <Property Type="String" Name="oid" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="dbnameid" />
-          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FormulaId" Type="Int32" />
+          <Property Name="hotelcode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="usehotelcode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="Formula_t">
           <Key>
             <PropertyRef Name="FormulaId" />
             <PropertyRef Name="hotelcode" />
           </Key>
-          <Property Type="Int32" Name="FormulaId" Nullable="false" />
-          <Property Type="String" Name="hotelcode" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="FormulaName" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="FormulaSummary" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="flag" />
-          <Property Type="Int32" Name="yztype" />
-          <Property Type="String" Name="Formulacode" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="maxnum" />
-          <Property Type="Decimal" Name="fmoney" Precision="18" Scale="2" />
-          <Property Type="Int32" Name="fnum" />
-          <Property Type="String" Name="img" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="hotelcodenew" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Int32" Name="isxg" />
+          <Property Name="FormulaId" Type="Int32" Nullable="false" />
+          <Property Name="hotelcode" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FormulaName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FormulaSummary" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="flag" Type="Int32" />
+          <Property Name="yztype" Type="Int32" />
+          <Property Name="Formulacode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="maxnum" Type="Int32" />
+          <Property Name="fmoney" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="fnum" Type="Int32" />
+          <Property Name="img" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="hotelcodenew" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="isxg" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="iticketModelStoreContainer" CdmEntityContainer="iticketEntities">
+        <EntityContainerMapping StorageEntityContainer="iticketModelStoreContainer" CdmEntityContainer="iticketDB">
+          <EntitySetMapping Name="Category_fw_t">
+            <EntityTypeMapping TypeName="iticketModel.Category_fw_t">
+              <MappingFragment StoreEntitySet="Category_fw_t">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="usehotelcode" ColumnName="usehotelcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category_t">
+            <EntityTypeMapping TypeName="iticketModel.Category_t">
+              <MappingFragment StoreEntitySet="Category_t">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryNamebm" ColumnName="CategoryNamebm" />
+                <ScalarProperty Name="Categorycode" ColumnName="Categorycode" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+                <ScalarProperty Name="pic" ColumnName="pic" />
+                <ScalarProperty Name="BeginString" ColumnName="BeginString" />
+                <ScalarProperty Name="EndString" ColumnName="EndString" />
+                <ScalarProperty Name="maxNum" ColumnName="maxNum" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="sflag" ColumnName="sflag" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
+                <ScalarProperty Name="ExpireDateend" ColumnName="ExpireDateend" />
+                <ScalarProperty Name="endnum" ColumnName="endnum" />
+                <ScalarProperty Name="dzpq" ColumnName="dzpq" />
+                <ScalarProperty Name="isbool" ColumnName="isbool" />
+                <ScalarProperty Name="moneytype" ColumnName="moneytype" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="fmoney" ColumnName="fmoney" />
+                <ScalarProperty Name="iswxly" ColumnName="iswxly" />
+                <ScalarProperty Name="fnum" ColumnName="fnum" />
+                <ScalarProperty Name="iszs" ColumnName="iszs" />
+                <ScalarProperty Name="iscz" ColumnName="iscz" />
+                <ScalarProperty Name="istest" ColumnName="istest" />
+                <ScalarProperty Name="bgpic" ColumnName="bgpic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CAVRecord_t">
             <EntityTypeMapping TypeName="iticketModel.CAVRecord_t">
               <MappingFragment StoreEntitySet="CAVRecord_t">
@@ -334,100 +381,54 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Category_t">
-            <EntityTypeMapping TypeName="iticketModel.Category_t">
-              <MappingFragment StoreEntitySet="Category_t">
-                <ScalarProperty Name="bgpic" ColumnName="bgpic" />
-                <ScalarProperty Name="istest" ColumnName="istest" />
-                <ScalarProperty Name="iscz" ColumnName="iscz" />
-                <ScalarProperty Name="iszs" ColumnName="iszs" />
-                <ScalarProperty Name="fnum" ColumnName="fnum" />
-                <ScalarProperty Name="iswxly" ColumnName="iswxly" />
-                <ScalarProperty Name="fmoney" ColumnName="fmoney" />
-                <ScalarProperty Name="rate" ColumnName="rate" />
-                <ScalarProperty Name="moneytype" ColumnName="moneytype" />
-                <ScalarProperty Name="isbool" ColumnName="isbool" />
-                <ScalarProperty Name="dzpq" ColumnName="dzpq" />
-                <ScalarProperty Name="endnum" ColumnName="endnum" />
-                <ScalarProperty Name="ExpireDateend" ColumnName="ExpireDateend" />
-                <ScalarProperty Name="ExpireDate" ColumnName="ExpireDate" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="addtime" ColumnName="addtime" />
-                <ScalarProperty Name="sflag" ColumnName="sflag" />
-                <ScalarProperty Name="flag" ColumnName="flag" />
-                <ScalarProperty Name="maxNum" ColumnName="maxNum" />
-                <ScalarProperty Name="EndString" ColumnName="EndString" />
-                <ScalarProperty Name="BeginString" ColumnName="BeginString" />
-                <ScalarProperty Name="pic" ColumnName="pic" />
-                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
-                <ScalarProperty Name="Summary" ColumnName="Summary" />
-                <ScalarProperty Name="Categorycode" ColumnName="Categorycode" />
-                <ScalarProperty Name="CategoryNamebm" ColumnName="CategoryNamebm" />
-                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+          <EntitySetMapping Name="dbdata_t">
+            <EntityTypeMapping TypeName="iticketModel.dbdata_t">
+              <MappingFragment StoreEntitySet="dbdata_t">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="oid" ColumnName="oid" />
+                <ScalarProperty Name="dbnameid" ColumnName="dbnameid" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="dbname_t">
             <EntityTypeMapping TypeName="iticketModel.dbname_t">
               <MappingFragment StoreEntitySet="dbname_t">
-                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
-                <ScalarProperty Name="formulaid" ColumnName="formulaid" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="dbname" ColumnName="dbname" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Category_fw_t">
-            <EntityTypeMapping TypeName="iticketModel.Category_fw_t">
-              <MappingFragment StoreEntitySet="Category_fw_t">
-                <ScalarProperty Name="usehotelcode" ColumnName="usehotelcode" />
-                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="formulaid" ColumnName="formulaid" />
                 <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Formula_fw_t">
             <EntityTypeMapping TypeName="iticketModel.Formula_fw_t">
               <MappingFragment StoreEntitySet="Formula_fw_t">
-                <ScalarProperty Name="usehotelcode" ColumnName="usehotelcode" />
-                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="FormulaId" ColumnName="FormulaId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="dbdata_t">
-            <EntityTypeMapping TypeName="iticketModel.dbdata_t">
-              <MappingFragment StoreEntitySet="dbdata_t">
                 <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
-                <ScalarProperty Name="dbnameid" ColumnName="dbnameid" />
-                <ScalarProperty Name="oid" ColumnName="oid" />
-                <ScalarProperty Name="num" ColumnName="num" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usehotelcode" ColumnName="usehotelcode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Formula_t">
             <EntityTypeMapping TypeName="iticketModel.Formula_t">
               <MappingFragment StoreEntitySet="Formula_t">
-                <ScalarProperty Name="isxg" ColumnName="isxg" />
-                <ScalarProperty Name="hotelcodenew" ColumnName="hotelcodenew" />
-                <ScalarProperty Name="img" ColumnName="img" />
-                <ScalarProperty Name="fnum" ColumnName="fnum" />
-                <ScalarProperty Name="fmoney" ColumnName="fmoney" />
-                <ScalarProperty Name="maxnum" ColumnName="maxnum" />
-                <ScalarProperty Name="Formulacode" ColumnName="Formulacode" />
-                <ScalarProperty Name="yztype" ColumnName="yztype" />
-                <ScalarProperty Name="flag" ColumnName="flag" />
-                <ScalarProperty Name="FormulaSummary" ColumnName="FormulaSummary" />
-                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
-                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
                 <ScalarProperty Name="FormulaId" ColumnName="FormulaId" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="FormulaName" ColumnName="FormulaName" />
+                <ScalarProperty Name="FormulaSummary" ColumnName="FormulaSummary" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="yztype" ColumnName="yztype" />
+                <ScalarProperty Name="Formulacode" ColumnName="Formulacode" />
+                <ScalarProperty Name="maxnum" ColumnName="maxnum" />
+                <ScalarProperty Name="fmoney" ColumnName="fmoney" />
+                <ScalarProperty Name="fnum" ColumnName="fnum" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="hotelcodenew" ColumnName="hotelcodenew" />
+                <ScalarProperty Name="isxg" ColumnName="isxg" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

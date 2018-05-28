@@ -611,7 +611,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
 
         }
         #endregion
-        private static iticketEntities db = DbContextFactory.Create(DBName.ITicketDB) as iticketEntities;
+        private static iticketDB db = DbContextFactory.Create(DBName.ITicketDB) as iticketDB;
         #region 后台云券通中间层接口
 
        // private 

@@ -77,8 +77,8 @@ namespace KS.Mall.SDK.AdvancedAPIs
         /// <returns></returns>
         public static bool UpdateOrderState(string ordercode,string remark,string state,string oid,string paymoney,string ispay,string hotelcode)
         {
-            if (hotelcode == "KSHZ")
-            {
+            //if (hotelcode == "KSHZ")
+            //{
                 bool isChange = true;
                 var order = service.Getorder_single_json("","",ordercode,hotelcode);
                 var OrderList = JsonConvert.DeserializeObject<List<GetOrderSingleResult>>(order);
@@ -86,7 +86,7 @@ namespace KS.Mall.SDK.AdvancedAPIs
                 {
                     foreach (var item in OrderList[0].success)
                     {
-                        if (item.state == state)
+                        if (item.state == state||item.ispay=="1")
                         {
                             isChange = false;
                         }
@@ -108,18 +108,18 @@ namespace KS.Mall.SDK.AdvancedAPIs
                     }
                 }
                 return isChange;
-            }
-            else
-            {
-                //net.kuaishun.shopinterface.Service service = new net.kuaishun.shopinterface.Service();
-                var result = service.Setorder_single_remark_json("", "", ordercode, ispay, state, remark, paymoney, oid);
-                var IsTrue = JsonHelper.GetJsonValue(result, "returncode");
-                if (IsTrue != "")
-                {
-                    return true;
-                }
-                return false;
-            }
+          //  }
+            //else
+            //{
+            //    //net.kuaishun.shopinterface.Service service = new net.kuaishun.shopinterface.Service();
+            //    var result = service.Setorder_single_remark_json("", "", ordercode, ispay, state, remark, paymoney, oid);
+            //    var IsTrue = JsonHelper.GetJsonValue(result, "returncode");
+            //    if (IsTrue != "")
+            //    {
+            //        return true;
+            //    }
+            //    return false;
+            //}
         }
 
         public static string shopname="";
@@ -428,7 +428,101 @@ namespace KS.Mall.SDK.AdvancedAPIs
             var result = service.Getproduct_price_json(data.user, data.token, data.onsalecode);
             result = CommonFunction.Replacebracket(result);
             var obj = JsonConvert.DeserializeObject<List<GetProductPriceResult>>(result)[0];
+            //var numstr = service.Getorder_byall_json("", "", "", "", "", "", "", "", "", data.pname).Replace("(", "").Replace(")", "");
+            //var num = JsonConvert.DeserializeObject<List<GetOrderByMobileResult>>(numstr)[0];
+            //if (num.success != null)
+            //{
+            //    var numlist = new List<object>();
+            //    foreach (var item in num.success.GroupBy(x=>x.onsalecode))
+            //    {
+            //        foreach (var item1 in item)
+            //        {
+            //            if (item1.state == "1")
+            //            {
+            //                var one = new
+            //                {
+            //                    onsalecode = item.FirstOrDefault().onsalecode,
+            //                    num=item.Count(),
+            //                };
+            //                numlist.Add(one);
+            //            }
+            //        }  
+            //    }
+            //    var res = new
+            //    {
+            //        goodInfo = obj,
+            //        numlist = numlist
+            //    };
+ 
+            //}
             return obj;
+        }
+
+        /// <summary>
+        /// 商品规格和未支付订单数量获取
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static object GetproductPriceAndOrder(GetProductPriceModel data)
+        {
+            var result = service.Getproduct_price_json(data.user, data.token, data.onsalecode);
+            result = CommonFunction.Replacebracket(result);
+            var obj = JsonConvert.DeserializeObject<List<GetProductPriceResult>>(result)[0];
+            var numstr = service.Getorder_byall_json("", "", "", "", "", "", "", "", data.hotelcode, data.pname).Replace("(", "").Replace(")", "");
+            var num = JsonConvert.DeserializeObject<List<GetOrderByMobileResult>>(numstr)[0];
+            var numlist = new List<object>();
+            if (num.success != null)
+            {
+
+                foreach (var item in num.success.GroupBy(x => x.onsalecode))
+                {
+                    foreach (var item1 in item)
+                    {
+                        if (item1.state == "1")
+                        {
+                            var one = new
+                            {
+                                onsalecode = item.FirstOrDefault().onsalecode,
+                                num = item.Count(),
+                            };
+                            numlist.Add(one);
+                        }
+                    }
+                }
+                var res = new
+                {
+                    goodInfo = obj,
+                    numlist = numlist
+                };
+                return res;
+            }
+            else
+            {
+                var res = new
+                {
+                    goodInfo = obj,
+                    numlist = numlist
+                };
+                return res;
+            }
+          
+        }
+
+        /// <summary>
+        /// 根据适用时间和价格性质获取未支付订单数
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static int GetNotPayOrderNumByPrice(GetProductPriceModel data)
+        {
+            var numstr = service.Getorder_byall_json("", "", "", "", "", "", "", "", data.hotelcode, data.pname).Replace("(", "").Replace(")", "");
+            var numobj = JsonConvert.DeserializeObject<List<GetOrderByMobileResult>>(numstr)[0];
+            if (numobj.success != null)
+            {
+                var num = numobj.success.Where(x => x.sysj == data.sysj && x.jgxz == data.jgxz&&x.state=="1").ToList().Count;
+                return num;
+            }
+            return 0;
         }
         #endregion
 

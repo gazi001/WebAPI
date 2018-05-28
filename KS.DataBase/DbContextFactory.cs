@@ -35,7 +35,7 @@ namespace KS.DataBase
                                 //CallContext.SetData(dbName.ToString(), dbContext);
                                 break;
                             case DBName.ITicketDB:
-                                dbContext = new iticketEntities();
+                                dbContext = new iticketDB();
                                 CallContext.SetData(dbName.ToString(), dbContext);
                                 break;
                             default:
