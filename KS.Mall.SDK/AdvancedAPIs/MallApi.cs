@@ -27,6 +27,21 @@ namespace KS.Mall.SDK.AdvancedAPIs
         /// </summary>
         static net.kuaishun.shopinterface.Service service = new net.kuaishun.shopinterface.Service();
         static net.kuaishun.interfacecrs.Service myservice = new net.kuaishun.interfacecrs.Service();
+
+        public static void Test(string ordercode)
+        {
+            var tradeno = QueryTradeNo("HZYHQFL", ordercode, "https://www.ksticket.com/booking/public/mallorder", Config.CheckWxPayUrl);
+            if (tradeno.code == StatusCode.成功 && tradeno.transaction_id != null)
+            {
+
+               // var order = service.Getorder_byall_json("", "", "", "", "", ordercode, "", "", "HZYHQFL", "").Replace("(","").Replace(")","");
+                //var list = JsonConvert.DeserializeObject<List<QueryOrderModel>>(order);
+                //var result = service.Setorder_single_remark_json("", "", ordercode, "1", "2", "[已支付]微信支付，微信单号:" + tradeno.transaction_id, "692", "QFL-CXB-001");
+                // var res = service.Setproduct_onsale_single_salenum_json("", "", list.FirstOrDefault().success[0].onsalecode, list.FirstOrDefault().success[0].num);
+                //改状态
+               //var isChange = UpdateOrderState(model.trade_no, "[已支付]微信支付，微信单号:" + tradeno.transaction_id+","+model.remark, "2", model.bosscard, model.total, "1",model.hotelcode);
+            }
+        }
         #region 商城支付成功处理
         /// <summary>
         /// 查询微信订单号

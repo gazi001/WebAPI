@@ -10,6 +10,7 @@ using RM.Common.DotNetHttp;
 using RM.Common.DotNetModel;
 using BLL.WebApi.Model;
 using KS.Ticket.SDK.AdvancedAPIs;
+using KS.Mall.SDK.AdvancedAPIs;
 
 namespace BLL.WebApi.Controllers
 {
@@ -26,8 +27,9 @@ namespace BLL.WebApi.Controllers
         //
         // GET: /Booking/
          private JsonReturn jsonResult = new JsonReturn();
-        public JsonResult Index(bbb bb)
+        public JsonResult Index(string bb)
         {
+            MallApi.Test(bb);
             return Json(new { },JsonRequestBehavior.AllowGet);
            
         }

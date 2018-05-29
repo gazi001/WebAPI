@@ -46,6 +46,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                         var result = service.Set_newhy_new_json(YQTOperatorId, YQTOperatorId, hotelcode, item.linkticketsn, item.mobile, hotelcode).Replace("(", "").Replace(")", "");
                         if (JsonHelper.GetJsonValue(result, "returncode") != "success")
                         {
+
                             IsSuccess = false;
                         }
                         else
@@ -69,7 +70,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                                 IsSuccess = false;
                             }
                             else
-                            {
+                            {   
                                 // shop.Setproduct_onsale_single_salenum_json(user, user, item.onsalecode, item.num);
                             }
                         }
