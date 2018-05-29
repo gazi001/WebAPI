@@ -244,7 +244,43 @@ namespace KS.Common.SDK.AdvancedAPIs
             var TemplateData = "hotelcode=" + hotelcode + "&openid=" + openid + "&param=" + json + "&templateName=consume";
             var result = HttpHepler.SendPost(Config.SendTemplateUrl, TemplateData);
         }
+        public static void SendWx(string hotelcode, string channelCode, string system, string ex, string method)
+        {
 
+            var paramData = new
+            {
+                first = new
+                {
+                    value = "有一条新的bug，嘻嘻",
+                    color = "#173177",
+                },
+                keyword1 = new
+                {
+                    value = system + Environment.MachineName,
+                    color = "#173177",
+                },
+                keyword2 = new
+                {
+                    value = DateTime.Now.ToString("yyyy-MM-dd"),
+                    color = "#173177",
+                },
+                keyword3 = new
+                {
+                    value = ex,
+                    color = "#173177",
+                },
+
+                reamrk = new
+                {
+                    value =ex,
+                    color = "#173177",
+                },
+            };
+            var json = JsonConvert.SerializeObject(paramData);
+            var TemplateData = "hotelcode=KSHZ&openid=oypMdv1H5RuTAQafJzjQ6SJ4glpw&param=" + json + "&templateName=Exception";
+            var result = HttpHepler.SendPost(Config.SendTemplateUrl, TemplateData);
+
+        }
         public static bool pushMsg(QuerymemberJsonResult hy, CAVTicketModel data)
         {
             try

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="iticketModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="iticketModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="iticketModelStoreContainer">
           <EntitySet Name="Category_fw_t" EntityType="iticketModel.Store.Category_fw_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Category_t" EntityType="iticketModel.Store.Category_t" store:Type="Tables" Schema="dbo" />
@@ -13,6 +13,7 @@
           <EntitySet Name="dbname_t" EntityType="iticketModel.Store.dbname_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Formula_fw_t" EntityType="iticketModel.Store.Formula_fw_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Formula_t" EntityType="iticketModel.Store.Formula_t" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SendTicketLog_Mall" EntityType="iticketModel.Store.SendTicketLog_Mall" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
         <EntityType Name="Category_fw_t">
           <Key>
@@ -96,6 +97,7 @@
           <Property Name="bosscard" Type="nvarchar" MaxLength="50" />
           <Property Name="realbosscard" Type="nvarchar" MaxLength="50" />
           <Property Name="rate" Type="money" />
+          <Property Name="num" Type="int" />
         </EntityType>
         <EntityType Name="dbdata_t">
           <Key>
@@ -145,8 +147,21 @@
           <Property Name="hotelcodenew" Type="nvarchar" MaxLength="50" />
           <Property Name="isxg" Type="int" />
         </EntityType>
-      </Schema>
-    </edmx:StorageModels>
+        <EntityType Name="SendTicketLog_Mall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ordercode" Type="nvarchar" MaxLength="50" />
+          <Property Name="onsalecode" Type="nvarchar" MaxLength="50" />
+          <Property Name="ticketsn" Type="nvarchar" MaxLength="50" />
+          <Property Name="jgxz" Type="nvarchar" MaxLength="50" />
+          <Property Name="sysj" Type="nvarchar" MaxLength="50" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="hotelcode" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="iticketModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -158,6 +173,7 @@
           <EntitySet Name="dbname_t" EntityType="iticketModel.dbname_t" />
           <EntitySet Name="Formula_fw_t" EntityType="iticketModel.Formula_fw_t" />
           <EntitySet Name="Formula_t" EntityType="iticketModel.Formula_t" />
+          <EntitySet Name="SendTicketLog_Mall" EntityType="iticketModel.SendTicketLog_Mall" />
         </EntityContainer>
         <EntityType Name="Category_fw_t">
           <Key>
@@ -241,6 +257,7 @@
           <Property Name="bosscard" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="realbosscard" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="rate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="num" />
         </EntityType>
         <EntityType Name="dbdata_t">
           <Key>
@@ -289,6 +306,20 @@
           <Property Name="img" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
           <Property Name="hotelcodenew" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="isxg" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SendTicketLog_Mall">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ordercode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="onsalecode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ticketsn" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="jgxz" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="sysj" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="mobile" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="addtime" Precision="3" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -345,6 +376,7 @@
           <EntitySetMapping Name="CAVRecord_t">
             <EntityTypeMapping TypeName="iticketModel.CAVRecord_t">
               <MappingFragment StoreEntitySet="CAVRecord_t">
+                <ScalarProperty Name="num" ColumnName="num" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="addtime" ColumnName="addtime" />
                 <ScalarProperty Name="addname" ColumnName="addname" />
@@ -429,6 +461,21 @@
                 <ScalarProperty Name="img" ColumnName="img" />
                 <ScalarProperty Name="hotelcodenew" ColumnName="hotelcodenew" />
                 <ScalarProperty Name="isxg" ColumnName="isxg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SendTicketLog_Mall">
+            <EntityTypeMapping TypeName="iticketModel.SendTicketLog_Mall">
+              <MappingFragment StoreEntitySet="SendTicketLog_Mall">
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="sysj" ColumnName="sysj" />
+                <ScalarProperty Name="jgxz" ColumnName="jgxz" />
+                <ScalarProperty Name="ticketsn" ColumnName="ticketsn" />
+                <ScalarProperty Name="onsalecode" ColumnName="onsalecode" />
+                <ScalarProperty Name="ordercode" ColumnName="ordercode" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="iticketModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="iticketModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="iticketModelStoreContainer">
           <EntitySet Name="CAVRecord_t" EntityType="iticketModel.Store.CAVRecord_t" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
@@ -45,8 +45,10 @@
           <Property Name="bosscard" Type="nvarchar" MaxLength="50" />
           <Property Name="realbosscard" Type="nvarchar" MaxLength="50" />
           <Property Name="rate" Type="money" />
+          <Property Name="num" Type="int" />
         </EntityType>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="iticketModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -81,15 +83,16 @@
           <Property Name="firstts" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="sflag" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="scene" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Type="String" Name="channel" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="time" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="mobile" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="categoryname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="formulaname" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="username" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="bosscard" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="realbosscard" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="Decimal" Name="rate" Precision="19" Scale="4" />
+          <Property Name="channel" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="time" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="mobile" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="categoryname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="formulaname" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="username" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="bosscard" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="realbosscard" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="rate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="num" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -100,15 +103,6 @@
           <EntitySetMapping Name="CAVRecord_t">
             <EntityTypeMapping TypeName="iticketModel.CAVRecord_t">
               <MappingFragment StoreEntitySet="CAVRecord_t">
-                <ScalarProperty Name="rate" ColumnName="rate" />
-                <ScalarProperty Name="realbosscard" ColumnName="realbosscard" />
-                <ScalarProperty Name="bosscard" ColumnName="bosscard" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="formulaname" ColumnName="formulaname" />
-                <ScalarProperty Name="categoryname" ColumnName="categoryname" />
-                <ScalarProperty Name="mobile" ColumnName="mobile" />
-                <ScalarProperty Name="time" ColumnName="time" />
-                <ScalarProperty Name="channel" ColumnName="channel" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="addtime" ColumnName="addtime" />
                 <ScalarProperty Name="addname" ColumnName="addname" />
@@ -133,6 +127,16 @@
                 <ScalarProperty Name="firstts" ColumnName="firstts" />
                 <ScalarProperty Name="sflag" ColumnName="sflag" />
                 <ScalarProperty Name="scene" ColumnName="scene" />
+                <ScalarProperty Name="channel" ColumnName="channel" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="categoryname" ColumnName="categoryname" />
+                <ScalarProperty Name="formulaname" ColumnName="formulaname" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="bosscard" ColumnName="bosscard" />
+                <ScalarProperty Name="realbosscard" ColumnName="realbosscard" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="num" ColumnName="num" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

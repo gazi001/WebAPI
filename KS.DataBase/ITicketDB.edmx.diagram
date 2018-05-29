@@ -12,6 +12,7 @@
         <EntityTypeShape EntityType="iticketModel.dbname_t" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="iticketModel.Formula_fw_t" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="iticketModel.Formula_t" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="iticketModel.SendTicketLog_Mall" Width="1.5" PointX="5.8191278585321866" PointY="8.5389064292138936" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

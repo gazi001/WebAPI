@@ -47,5 +47,6 @@ namespace BLL.WebApi.Model
         public string bosscard { get; set; }
         public string realbosscard { get; set; }
         public Nullable<decimal> rate { get; set; }
+        public Nullable<int> num { get; set; }
     }
 }

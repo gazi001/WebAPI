@@ -31,8 +31,13 @@ namespace BLL.WebApi.Controllers
         private JsonReturn jsonResult = new JsonReturn();
         public ActionResult Index()
         {
-            iticketEntities a = new iticketEntities();
-          
+            var dd = new MemberEntities();
+            var r = dd.bindopenidlogs.FirstOrDefault();
+            iticketEntities a = new iticketEntities(); 
+            var s =a.CAVRecord_t.FirstOrDefault();
+
+            
+      
             //var str = JsonConvert.SerializeObject(data);
             return View();
         }
@@ -522,7 +527,7 @@ namespace BLL.WebApi.Controllers
                                         tp_id = data.Tp_Id,
                                         ts = data.ts,
                                         usercode = data.usercode,
-                                        userdate = Convert.ToDateTime(data.userdate),
+                                        userdate = Convert.ToDateTime(data.userdate), 
                                         usertype = data.usertype,
                                         xfcode = data.xfcode,
                                         xftype = data.xftype,
@@ -533,7 +538,8 @@ namespace BLL.WebApi.Controllers
                                         username=hy_xx[0].name,
                                         bosscard=hy_xx[0].CardNo,
                                         realbosscard=hy_xx[0].realbosscard,
-                                        rate=data.rate
+                                        rate=data.rate,
+                                        num=data.num,
                                     };
                                     dc.CAVRecord_t.Add(da);
                                     dc.SaveChanges();
@@ -623,7 +629,8 @@ namespace BLL.WebApi.Controllers
                                             username = hy_xx[0].name,
                                             bosscard = hy_xx[0].CardNo,
                                             realbosscard = hy_xx[0].realbosscard,
-                                            rate = data.rate
+                                            rate = data.rate,
+                                            num=data.num,
                                         };
                                         dc.CAVRecord_t.Add(da);
                                         dc.SaveChanges();
@@ -764,7 +771,8 @@ namespace BLL.WebApi.Controllers
                                     username = hy_xx[0].name,
                                     bosscard = hy_xx[0].CardNo,
                                     realbosscard = hy_xx[0].realbosscard,
-                                    rate = data.rate
+                                    rate = data.rate,
+                                    num=data.num
                                 };
                                 dc.CAVRecord_t.Add(da);
                                 dc.SaveChanges();
@@ -915,7 +923,8 @@ namespace BLL.WebApi.Controllers
                                     username = hy_xx[0].name,
                                     bosscard = hy_xx[0].CardNo,
                                     realbosscard = hy_xx[0].realbosscard,
-                                    rate = data.rate
+                                    rate = data.rate,
+                                    num = data.num
                                 };
                                 dc.CAVRecord_t.Add(da);
                                 dc.SaveChanges();
@@ -1048,7 +1057,8 @@ namespace BLL.WebApi.Controllers
                                         username = hy_xx[0].name,
                                         bosscard = hy_xx[0].CardNo,
                                         realbosscard = hy_xx[0].realbosscard,
-                                        rate = data.rate
+                                        rate = data.rate,
+                                        num = data.num
                                     };
                                     dc.CAVRecord_t.Add(da);
                                     dc.SaveChanges();
@@ -1107,7 +1117,8 @@ namespace BLL.WebApi.Controllers
                                             username = hy_xx[0].name,
                                             bosscard = hy_xx[0].CardNo,
                                             realbosscard = hy_xx[0].realbosscard,
-                                            rate = data.rate
+                                            rate = data.rate,
+                                            num = data.num
                                         };
                                         dc.CAVRecord_t.Add(da);
                                         dc.SaveChanges();
@@ -1186,7 +1197,8 @@ namespace BLL.WebApi.Controllers
                                     username = hy_xx[0].name,
                                     bosscard = hy_xx[0].CardNo,
                                     realbosscard = hy_xx[0].realbosscard,
-                                    rate = data.rate
+                                    rate = data.rate,
+                                    num = data.num
                                 };
                                 dc.CAVRecord_t.Add(da);
                                 dc.SaveChanges();

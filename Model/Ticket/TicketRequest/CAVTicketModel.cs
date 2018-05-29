@@ -45,5 +45,6 @@ namespace KS.Model.Ticket.TicketRequest
             public string bosscard { get; set; }
             public string realbosscard { get; set; }
             public decimal rate { get; set; }
+            public int num { get; set; }
     }
 }
