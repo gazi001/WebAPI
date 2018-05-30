@@ -1,6 +1,7 @@
 ﻿using BLL.WebApi.Model;
 using KS.Common.SDK.AdvancedAPIs;
 using KS.Mall.SDK.AdvancedAPIs;
+using KS.Model;
 using KS.Model.ApiResultModel;
 using KS.Model.Common.CommonRequest;
 using KS.Model.Mall;
@@ -24,7 +25,11 @@ namespace BLL.WebApi.Controllers
     {
         //
         // GET: /Mall/
-
+        public string  Test()
+        {
+            var res = MallApi.QueryTradeNo("KSHZ", "KSHZ1805301401070003", "https://www.ksticket.com/booking/public/mallordere", Config.CheckWxPayUrl);
+            return "";
+        }
        
         private JsonReturn jsonResult = new JsonReturn();
 

@@ -28,7 +28,7 @@ namespace KS.Mall.SDK.AdvancedAPIs
         /// </summary>
         static net.kuaishun.shopinterface.Service service = new net.kuaishun.shopinterface.Service();
         static net.kuaishun.interfacecrs.Service myservice = new net.kuaishun.interfacecrs.Service();
-
+        public static object _lock = new object();
         public static void Test(string ordercode)
         {
             var tradeno = QueryTradeNo("HZYHQFL", ordercode, "https://www.ksticket.com/booking/public/mallorder", Config.CheckWxPayUrl);
@@ -52,7 +52,7 @@ namespace KS.Mall.SDK.AdvancedAPIs
         /// <param name="notify"></param>
         /// <param name="url"></param>
         /// <returns></returns>
-        private static QueryTradeNoModel QueryTradeNo(string hotelcode, string trade_no, string notify, string url)
+        public static QueryTradeNoModel QueryTradeNo(string hotelcode, string trade_no, string notify, string url)
         {
             var obj = new QueryTradeNoModel();
             try
@@ -63,11 +63,18 @@ namespace KS.Mall.SDK.AdvancedAPIs
                     var result = HttpHepler.SendPost(url, postData);
                     //var obj = JsonConvert.DeserializeObject<QueryTradeNoModel>(result)
                     var transaction_id = JsonHelper.GetJsonValue(result, "transaction_id");
-                    if (transaction_id != "" && transaction_id != null & transaction_id!="null")
+                    if (transaction_id != "" && transaction_id != null && transaction_id != "null")
                     {
                         obj.transaction_id = transaction_id;
                         obj.code = StatusCode.成功;
                         obj.msg = "成功";
+                    }
+                    else
+                    {
+                        obj.transaction_id = transaction_id;
+                        obj.code = StatusCode.微信订单号不存在;
+                        obj.msg = "成功";
+
                     }
                     return obj;
                 }
@@ -94,9 +101,11 @@ namespace KS.Mall.SDK.AdvancedAPIs
         public static bool UpdateOrderState(string ordercode,string remark,string state,string oid,string paymoney,string ispay,string hotelcode)
         {
             //if (hotelcode == "KSHZ")
-            //{
+            //{l
+            lock (_lock)
+            {
                 bool isChange = true;
-                var order = service.Getorder_single_json("","",ordercode,hotelcode);
+                var order = service.Getorder_single_json("", "", ordercode, hotelcode);
                 var OrderList = JsonConvert.DeserializeObject<List<GetOrderSingleResult>>(order);
                 if (OrderList != null && OrderList[0].success.Count > 0)
                 {
@@ -124,6 +133,7 @@ namespace KS.Mall.SDK.AdvancedAPIs
                     }
                 }
                 return isChange;
+            }
           //  }
             //else
             //{
@@ -230,6 +240,8 @@ namespace KS.Mall.SDK.AdvancedAPIs
         {
             //查订单
             JsonReturn res = new JsonReturn();
+            res.code = ApiCode.成功;
+            res.msg = "成功";
             var tradeno = QueryTradeNo(model.hotelcode, model.trade_no, model.notify, Config.CheckWxPayUrl);
             if (tradeno.code == StatusCode.成功)
             {
