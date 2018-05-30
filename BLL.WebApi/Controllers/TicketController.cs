@@ -1317,7 +1317,8 @@ namespace BLL.WebApi.Controllers
                                     username = hy_xx[0].name,
                                     bosscard = hy_xx[0].CardNo,
                                     realbosscard = hy_xx[0].realbosscard,
-                                    rate=data.rate,
+                                    rate = data.rate,
+                                    num = data.num,
                                 };
                                 dc.CAVRecord_t.Add(da);
                                 dc.SaveChanges();

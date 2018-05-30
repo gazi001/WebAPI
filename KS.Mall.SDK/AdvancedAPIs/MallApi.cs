@@ -17,6 +17,7 @@ using KS.Common.SDK;
 using KS.Model.Mall;
 using KS.Model.Ticket.TicketRequest;
 using KS.Model.Ticket.TicketResponse;
+using RM.Common.DotNetModel;
 
 namespace KS.Mall.SDK.AdvancedAPIs
 {
@@ -62,7 +63,7 @@ namespace KS.Mall.SDK.AdvancedAPIs
                     var result = HttpHepler.SendPost(url, postData);
                     //var obj = JsonConvert.DeserializeObject<QueryTradeNoModel>(result)
                     var transaction_id = JsonHelper.GetJsonValue(result, "transaction_id");
-                    if (transaction_id != "")
+                    if (transaction_id != "" && transaction_id != null & transaction_id!="null")
                     {
                         obj.transaction_id = transaction_id;
                         obj.code = StatusCode.成功;
@@ -101,7 +102,7 @@ namespace KS.Mall.SDK.AdvancedAPIs
                 {
                     foreach (var item in OrderList[0].success)
                     {
-                        if (item.state == state||item.ispay=="1")
+                        if (item.state == state || item.ispay == ispay)
                         {
                             isChange = false;
                         }
@@ -189,7 +190,7 @@ namespace KS.Mall.SDK.AdvancedAPIs
                     value = DateTime.Now.ToString("yyyy-MM-dd"),
                     color = "#173177",
                 },
-                reamrk = new
+                remark = new
                 {
                     value = "如有疑问请及时联系我们:" + tel,
                     color = "#173177",
@@ -225,14 +226,15 @@ namespace KS.Mall.SDK.AdvancedAPIs
         /// 商城支付成功处理
         /// /// </summary>
         /// <param name="model"></param>
-        public static void PaySuccessService(PaySuccessServiceModel model)
+        public static JsonReturn PaySuccessService(PaySuccessServiceModel model)
         {
             //查订单
+            JsonReturn res = new JsonReturn();
             var tradeno = QueryTradeNo(model.hotelcode, model.trade_no, model.notify, Config.CheckWxPayUrl);
-            if(tradeno.code==StatusCode.成功&&tradeno.transaction_id!=null)
+            if (tradeno.code == StatusCode.成功)
             {
                 //改状态
-                var isChange = UpdateOrderState(model.trade_no, "[已支付]微信支付，微信单号:" + tradeno.transaction_id+","+model.remark, "2", model.bosscard, model.total, "1",model.hotelcode);
+                var isChange = UpdateOrderState(model.trade_no, "[已支付]微信支付，微信单号:" + tradeno.transaction_id + "," + model.remark, "2", model.bosscard, model.total, "1", model.hotelcode);
                 if (isChange)
                 {
                     var orderlist = QueryOrder(model.hotelcode, model.trade_no);
@@ -260,9 +262,25 @@ namespace KS.Mall.SDK.AdvancedAPIs
                                 }
                             }
                         }
+                        else
+                        {
+                            res.code = ApiCode.发送产品失败;
+                            res.msg = "发送产品失败";
+                        }
                     }
                 }
+                else
+                {
+                    res.code = ApiCode.已支付;
+                    res.msg = "已支付";
+                }
             }
+            else
+            {
+                res.code = ApiCode.没有找到微信支付订单;
+                res.msg = "没有找到微信支付订单";
+            }
+            return res;
         }
 
         public static void PaySuccessServiceTest(PaySuccessServiceModel model)

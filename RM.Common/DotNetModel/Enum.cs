@@ -54,6 +54,7 @@ namespace RM.Common.DotNetModel
         产品封套生成失败=218,
     
         子券生成失败=219,
+        已支付=220,
 
     }
     public enum Flag

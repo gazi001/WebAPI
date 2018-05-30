@@ -160,6 +160,7 @@
           <Property Name="mobile" Type="nvarchar" MaxLength="50" />
           <Property Name="addtime" Type="datetime" />
           <Property Name="hotelcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="returncode" Type="nvarchar" MaxLength="50" />
         </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -320,6 +321,7 @@
           <Property Type="String" Name="mobile" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="addtime" Precision="3" />
           <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="returncode" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -467,6 +469,7 @@
           <EntitySetMapping Name="SendTicketLog_Mall">
             <EntityTypeMapping TypeName="iticketModel.SendTicketLog_Mall">
               <MappingFragment StoreEntitySet="SendTicketLog_Mall">
+                <ScalarProperty Name="returncode" ColumnName="returncode" />
                 <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
                 <ScalarProperty Name="addtime" ColumnName="addtime" />
                 <ScalarProperty Name="mobile" ColumnName="mobile" />

@@ -38,5 +38,6 @@ namespace KS.Model.Ticket.TicketRequest
        [Required(ErrorMessage = "ticketsnList不能为空")]
        public string ticketsnList { get; set; }
        //public string 
+       public int num { get; set; }
     }
 }

@@ -34,10 +34,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RM.Common, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\RM.Common.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.EnterpriseServices" />
@@ -156,6 +152,10 @@
     <ProjectReference Include="..\Model\KS.Model.csproj">
       <Project>{5658db08-6fdb-4ae8-8aa6-65f887c74c6a}</Project>
       <Name>KS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RM.Common\RM.Common.csproj">
+      <Project>{f1dac157-5cf0-4abe-ab30-e1b0eada5354}</Project>
+      <Name>RM.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -45,47 +45,50 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                     for (int i = 0; i < num; i++)
                     {
                         var result = service.Set_newhy_new_json(YQTOperatorId, YQTOperatorId, hotelcode, item.linkticketsn, item.mobile, hotelcode).Replace("(", "").Replace(")", "");
-                        if (JsonHelper.GetJsonValue(result, "returncode") != "success")
+                        var returncode = JsonHelper.GetJsonValue(result, "returncode");
+                        iticketdb.SendTicketLog_Mall.Add(new SendTicketLog_Mall
                         {
-                            iticketdb.SendTicketLog_Mall.Add(new SendTicketLog_Mall 
-                            {
-                                addtime=DateTime.Now,
-                                hotelcode = hotelcode,
-                                jgxz=item.jgxz,
-                                mobile=item.mobile,
-                                onsalecode=item.onsalecode,
-                                ordercode=item.ordercode,
-                                sysj=item.sysj,
-                                ticketsn=item.linkticketsn,
-                            });
+                            addtime = DateTime.Now,
+                            hotelcode = hotelcode,
+                            jgxz = item.jgxz,
+                            mobile = item.mobile,
+                            onsalecode = item.onsalecode,
+                            ordercode = item.ordercode,
+                            sysj = item.sysj,
+                            ticketsn = item.linkticketsn,
+                            returncode = returncode,
+                        });
+                        if (returncode != "success")
+                        {
+                          
                             IsSuccess = false;
                         }
                         else
                         {
-                            try
-                            {
-                                var resend = service.Set_newhy_new_json(YQTOperatorId, YQTOperatorId, hotelcode, item.linkticketsn, item.mobile, hotelcode).Replace("(", "").Replace(")", "");
-                                if (JsonHelper.GetJsonValue(result, "returncode") == "success")
-                                {
-                                    iticketdb.SendTicketLog_Mall.Add(new SendTicketLog_Mall
-                                    {
-                                        addtime = DateTime.Now,
-                                        hotelcode = item.hotelcode,
-                                        jgxz = item.jgxz,
-                                        mobile = item.mobile,
-                                        onsalecode = item.onsalecode,
-                                        ordercode = item.ordercode,
-                                        sysj = item.sysj,
-                                        ticketsn = item.linkticketsn,
-                                    });
-                                }
-                            }
-                            catch (Exception ex)
-                            {
+                            //try
+                            //{
+                            //    var resend = service.Set_newhy_new_json(YQTOperatorId, YQTOperatorId, hotelcode, item.linkticketsn, item.mobile, hotelcode).Replace("(", "").Replace(")", "");
+                            //    if (JsonHelper.GetJsonValue(result, "returncode") == "success")
+                            //    {
+                            //        iticketdb.SendTicketLog_Mall.Add(new SendTicketLog_Mall
+                            //        {
+                            //            addtime = DateTime.Now,
+                            //            hotelcode = item.hotelcode,
+                            //            jgxz = item.jgxz,
+                            //            mobile = item.mobile,
+                            //            onsalecode = item.onsalecode,
+                            //            ordercode = item.ordercode,
+                            //            sysj = item.sysj,
+                            //            ticketsn = item.linkticketsn,
+                            //        });
+                            //    }
+                            //}
+                            //catch (Exception ex)
+                            //{
 
-                                CommonApi.SendWx("KSHZ", "", "", "商城发券接口调用失败，订单号" + item.ordercode + "产品：" + item.linkticketsn, "");
+                            //    CommonApi.SendWx("KSHZ", "", "", "商城发券接口调用失败，订单号" + item.ordercode + "产品：" + item.linkticketsn, "");
 
-                            }
+                            //}
                             //shop.Setproduct_onsale_single_salenum_json(user, user, item.onsalecode, item.num);
                         }
                     }
@@ -100,47 +103,50 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                         for (int i = 0; i < num; i++)
                         {
                             var result = service.Set_newhy_new_json(user, user, item.hotelcode, item1.ToString(), item.mobile, item.hotelcode).Replace("(", "").Replace(")", "");
+                            var returncode = JsonHelper.GetJsonValue(result, "returncode");
+                            iticketdb.SendTicketLog_Mall.Add(new SendTicketLog_Mall
+                            {
+                                addtime = DateTime.Now,
+                                hotelcode = item.hotelcode,
+                                jgxz = item.jgxz,
+                                mobile = item.mobile,
+                                onsalecode = item.onsalecode,
+                                ordercode = item.ordercode,
+                                sysj = item.sysj,
+                                ticketsn = item.linkticketsn,
+                                returncode = returncode,
+                            });
                             if (JsonHelper.GetJsonValue(result, "returncode") != "success")
                             {
-                                iticketdb.SendTicketLog_Mall.Add(new SendTicketLog_Mall
-                                {
-                                    addtime = DateTime.Now,
-                                    hotelcode =item.hotelcode,
-                                    jgxz = item.jgxz,
-                                    mobile = item.mobile,
-                                    onsalecode = item.onsalecode,
-                                    ordercode = item.ordercode,
-                                    sysj = item.sysj,
-                                    ticketsn = item.linkticketsn,
-                                });
+                                
                                 IsSuccess = false;
                             }
                             else
                             {
-                                try
-                                {
-                                    var resend = service.Set_newhy_new_json(user, user, item.hotelcode, item1.ToString(), item.mobile, item.hotelcode).Replace("(", "").Replace(")", "");
-                                    if (JsonHelper.GetJsonValue(result, "returncode") == "success")
-                                    {
-                                        iticketdb.SendTicketLog_Mall.Add(new SendTicketLog_Mall
-                                        {
-                                            addtime = DateTime.Now,
-                                            hotelcode = item.hotelcode,
-                                            jgxz = item.jgxz,
-                                            mobile = item.mobile,
-                                            onsalecode = item.onsalecode,
-                                            ordercode = item.ordercode,
-                                            sysj = item.sysj,
-                                            ticketsn = item.linkticketsn,
-                                        });
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
+                                //try
+                                //{
+                                //    var resend = service.Set_newhy_new_json(user, user, item.hotelcode, item1.ToString(), item.mobile, item.hotelcode).Replace("(", "").Replace(")", "");
+                                //    if (JsonHelper.GetJsonValue(result, "returncode") == "success")
+                                //    {
+                                //        iticketdb.SendTicketLog_Mall.Add(new SendTicketLog_Mall
+                                //        {
+                                //            addtime = DateTime.Now,
+                                //            hotelcode = item.hotelcode,
+                                //            jgxz = item.jgxz,
+                                //            mobile = item.mobile,
+                                //            onsalecode = item.onsalecode,
+                                //            ordercode = item.ordercode,
+                                //            sysj = item.sysj,
+                                //            ticketsn = item.linkticketsn,
+                                //        });
+                                //    }
+                                //}
+                                //catch (Exception ex)
+                                //{
 
-                                    CommonApi.SendWx("KSHZ", "", "", "商城发券接口调用失败，订单号" + item.ordercode + "产品：" + item.linkticketsn, "");
+                                //    CommonApi.SendWx("KSHZ", "", "", "商城发券接口调用失败，订单号" + item.ordercode + "产品：" + item.linkticketsn, "");
                                   
-                                }
+                                //}
                               
                                 // shop.Setproduct_onsale_single_salenum_json(user, user, item.onsalecode, item.num);
                             }
@@ -148,7 +154,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                     }
                 }
                 iticketdb.SaveChanges();
-                shop.Setproduct_onsale_single_salenum_json(user, user, item.onsalecode, item.num);
+              //  shop.Setproduct_onsale_single_salenum_json(user, user, item.onsalecode, item.num);
                 shopname = shopname + item.pname + ",";
             }
             return IsSuccess;
@@ -824,82 +830,90 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                 try
                 {
                     //var sflg = GetSflag(data.type);
-                    var pro_num = GetProNum(data.type, data.pro_num);
-
-                    //调用webservice接口定义产品包，返回产品包id
-                    //TODO:   Formulacode, fmoney,fnum, 字段没有
-                    var formulaid = service.SetFormula_json("", "", data.pro_name, data.summary, "00", data.price, pro_num, data.hotelcode);
-                    if (formulaid != "")
+                    if (data.arr != null && data.arr.Count > 0)
                     {
-                        var formulaint = int.Parse(formulaid);
-                        //本地关系型数据库存储产品信息
-                        var formula = new Formula_t
-                        {
-                            fmoney = decimal.Parse(data.price),
-                            Formulacode = "",
-                            FormulaId = int.Parse(formulaid),
-                            FormulaName = data.pro_name,
-                            FormulaSummary = data.summary,
-                            hotelcode = data.hotelcode,
-                            //maxnum=int.Parse( data.pro_num),
+                        var pro_num = GetProNum(data.type, data.pro_num);
 
-                            flag = 0,
-                        };
-                        iticketdb.Formula_t.Add(formula);
-                        iticketdb.SaveChanges();
-
-                        //TODO:redis缓存记录产品信息
-                        var setformulafw = service.SetFormula_fw_pl_json("", "", formulaid, data.pro_arr, data.hotelcode);
-                        var rangArr = data.pro_arr.Split(',');
-                        foreach (var item1 in rangArr)
+                        //调用webservice接口定义产品包，返回产品包id
+                        //TODO:   Formulacode, fmoney,fnum, 字段没有
+                        var formulaid = service.SetFormula_json("", "", data.pro_name, data.summary, "00", data.price, pro_num, data.hotelcode);
+                        if (formulaid != "")
                         {
-                            if (!iticketdb.Formula_fw_t.Any(x => x.hotelcode == data.hotelcode && x.FormulaId == formulaint))
+                            var formulaint = int.Parse(formulaid);
+                            //本地关系型数据库存储产品信息
+                            var formula = new Formula_t
                             {
-                                iticketdb.Formula_fw_t.Add(new Formula_fw_t
-                                {
-                                    FormulaId = formulaint,
-                                    hotelcode = data.hotelcode,
-                                    usehotelcode = item1.ToString(),
-                                });
-                            }
-                        }
-                        iticketdb.SaveChanges();
-                        //TODO:打包产品
-                        var dbstr = service.Setdbname_json("", "", data.pro_name, formulaid, data.hotelcode).Replace("(", "").Replace(")", "");
-                        if (dbstr != null)
-                        {
-                            var dbobj = JsonConvert.DeserializeObject<List<SetdbnameResult>>(dbstr)[0];
-                            if (dbobj.returncode == "success")
+                                fmoney = decimal.Parse(data.price),
+                                Formulacode = "",
+                                FormulaId = int.Parse(formulaid),
+                                FormulaName = data.pro_name,
+                                FormulaSummary = data.summary,
+                                hotelcode = data.hotelcode,
+                                //maxnum=int.Parse( data.pro_num),
+
+                                flag = 0,
+                            };
+                            iticketdb.Formula_t.Add(formula);
+                            iticketdb.SaveChanges();
+
+                            //TODO:redis缓存记录产品信息
+                            var setformulafw = service.SetFormula_fw_pl_json("", "", formulaid, data.pro_arr, data.hotelcode);
+                            var rangArr = data.pro_arr.Split(',');
+                            foreach (var item1 in rangArr)
                             {
-                                iticketdb.dbname_t.Add(new dbname_t
+                                if (!iticketdb.Formula_fw_t.Any(x => x.hotelcode == data.hotelcode && x.FormulaId == formulaint))
                                 {
-                                    dbname = data.pro_name,
-                                    formulaid = formulaid,
-                                    hotelcode = data.hotelcode,
-                                });
-                                iticketdb.SaveChanges();
-                                if (CreateCategory(data.arr, data, dbobj))
-                                {
-
-                                    jsonResult.code = ApiCode.成功;
-                                    jsonResult.msg = "成功";
+                                    iticketdb.Formula_fw_t.Add(new Formula_fw_t
+                                    {
+                                        FormulaId = formulaint,
+                                        hotelcode = data.hotelcode,
+                                        usehotelcode = item1.ToString(),
+                                    });
                                 }
-                                else
+                            }
+                            iticketdb.SaveChanges();
+                            //TODO:打包产品
+                            var dbstr = service.Setdbname_json("", "", data.pro_name, formulaid, data.hotelcode).Replace("(", "").Replace(")", "");
+                            if (dbstr != null)
+                            {
+                                var dbobj = JsonConvert.DeserializeObject<List<SetdbnameResult>>(dbstr)[0];
+                                if (dbobj.returncode == "success")
                                 {
-                                    jsonResult.code = ApiCode.子券定义失败;
-                                    jsonResult.msg = "子券定义失败";
+                                    iticketdb.dbname_t.Add(new dbname_t
+                                    {
+                                        dbname = data.pro_name,
+                                        formulaid = formulaid,
+                                        hotelcode = data.hotelcode,
+                                    });
+                                    iticketdb.SaveChanges();
+                                    if (CreateCategory(data.arr, data, dbobj))
+                                    {
+
+                                        jsonResult.code = ApiCode.成功;
+                                        jsonResult.msg = "成功";
+                                    }
+                                    else
+                                    {
+                                        jsonResult.code = ApiCode.子券定义失败;
+                                        jsonResult.msg = "子券定义失败";
+                                    }
+
                                 }
 
                             }
 
                         }
+                        else
+                        {
+                            jsonResult.code = ApiCode.产品定义失败;
+                            jsonResult.msg = "产品定义失败";
 
+                        }
                     }
                     else
                     {
-                        jsonResult.code = ApiCode.产品定义失败;
-                        jsonResult.msg = "产品定义失败";
-
+                        jsonResult.code = ApiCode.参数不全;
+                        jsonResult.msg ="接口调用失败";
                     }
                 }
                 catch (Exception ex)
@@ -1032,7 +1046,14 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             }
         }
         #endregion
+        #region 产品修改
+        //public JsonReturn UpdateFormula(UpdateFormulaData data)
+        //{
 
+
+ 
+        //}
+        #endregion
         #region 产品发行
         public static JsonReturn SetCRMTicketSn(SetCRMTicketSnModel data)
         {

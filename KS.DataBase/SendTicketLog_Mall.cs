@@ -23,5 +23,6 @@ namespace KS.DataBase
         public string mobile { get; set; }
         public Nullable<System.DateTime> addtime { get; set; }
         public string hotelcode { get; set; }
+        public string returncode { get; set; }
     }
 }

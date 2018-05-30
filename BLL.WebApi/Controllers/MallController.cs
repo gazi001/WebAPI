@@ -31,10 +31,10 @@ namespace BLL.WebApi.Controllers
         public JsonResult PaySuccess(string postData)
         {
             var model = JsonConvert.DeserializeObject<PaySuccessServiceModel>(postData);
-            MallApi.PaySuccessService(model);
+            var res=MallApi.PaySuccessService(model);
             jsonResult.code = ApiCode.成功;
             jsonResult.msg = "接口调用成功";
-            return this.Json(jsonResult);
+            return this.Json(res);
         }
         public JsonResult PaySuccessTest(string postData)
         {
