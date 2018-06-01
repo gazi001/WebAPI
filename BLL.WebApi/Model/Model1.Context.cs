@@ -31,5 +31,10 @@ namespace BLL.WebApi.Model
         public DbSet<TicketExpire_t> TicketExpire_t { get; set; }
         public DbSet<PushMsgInfo> PushMsgInfoes { get; set; }
         public DbSet<PrintTicket> PrintTickets { get; set; }
+        public DbSet<Countdown> Countdowns { get; set; }
+        public DbSet<Coupon> Coupons { get; set; }
+        public DbSet<Expire> Expires { get; set; }
+        public DbSet<FunctionManagement> FunctionManagements { get; set; }
+        public DbSet<Shoppingurl> Shoppingurls { get; set; }
     }
 }

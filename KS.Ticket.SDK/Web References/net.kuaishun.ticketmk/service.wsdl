@@ -2,6 +2,62 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Getticket_sale_report_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="other" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_sale_report_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getticket_sale_report_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_user_honor_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="other" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_user_honor_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getticket_user_honor_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getmember_month_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="grouptype" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="byear" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bmonth" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getmember_month_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getmember_month_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Getmember_bymobile_json">
         <s:complexType>
           <s:sequence>
@@ -298,6 +354,39 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Getformulaid_byhotelcode_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getformulaid_byhotelcode_new_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getformulaid_byhotelcode_new_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getformulaid_byhotelcode_new_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getformulaid_bychannel_new_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="channel" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getformulaid_bychannel_new_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getformulaid_bychannel_new_jsonResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -975,6 +1064,26 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Getbosscard_tj_byhotelcode_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="num" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sflag" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getbosscard_tj_byhotelcode_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getbosscard_tj_byhotelcode_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Getbosscard_tjcz_byhotelcode_json">
         <s:complexType>
           <s:sequence>
@@ -1063,6 +1172,186 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Getticket_xyq_endtime_og_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_xyq_starttime_og_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_xyq_starttime_og_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getticket_xyq_starttime_og_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_xyq_starttime_category_og_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_xyq_starttime_category_og_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getticket_xyq_starttime_category_og_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_xyq_endtime_category_og_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_xyq_endtime_category_og_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getticket_xyq_endtime_category_og_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Setlog_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pagename" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="colname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oldvalue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="newvalue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="optype" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Setlog_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Setlog_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Setlog_pl_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pagename" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="colname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oldvalue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="newvalue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="optype" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Setlog_pl_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Setlog_pl_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_log_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_log_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getticket_log_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getrealbosscard">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hy_kh" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetrealbosscardResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetrealbosscardResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="insert_qynew">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bosscard" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bossname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hy_kh" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hy_sjhm" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tp_id" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OperatorId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="realbosscard" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="formulaname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="formulaid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="insert_qynewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="insert_qynewResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_user_new_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="other" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_user_new_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getticket_user_new_jsonResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2473,6 +2762,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="categoryid" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="iswxly" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bz" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2493,6 +2783,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="categoryid" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="iswxly" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bz" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3217,6 +3508,27 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Getticket_jl_hx_qy_fy_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="page" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pageSize" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="desc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getticket_jl_hx_qy_fy_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getticket_jl_hx_qy_fy_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Getticket_jl_kk_json">
         <s:complexType>
           <s:sequence>
@@ -3273,62 +3585,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Getticket_user_jsonResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Getticket_sale_report_json">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="other" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Getticket_sale_report_jsonResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Getticket_sale_report_jsonResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Getticket_user_honor_json">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="starttime" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="endtime" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="other" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Getticket_user_honor_jsonResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Getticket_user_honor_jsonResult" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Getmember_month_json">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="grouptype" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="byear" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="bmonth" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="Getmember_month_jsonResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="Getmember_month_jsonResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -3909,7 +4165,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="fnum" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="iszs" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="iscz" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="Categoryid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CategoryId" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -4991,8 +5247,43 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Querymember_new_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="hotelGroupId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Querymember_new_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Querymember_new_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="Getticket_sale_report_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getticket_sale_report_json" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_sale_report_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getticket_sale_report_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_user_honor_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getticket_user_honor_json" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_user_honor_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getticket_user_honor_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Getmember_month_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getmember_month_json" />
+  </wsdl:message>
+  <wsdl:message name="Getmember_month_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getmember_month_jsonResponse" />
+  </wsdl:message>
   <wsdl:message name="Getmember_bymobile_jsonSoapIn">
     <wsdl:part name="parameters" element="tns:Getmember_bymobile_json" />
   </wsdl:message>
@@ -5094,6 +5385,18 @@
   </wsdl:message>
   <wsdl:message name="Getformulaid_byhotelcode_jsonSoapOut">
     <wsdl:part name="parameters" element="tns:Getformulaid_byhotelcode_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Getformulaid_byhotelcode_new_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getformulaid_byhotelcode_new_json" />
+  </wsdl:message>
+  <wsdl:message name="Getformulaid_byhotelcode_new_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getformulaid_byhotelcode_new_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Getformulaid_bychannel_new_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getformulaid_bychannel_new_json" />
+  </wsdl:message>
+  <wsdl:message name="Getformulaid_bychannel_new_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getformulaid_bychannel_new_jsonResponse" />
   </wsdl:message>
   <wsdl:message name="Getformulaid_bychannel_jsonSoapIn">
     <wsdl:part name="parameters" element="tns:Getformulaid_bychannel_json" />
@@ -5305,6 +5608,12 @@
   <wsdl:message name="Getbosscard_tjxf_byhotelcode_jsonSoapOut">
     <wsdl:part name="parameters" element="tns:Getbosscard_tjxf_byhotelcode_jsonResponse" />
   </wsdl:message>
+  <wsdl:message name="Getbosscard_tj_byhotelcode_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getbosscard_tj_byhotelcode_json" />
+  </wsdl:message>
+  <wsdl:message name="Getbosscard_tj_byhotelcode_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getbosscard_tj_byhotelcode_jsonResponse" />
+  </wsdl:message>
   <wsdl:message name="Getbosscard_tjcz_byhotelcode_jsonSoapIn">
     <wsdl:part name="parameters" element="tns:Getbosscard_tjcz_byhotelcode_json" />
   </wsdl:message>
@@ -5334,6 +5643,60 @@
   </wsdl:message>
   <wsdl:message name="Getticket_xyq_endtime_og_jsonSoapOut">
     <wsdl:part name="parameters" element="tns:Getticket_xyq_endtime_og_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_xyq_starttime_og_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getticket_xyq_starttime_og_json" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_xyq_starttime_og_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getticket_xyq_starttime_og_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_xyq_starttime_category_og_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getticket_xyq_starttime_category_og_json" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_xyq_starttime_category_og_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getticket_xyq_starttime_category_og_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_xyq_endtime_category_og_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getticket_xyq_endtime_category_og_json" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_xyq_endtime_category_og_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getticket_xyq_endtime_category_og_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Setlog_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Setlog_json" />
+  </wsdl:message>
+  <wsdl:message name="Setlog_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Setlog_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Setlog_pl_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Setlog_pl_json" />
+  </wsdl:message>
+  <wsdl:message name="Setlog_pl_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Setlog_pl_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_log_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getticket_log_json" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_log_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getticket_log_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetrealbosscardSoapIn">
+    <wsdl:part name="parameters" element="tns:Getrealbosscard" />
+  </wsdl:message>
+  <wsdl:message name="GetrealbosscardSoapOut">
+    <wsdl:part name="parameters" element="tns:GetrealbosscardResponse" />
+  </wsdl:message>
+  <wsdl:message name="insert_qynewSoapIn">
+    <wsdl:part name="parameters" element="tns:insert_qynew" />
+  </wsdl:message>
+  <wsdl:message name="insert_qynewSoapOut">
+    <wsdl:part name="parameters" element="tns:insert_qynewResponse" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_user_new_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getticket_user_new_json" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_user_new_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getticket_user_new_jsonResponse" />
   </wsdl:message>
   <wsdl:message name="Queryticket_jsonSoapIn">
     <wsdl:part name="parameters" element="tns:Queryticket_json" />
@@ -6007,6 +6370,12 @@
   <wsdl:message name="Getticket_jl_hx_fy_jsonSoapOut">
     <wsdl:part name="parameters" element="tns:Getticket_jl_hx_fy_jsonResponse" />
   </wsdl:message>
+  <wsdl:message name="Getticket_jl_hx_qy_fy_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getticket_jl_hx_qy_fy_json" />
+  </wsdl:message>
+  <wsdl:message name="Getticket_jl_hx_qy_fy_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getticket_jl_hx_qy_fy_jsonResponse" />
+  </wsdl:message>
   <wsdl:message name="Getticket_jl_kk_jsonSoapIn">
     <wsdl:part name="parameters" element="tns:Getticket_jl_kk_json" />
   </wsdl:message>
@@ -6024,24 +6393,6 @@
   </wsdl:message>
   <wsdl:message name="Getticket_user_jsonSoapOut">
     <wsdl:part name="parameters" element="tns:Getticket_user_jsonResponse" />
-  </wsdl:message>
-  <wsdl:message name="Getticket_sale_report_jsonSoapIn">
-    <wsdl:part name="parameters" element="tns:Getticket_sale_report_json" />
-  </wsdl:message>
-  <wsdl:message name="Getticket_sale_report_jsonSoapOut">
-    <wsdl:part name="parameters" element="tns:Getticket_sale_report_jsonResponse" />
-  </wsdl:message>
-  <wsdl:message name="Getticket_user_honor_jsonSoapIn">
-    <wsdl:part name="parameters" element="tns:Getticket_user_honor_json" />
-  </wsdl:message>
-  <wsdl:message name="Getticket_user_honor_jsonSoapOut">
-    <wsdl:part name="parameters" element="tns:Getticket_user_honor_jsonResponse" />
-  </wsdl:message>
-  <wsdl:message name="Getmember_month_jsonSoapIn">
-    <wsdl:part name="parameters" element="tns:Getmember_month_json" />
-  </wsdl:message>
-  <wsdl:message name="Getmember_month_jsonSoapOut">
-    <wsdl:part name="parameters" element="tns:Getmember_month_jsonResponse" />
   </wsdl:message>
   <wsdl:message name="Ticket_jl_add_notime_SetSoapIn">
     <wsdl:part name="parameters" element="tns:Ticket_jl_add_notime_Set" />
@@ -6547,7 +6898,28 @@
   <wsdl:message name="Querymember_jsonSoapOut">
     <wsdl:part name="parameters" element="tns:Querymember_jsonResponse" />
   </wsdl:message>
+  <wsdl:message name="Querymember_new_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Querymember_new_json" />
+  </wsdl:message>
+  <wsdl:message name="Querymember_new_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Querymember_new_jsonResponse" />
+  </wsdl:message>
   <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="Getticket_sale_report_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
+      <wsdl:input message="tns:Getticket_sale_report_jsonSoapIn" />
+      <wsdl:output message="tns:Getticket_sale_report_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_user_honor_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
+      <wsdl:input message="tns:Getticket_user_honor_jsonSoapIn" />
+      <wsdl:output message="tns:Getticket_user_honor_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getmember_month_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
+      <wsdl:input message="tns:Getmember_month_jsonSoapIn" />
+      <wsdl:output message="tns:Getmember_month_jsonSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Getmember_bymobile_json">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
       <wsdl:input message="tns:Getmember_bymobile_jsonSoapIn" />
@@ -6625,6 +6997,16 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
       <wsdl:input message="tns:Getformulaid_byhotelcode_jsonSoapIn" />
       <wsdl:output message="tns:Getformulaid_byhotelcode_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getformulaid_byhotelcode_new_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
+      <wsdl:input message="tns:Getformulaid_byhotelcode_new_jsonSoapIn" />
+      <wsdl:output message="tns:Getformulaid_byhotelcode_new_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getformulaid_bychannel_new_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
+      <wsdl:input message="tns:Getformulaid_bychannel_new_jsonSoapIn" />
+      <wsdl:output message="tns:Getformulaid_bychannel_new_jsonSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Getformulaid_bychannel_json">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
@@ -6799,6 +7181,11 @@
       <wsdl:input message="tns:Getbosscard_tjxf_byhotelcode_jsonSoapIn" />
       <wsdl:output message="tns:Getbosscard_tjxf_byhotelcode_jsonSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Getbosscard_tj_byhotelcode_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
+      <wsdl:input message="tns:Getbosscard_tj_byhotelcode_jsonSoapIn" />
+      <wsdl:output message="tns:Getbosscard_tj_byhotelcode_jsonSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Getbosscard_tjcz_byhotelcode_json">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
       <wsdl:input message="tns:Getbosscard_tjcz_byhotelcode_jsonSoapIn" />
@@ -6823,6 +7210,48 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
       <wsdl:input message="tns:Getticket_xyq_endtime_og_jsonSoapIn" />
       <wsdl:output message="tns:Getticket_xyq_endtime_og_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_xyq_starttime_og_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
+      <wsdl:input message="tns:Getticket_xyq_starttime_og_jsonSoapIn" />
+      <wsdl:output message="tns:Getticket_xyq_starttime_og_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_xyq_starttime_category_og_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
+      <wsdl:input message="tns:Getticket_xyq_starttime_category_og_jsonSoapIn" />
+      <wsdl:output message="tns:Getticket_xyq_starttime_category_og_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_xyq_endtime_category_og_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
+      <wsdl:input message="tns:Getticket_xyq_endtime_category_og_jsonSoapIn" />
+      <wsdl:output message="tns:Getticket_xyq_endtime_category_og_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Setlog_json">
+      <wsdl:input message="tns:Setlog_jsonSoapIn" />
+      <wsdl:output message="tns:Setlog_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Setlog_pl_json">
+      <wsdl:input message="tns:Setlog_pl_jsonSoapIn" />
+      <wsdl:output message="tns:Setlog_pl_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_log_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get</wsdl:documentation>
+      <wsdl:input message="tns:Getticket_log_jsonSoapIn" />
+      <wsdl:output message="tns:Getticket_log_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getrealbosscard">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get</wsdl:documentation>
+      <wsdl:input message="tns:GetrealbosscardSoapIn" />
+      <wsdl:output message="tns:GetrealbosscardSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="insert_qynew">
+      <wsdl:input message="tns:insert_qynewSoapIn" />
+      <wsdl:output message="tns:insert_qynewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_user_new_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
+      <wsdl:input message="tns:Getticket_user_new_jsonSoapIn" />
+      <wsdl:output message="tns:Getticket_user_new_jsonSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Queryticket_json">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">ticket查询接口</wsdl:documentation>
@@ -7325,6 +7754,11 @@
       <wsdl:input message="tns:Getticket_jl_hx_fy_jsonSoapIn" />
       <wsdl:output message="tns:Getticket_jl_hx_fy_jsonSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Getticket_jl_hx_qy_fy_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
+      <wsdl:input message="tns:Getticket_jl_hx_qy_fy_jsonSoapIn" />
+      <wsdl:output message="tns:Getticket_jl_hx_qy_fy_jsonSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Getticket_jl_kk_json">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
       <wsdl:input message="tns:Getticket_jl_kk_jsonSoapIn" />
@@ -7339,21 +7773,6 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
       <wsdl:input message="tns:Getticket_user_jsonSoapIn" />
       <wsdl:output message="tns:Getticket_user_jsonSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="Getticket_sale_report_json">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
-      <wsdl:input message="tns:Getticket_sale_report_jsonSoapIn" />
-      <wsdl:output message="tns:Getticket_sale_report_jsonSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="Getticket_user_honor_json">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
-      <wsdl:input message="tns:Getticket_user_honor_jsonSoapIn" />
-      <wsdl:output message="tns:Getticket_user_honor_jsonSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="Getmember_month_json">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取接口</wsdl:documentation>
-      <wsdl:input message="tns:Getmember_month_jsonSoapIn" />
-      <wsdl:output message="tns:Getmember_month_jsonSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Ticket_jl_add_notime_Set">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">消费交易接口(新)</wsdl:documentation>
@@ -7714,9 +8133,41 @@
       <wsdl:input message="tns:Querymember_jsonSoapIn" />
       <wsdl:output message="tns:Querymember_jsonSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Querymember_new_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">会员查询接口</wsdl:documentation>
+      <wsdl:input message="tns:Querymember_new_jsonSoapIn" />
+      <wsdl:output message="tns:Querymember_new_jsonSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Getticket_sale_report_json">
+      <soap:operation soapAction="http://tempuri.org/Getticket_sale_report_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_user_honor_json">
+      <soap:operation soapAction="http://tempuri.org/Getticket_user_honor_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getmember_month_json">
+      <soap:operation soapAction="http://tempuri.org/Getmember_month_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Getmember_bymobile_json">
       <soap:operation soapAction="http://tempuri.org/Getmember_bymobile_json" style="document" />
       <wsdl:input>
@@ -7863,6 +8314,24 @@
     </wsdl:operation>
     <wsdl:operation name="Getformulaid_byhotelcode_json">
       <soap:operation soapAction="http://tempuri.org/Getformulaid_byhotelcode_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getformulaid_byhotelcode_new_json">
+      <soap:operation soapAction="http://tempuri.org/Getformulaid_byhotelcode_new_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getformulaid_bychannel_new_json">
+      <soap:operation soapAction="http://tempuri.org/Getformulaid_bychannel_new_json" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8185,6 +8654,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Getbosscard_tj_byhotelcode_json">
+      <soap:operation soapAction="http://tempuri.org/Getbosscard_tj_byhotelcode_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Getbosscard_tjcz_byhotelcode_json">
       <soap:operation soapAction="http://tempuri.org/Getbosscard_tjcz_byhotelcode_json" style="document" />
       <wsdl:input>
@@ -8223,6 +8701,87 @@
     </wsdl:operation>
     <wsdl:operation name="Getticket_xyq_endtime_og_json">
       <soap:operation soapAction="http://tempuri.org/Getticket_xyq_endtime_og_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_xyq_starttime_og_json">
+      <soap:operation soapAction="http://tempuri.org/Getticket_xyq_starttime_og_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_xyq_starttime_category_og_json">
+      <soap:operation soapAction="http://tempuri.org/Getticket_xyq_starttime_category_og_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_xyq_endtime_category_og_json">
+      <soap:operation soapAction="http://tempuri.org/Getticket_xyq_endtime_category_og_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Setlog_json">
+      <soap:operation soapAction="http://tempuri.org/Setlog_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Setlog_pl_json">
+      <soap:operation soapAction="http://tempuri.org/Setlog_pl_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_log_json">
+      <soap:operation soapAction="http://tempuri.org/Getticket_log_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getrealbosscard">
+      <soap:operation soapAction="http://tempuri.org/Getrealbosscard" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="insert_qynew">
+      <soap:operation soapAction="http://tempuri.org/insert_qynew" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_user_new_json">
+      <soap:operation soapAction="http://tempuri.org/Getticket_user_new_json" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9238,6 +9797,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Getticket_jl_hx_qy_fy_json">
+      <soap:operation soapAction="http://tempuri.org/Getticket_jl_hx_qy_fy_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Getticket_jl_kk_json">
       <soap:operation soapAction="http://tempuri.org/Getticket_jl_kk_json" style="document" />
       <wsdl:input>
@@ -9258,33 +9826,6 @@
     </wsdl:operation>
     <wsdl:operation name="Getticket_user_json">
       <soap:operation soapAction="http://tempuri.org/Getticket_user_json" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Getticket_sale_report_json">
-      <soap:operation soapAction="http://tempuri.org/Getticket_sale_report_json" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Getticket_user_honor_json">
-      <soap:operation soapAction="http://tempuri.org/Getticket_user_honor_json" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Getmember_month_json">
-      <soap:operation soapAction="http://tempuri.org/Getmember_month_json" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -10048,9 +10589,45 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Querymember_new_json">
+      <soap:operation soapAction="http://tempuri.org/Querymember_new_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Getticket_sale_report_json">
+      <soap12:operation soapAction="http://tempuri.org/Getticket_sale_report_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_user_honor_json">
+      <soap12:operation soapAction="http://tempuri.org/Getticket_user_honor_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getmember_month_json">
+      <soap12:operation soapAction="http://tempuri.org/Getmember_month_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Getmember_bymobile_json">
       <soap12:operation soapAction="http://tempuri.org/Getmember_bymobile_json" style="document" />
       <wsdl:input>
@@ -10197,6 +10774,24 @@
     </wsdl:operation>
     <wsdl:operation name="Getformulaid_byhotelcode_json">
       <soap12:operation soapAction="http://tempuri.org/Getformulaid_byhotelcode_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getformulaid_byhotelcode_new_json">
+      <soap12:operation soapAction="http://tempuri.org/Getformulaid_byhotelcode_new_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getformulaid_bychannel_new_json">
+      <soap12:operation soapAction="http://tempuri.org/Getformulaid_bychannel_new_json" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -10519,6 +11114,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Getbosscard_tj_byhotelcode_json">
+      <soap12:operation soapAction="http://tempuri.org/Getbosscard_tj_byhotelcode_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Getbosscard_tjcz_byhotelcode_json">
       <soap12:operation soapAction="http://tempuri.org/Getbosscard_tjcz_byhotelcode_json" style="document" />
       <wsdl:input>
@@ -10557,6 +11161,87 @@
     </wsdl:operation>
     <wsdl:operation name="Getticket_xyq_endtime_og_json">
       <soap12:operation soapAction="http://tempuri.org/Getticket_xyq_endtime_og_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_xyq_starttime_og_json">
+      <soap12:operation soapAction="http://tempuri.org/Getticket_xyq_starttime_og_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_xyq_starttime_category_og_json">
+      <soap12:operation soapAction="http://tempuri.org/Getticket_xyq_starttime_category_og_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_xyq_endtime_category_og_json">
+      <soap12:operation soapAction="http://tempuri.org/Getticket_xyq_endtime_category_og_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Setlog_json">
+      <soap12:operation soapAction="http://tempuri.org/Setlog_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Setlog_pl_json">
+      <soap12:operation soapAction="http://tempuri.org/Setlog_pl_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_log_json">
+      <soap12:operation soapAction="http://tempuri.org/Getticket_log_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getrealbosscard">
+      <soap12:operation soapAction="http://tempuri.org/Getrealbosscard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="insert_qynew">
+      <soap12:operation soapAction="http://tempuri.org/insert_qynew" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getticket_user_new_json">
+      <soap12:operation soapAction="http://tempuri.org/Getticket_user_new_json" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -11572,6 +12257,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Getticket_jl_hx_qy_fy_json">
+      <soap12:operation soapAction="http://tempuri.org/Getticket_jl_hx_qy_fy_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Getticket_jl_kk_json">
       <soap12:operation soapAction="http://tempuri.org/Getticket_jl_kk_json" style="document" />
       <wsdl:input>
@@ -11592,33 +12286,6 @@
     </wsdl:operation>
     <wsdl:operation name="Getticket_user_json">
       <soap12:operation soapAction="http://tempuri.org/Getticket_user_json" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Getticket_sale_report_json">
-      <soap12:operation soapAction="http://tempuri.org/Getticket_sale_report_json" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Getticket_user_honor_json">
-      <soap12:operation soapAction="http://tempuri.org/Getticket_user_honor_json" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Getmember_month_json">
-      <soap12:operation soapAction="http://tempuri.org/Getmember_month_json" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -12375,6 +13042,15 @@
     </wsdl:operation>
     <wsdl:operation name="Querymember_json">
       <soap12:operation soapAction="http://tempuri.org/Querymember_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Querymember_new_json">
+      <soap12:operation soapAction="http://tempuri.org/Querymember_new_json" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

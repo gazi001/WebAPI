@@ -61,5 +61,6 @@ namespace BLL.WebApi.Model
         public string onsalecode { get; set; }
         public string shopregister { get; set; }
         public string indexregister { get; set; }
+        public string salesendprize { get; set; }
     }
 }

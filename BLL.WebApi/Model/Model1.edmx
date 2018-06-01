@@ -6,13 +6,63 @@
     <edmx:StorageModels>
     <Schema Namespace="MPDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="MPDBModelStoreContainer">
+          <EntitySet Name="Countdown" EntityType="MPDBModel.Store.Countdown" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Coupons" EntityType="MPDBModel.Store.Coupons" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Expire" EntityType="MPDBModel.Store.Expire" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FunctionManagement" EntityType="MPDBModel.Store.FunctionManagement" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="HotelScene_t" EntityType="MPDBModel.Store.HotelScene_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MemeberBalance" EntityType="MPDBModel.Store.MemeberBalance" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MPConfig" EntityType="MPDBModel.Store.MPConfig" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PrintTicket" EntityType="MPDBModel.Store.PrintTicket" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PushMsgInfo" EntityType="MPDBModel.Store.PushMsgInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Shoppingurl" EntityType="MPDBModel.Store.Shoppingurl" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TicketExpire_t" EntityType="MPDBModel.Store.TicketExpire_t" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
+        <EntityType Name="Countdown">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="gongneng" Type="varchar" Nullable="false" MaxLength="64" />
+          <Property Name="Setuptime" Type="int" Nullable="false" />
+          <Property Name="hotelcode" Type="varchar" Nullable="false" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Coupons">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="category" Type="varchar(max)" />
+          <Property Name="scene" Type="varchar(max)" />
+          <Property Name="Invalid" Type="int" />
+          <Property Name="again" Type="int" />
+          <Property Name="sceneID" Type="int" />
+          <Property Name="hotelcode" Type="varchar" MaxLength="64" />
+          <Property Name="categoryId" Type="int" />
+        </EntityType>
+        <EntityType Name="Expire">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="categoryId" Type="int" />
+          <Property Name="categoryName" Type="varchar" MaxLength="64" />
+          <Property Name="ExpireTime" Type="int" />
+          <Property Name="hotelcode" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="FunctionManagement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="isSendWeather" Type="int" />
+          <Property Name="people" Type="int" />
+          <Property Name="Discounted" Type="int" />
+          <Property Name="payment" Type="int" />
+          <Property Name="register" Type="int" />
+          <Property Name="Shopping" Type="int" />
+          <Property Name="hotelcode" Type="varchar" MaxLength="64" />
+        </EntityType>
         <EntityType Name="HotelScene_t">
           <Key>
             <PropertyRef Name="id" />
@@ -92,6 +142,7 @@
           <Property Name="onsalecode" Type="nvarchar" MaxLength="200" />
           <Property Name="shopregister" Type="nvarchar" MaxLength="50" />
           <Property Name="indexregister" Type="nvarchar" MaxLength="50" />
+          <Property Name="salesendprize" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PrintTicket">
           <Key>
@@ -110,6 +161,16 @@
           <Property Name="channel" Type="nvarchar" MaxLength="50" />
           <Property Name="flag" Type="int" />
           <Property Name="addtime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Shoppingurl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="url" Type="varchar" MaxLength="500" />
+          <Property Name="hotelcode" Type="varchar" MaxLength="50" />
+          <Property Name="remark" Type="varchar(max)" />
+          <Property Name="flag" Type="int" />
         </EntityType>
         <EntityType Name="TicketExpire_t">
           <Key>
@@ -134,6 +195,11 @@
           <EntitySet Name="TicketExpire_t" EntityType="MPDBModel.TicketExpire_t" />
           <EntitySet Name="PushMsgInfoes" EntityType="MPDBModel.PushMsgInfo" />
           <EntitySet Name="PrintTickets" EntityType="MPDBModel.PrintTicket" />
+          <EntitySet Name="Countdowns" EntityType="MPDBModel.Countdown" />
+          <EntitySet Name="Coupons" EntityType="MPDBModel.Coupon" />
+          <EntitySet Name="Expires" EntityType="MPDBModel.Expire" />
+          <EntitySet Name="FunctionManagements" EntityType="MPDBModel.FunctionManagement" />
+          <EntitySet Name="Shoppingurls" EntityType="MPDBModel.Shoppingurl" />
         </EntityContainer>
         <EntityType Name="MemeberBalance">
           <Key>
@@ -204,6 +270,7 @@
           <Property Type="String" Name="onsalecode" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="shopregister" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="indexregister" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="salesendprize" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="HotelScene_t">
           <Key>
@@ -245,6 +312,61 @@
           <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="categoryid" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Countdown">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="gongneng" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Setuptime" Nullable="false" />
+          <Property Type="String" Name="hotelcode" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Coupon">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="category" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="scene" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Invalid" />
+          <Property Type="Int32" Name="again" />
+          <Property Type="Int32" Name="sceneID" />
+          <Property Type="String" Name="hotelcode" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="categoryId" />
+        </EntityType>
+        <EntityType Name="Expire">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="categoryId" />
+          <Property Type="String" Name="categoryName" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ExpireTime" />
+          <Property Type="String" Name="hotelcode" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FunctionManagement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="isSendWeather" />
+          <Property Type="Int32" Name="people" />
+          <Property Type="Int32" Name="Discounted" />
+          <Property Type="Int32" Name="payment" />
+          <Property Type="Int32" Name="register" />
+          <Property Type="Int32" Name="Shopping" />
+          <Property Type="String" Name="hotelcode" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Shoppingurl">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="url" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="remark" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="flag" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -273,6 +395,7 @@
           <EntitySetMapping Name="MPConfigs">
             <EntityTypeMapping TypeName="MPDBModel.MPConfig">
               <MappingFragment StoreEntitySet="MPConfig">
+                <ScalarProperty Name="salesendprize" ColumnName="salesendprize" />
                 <ScalarProperty Name="indexregister" ColumnName="indexregister" />
                 <ScalarProperty Name="shopregister" ColumnName="shopregister" />
                 <ScalarProperty Name="onsalecode" ColumnName="onsalecode" />
@@ -363,6 +486,66 @@
               <MappingFragment StoreEntitySet="PrintTicket">
                 <ScalarProperty Name="categoryid" ColumnName="categoryid" />
                 <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countdowns">
+            <EntityTypeMapping TypeName="MPDBModel.Countdown">
+              <MappingFragment StoreEntitySet="Countdown">
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="Setuptime" ColumnName="Setuptime" />
+                <ScalarProperty Name="gongneng" ColumnName="gongneng" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Coupons">
+            <EntityTypeMapping TypeName="MPDBModel.Coupon">
+              <MappingFragment StoreEntitySet="Coupons">
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="sceneID" ColumnName="sceneID" />
+                <ScalarProperty Name="again" ColumnName="again" />
+                <ScalarProperty Name="Invalid" ColumnName="Invalid" />
+                <ScalarProperty Name="scene" ColumnName="scene" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expires">
+            <EntityTypeMapping TypeName="MPDBModel.Expire">
+              <MappingFragment StoreEntitySet="Expire">
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="ExpireTime" ColumnName="ExpireTime" />
+                <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FunctionManagements">
+            <EntityTypeMapping TypeName="MPDBModel.FunctionManagement">
+              <MappingFragment StoreEntitySet="FunctionManagement">
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="Shopping" ColumnName="Shopping" />
+                <ScalarProperty Name="register" ColumnName="register" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="Discounted" ColumnName="Discounted" />
+                <ScalarProperty Name="people" ColumnName="people" />
+                <ScalarProperty Name="isSendWeather" ColumnName="isSendWeather" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shoppingurls">
+            <EntityTypeMapping TypeName="MPDBModel.Shoppingurl">
+              <MappingFragment StoreEntitySet="Shoppingurl">
+                <ScalarProperty Name="flag" ColumnName="flag" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

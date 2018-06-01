@@ -55,6 +55,10 @@ namespace RM.Common.DotNetModel
     
         子券生成失败=219,
         已支付=220,
+        修改产品信息失败=221,
+        删除产品范围失败=222,
+        设定产品范围失败=223,
+
 
     }
     public enum Flag

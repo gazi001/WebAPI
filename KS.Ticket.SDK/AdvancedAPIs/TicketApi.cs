@@ -976,7 +976,74 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             return isSet;
 
         }
+        private static void SaveCatogory(List<CreateCategoryData> CreateCategoryData, string hotelcode, string num, string usercode, string pro_num, string dbid, int i, string sflg, string isbool, string Categoryid, string iscz)
+        {
+            var dbnameid = service.Setdbdata_json("", "", Categoryid, num, dbid, hotelcode);
+            if (dbnameid.IndexOf("success") > -1)
+            {
+                var cateint = int.Parse(Categoryid);
+                iticketdb.dbdata_t.Add(new dbdata_t
+                {
+                    CategoryId = cateint,
+                    dbnameid = int.Parse(hotelcode),
+                    hotelcode = hotelcode,
+                    num = int.Parse(num),
+                    oid = usercode,
+                });
+                iticketdb.Category_t.Add(new Category_t
+                {
+                    addtime = DateTime.Now,
+                    BeginString = "00",
+                    bgpic = "",
+                    Categorycode = CreateCategoryData[i].cate_code,
+                    CategoryId = cateint,
+                    CategoryName = CreateCategoryData[i].cate_name,
+                    CategoryNamebm = CreateCategoryData[i].cate_bm,
+                    dzpq = "1",
+                    endnum = int.Parse("00"),
+                    EndString = "00",
+                    ExpireDate = CreateCategoryData[i].cate_start_date.ToString(),
+                    ExpireDateend = (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(),
+                    flag = 0,
+                    fmoney = CreateCategoryData[i].cate_price == null ? decimal.Parse("0") : decimal.Parse(CreateCategoryData[i].cate_price),
+                    fnum = 0,
+                    hotelcode = hotelcode,
+                    HotelId = hotelcode,
+                    isbool = int.Parse(isbool),//未确定
+                    iscz = int.Parse(iscz),
+                    istest = 0,
+                    iswxly = 0,
+                    iszs = CreateCategoryData[i].iszs == null ? 1 : int.Parse(CreateCategoryData[i].iszs),
+                    maxNum = int.Parse(pro_num == "" ? "999999" : pro_num),
+                    moneytype = 0,
+                    pic = "",
+                    rate = 1,
+                    sflag = int.Parse(sflg),
+                    Summary = CreateCategoryData[i].cate_summary,
+                    type = 0,
+                });
+                var setcatefw = service.Setcategory_fw_pl_json("", "", Categoryid, CreateCategoryData[i].range, hotelcode);
+                var rangArr = CreateCategoryData[i].range.Split(',');
+                foreach (var item1 in rangArr)
+                {
+                    if (item1.ToString() != "")
+                    {
+                        if (!iticketdb.Category_fw_t.Any(x => x.hotelcode == hotelcode && x.CategoryId == cateint))
+                        {
+                            iticketdb.Category_fw_t.Add(new Category_fw_t
+                            {
+                                CategoryId = cateint,
+                                hotelcode = hotelcode,
+                                usehotelcode = item1.ToString(),
+                                addtime = DateTime.Now,
 
+                            });
+                        }
+                    }
+                }
+                iticketdb.SaveChanges();
+            }
+        }
         private static void SaveCategory(List<CreateCategoryData> CreateCategoryData, CreateFormulaData CreateFormulaData, SetdbnameResult dbname, int i, string sflg, string isbool, string Categoryid, string iscz)
         {
             var dbnameid = service.Setdbdata_json("", "", Categoryid, CreateFormulaData.data[i], dbname.id, CreateFormulaData.hotelcode);
@@ -1047,12 +1114,74 @@ namespace KS.Ticket.SDK.AdvancedAPIs
         }
         #endregion
         #region 产品修改
-        //public JsonReturn UpdateFormula(UpdateFormulaData data)
-        //{
+        public static JsonReturn UpdateFormula(UpdateFormulaData data)
+        {
+            var res = new JsonReturn() { code = ApiCode.成功, msg = "成功" };
+            var retformula = service.RetFormula_json(data.usercode, "", data.pro_name, data.summary==""?" ":data.summary, data.id, "00", data.price==""?"0":data.price, data.pro_num==""?"999999":data.pro_num, data.hotelcode);
+            if (retformula.IndexOf("success") > -1)
+            {
+                var delformulafw = service.DelFormula_fw_json(data.usercode, "", data.id, data.hotelcode);
+                if (delformulafw.IndexOf("success") > -1)
+                {
+                    var SetFormula_fw = service.SetFormula_fw_pl_json(data.usercode, "", data.id, data.hotelcode, data.pro_arr);
 
-
- 
-        //}
+                    int sum = 0;
+                    if (data.arr != null && data.arr.Count > 0)
+                    {
+                        var dbstr = service.Setdbname_json("", "", data.pro_name, data.id, data.hotelcode).Replace("(", "").Replace(")", "");
+                        for (int i = 0; i < data.arr.Count; i++)
+                        {
+                            var sflg = GetSflag(data.type, data.arr[i].cate_xz, data.arr[i].cate_type);
+                            var iscz = GetIscz(sflg);
+                            if (sflg == "4" || sflg == "5")
+                            {
+                                var isbool = GetIsBool(sflg, data.arr[i].isbool);
+                                var Categoryid = service.Setcategory_cz_json
+        ("", "", data.arr[i].cate_name, data.arr[i].cate_code, data.arr[i].cate_summary, data.hotelcode, "", "00", "00", data.pro_num == "" ? "999999" : data.pro_num, data.arr[i].cate_type, sflg, data.arr[i].cate_start_date.ToString(), (data.arr[i].cate_start_date + data.arr[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", data.arr[i].cate_bm, data.arr[i].cate_price, "0", data.arr[i].iszs, iscz, "");
+                                if (Categoryid != "")
+                                {
+                                    SaveCatogory(data.arr, data.hotelcode, data.data_new[i], data.usercode, data.pro_num, data.yformul[0].dbid, i, sflg, isbool, Categoryid, iscz);
+                                }
+                                else
+                                {
+                                    sum++;
+                                }
+                            }
+                            else
+                            {
+                                var isbool = GetIsBool(sflg, data.arr[i].isbool);
+                                var Categoryid = service.Setcategory_json("", "", data.arr[i].cate_name, data.arr[i].cate_code, data.arr[i].cate_summary, data.hotelcode, "", "00", "00", data.pro_num == "" ? "999999" : data.pro_num, data.arr[i].cate_type, sflg, data.arr[i].cate_start_date.ToString(), (data.arr[i].cate_start_date + data.arr[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", data.arr[i].cate_bm, data.arr[i].cate_price, "0", data.arr[i].iszs, iscz);
+                                if (Categoryid != "")
+                                {
+                                    SaveCatogory(data.arr, data.hotelcode, data.data_new[i], data.usercode, data.pro_num, data.yformul[0].dbid, i, sflg, isbool, Categoryid, iscz);
+                                }
+                                else
+                                {
+                                    sum++;
+                                }
+                            }
+                        }
+                        if (sum > 0)
+                        {
+                            res.code = ApiCode.子券定义失败;
+                            res.msg = "子券定义失败";
+                        }
+                    }
+                }
+                else
+                {
+                    res.code = ApiCode.删除产品范围失败;
+                    res.msg = "删除产品范围失败";
+                }
+            }
+            else
+            {
+                res.code = ApiCode.修改产品信息失败;
+                res.msg = "修改产品信息失败";
+            }
+            return res;
+         //   var Setlog_pl = service.Setlog_pl_json(data.usercode,data.usercode,"产品定义","FormulaName,FormulaSummary,fmoney,fnum,hotelcode",)
+        }
         #endregion
         #region 产品发行
         public static JsonReturn SetCRMTicketSn(SetCRMTicketSnModel data)

@@ -4,13 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cbde64dfe85a45a2803e86526a514b7c" Name="关系图1" ZoomLevel="41">
+      <Diagram DiagramId="cbde64dfe85a45a2803e86526a514b7c" Name="关系图1" ZoomLevel="62">
         <EntityTypeShape EntityType="MPDBModel.MemeberBalance" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MPDBModel.MPConfig" Width="1.5" PointX="6.6398337775095522" PointY="4.1887528021767517" />
         <EntityTypeShape EntityType="MPDBModel.HotelScene_t" Width="1.5" PointX="8.5103364067665943" PointY="13.626652366307868" />
         <EntityTypeShape EntityType="MPDBModel.TicketExpire_t" Width="1.5" PointX="5.284969794230987" PointY="12.667543968496632" />
         <EntityTypeShape EntityType="MPDBModel.PushMsgInfo" Width="1.5" PointX="1.5196959532423393" PointY="19.548711398406287" />
         <EntityTypeShape EntityType="MPDBModel.PrintTicket" Width="1.5" PointX="4.9384142909843547" PointY="9.25155953003632" />
+        <EntityTypeShape EntityType="MPDBModel.Countdown" Width="1.5" PointX="6.9214639640047508" PointY="31.439225151873764" />
+        <EntityTypeShape EntityType="MPDBModel.Coupon" Width="1.5" PointX="10.313385094661911" PointY="30.22189156628302" />
+        <EntityTypeShape EntityType="MPDBModel.Expire" Width="1.5" PointX="8.6760823450405535" PointY="19.630801254711486" />
+        <EntityTypeShape EntityType="MPDBModel.FunctionManagement" Width="1.5" PointX="3.373332678979883" PointY="9.0859467578520743" />
+        <EntityTypeShape EntityType="MPDBModel.Shoppingurl" Width="1.5" PointX="10.03496566323329" PointY="22.680653239917316" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
