@@ -48,7 +48,6 @@ namespace BLL.WebApi.Controllers
             jsonResult.code = ApiCode.成功;
             jsonResult.msg = "接口调用成功";
             return this.Json(jsonResult);
- 
         }
 
         #region 商城首页方法

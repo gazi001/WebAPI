@@ -179,6 +179,9 @@
     <Compile Include="Model\bindopenidlog.cs">
       <DependentUpon>Model2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Category_fw_t.cs">
+      <DependentUpon>Model3.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\CAVRecord_t.cs">
       <DependentUpon>Model3.tt</DependentUpon>
     </Compile>

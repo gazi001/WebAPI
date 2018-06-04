@@ -4,10 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="iticketModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="iticketModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="iticketModelStoreContainer">
+          <EntitySet Name="Category_fw_t" EntityType="iticketModel.Store.Category_fw_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CAVRecord_t" EntityType="iticketModel.Store.CAVRecord_t" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
+        <EntityType Name="Category_fw_t">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="hotelcode" Type="varchar" MaxLength="50" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="usehotelcode" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="CAVRecord_t">
           <Key>
             <PropertyRef Name="id" />
@@ -47,13 +58,13 @@
           <Property Name="rate" Type="money" />
           <Property Name="num" Type="int" />
         </EntityType>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="iticketModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="iticketEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="CAVRecord_t" EntityType="iticketModel.CAVRecord_t" />
+          <EntitySet Name="Category_fw_t" EntityType="iticketModel.Category_fw_t" />
         </EntityContainer>
         <EntityType Name="CAVRecord_t">
           <Key>
@@ -93,6 +104,16 @@
           <Property Name="realbosscard" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="rate" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="num" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Category_fw_t">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="CategoryId" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="addtime" Precision="3" />
+          <Property Type="String" Name="usehotelcode" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -137,6 +158,17 @@
                 <ScalarProperty Name="realbosscard" ColumnName="realbosscard" />
                 <ScalarProperty Name="rate" ColumnName="rate" />
                 <ScalarProperty Name="num" ColumnName="num" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category_fw_t">
+            <EntityTypeMapping TypeName="iticketModel.Category_fw_t">
+              <MappingFragment StoreEntitySet="Category_fw_t">
+                <ScalarProperty Name="usehotelcode" ColumnName="usehotelcode" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

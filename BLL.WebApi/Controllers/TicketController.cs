@@ -446,85 +446,1043 @@ namespace BLL.WebApi.Controllers
         /// <param name="data"></param>
         /// <returns></returns>
         /// [HttpPost]
-        public JsonResult CAVTicket(CAVTicketModel data)
+        public JsonResult CAVTicketNew(CAVTicketModel data)
         {
             Random ran = new Random();
             Double a=0;
-            var hy_xx = TicketApi.Querymember_json("","M",data.mobile);
-            var auth = new Auth_DBEntities();
-            var sceneobj= auth.ad_gd.FirstOrDefault(x => x.hotelcode == data.hotelcode && x.gdcode == data.gdcode);
+            var iticketdb = new iticketEntities();
+            var CategoryId = int.Parse(data.CategoryId);
+            var categroyfw = iticketdb.Category_fw_t.Where(x => x.hotelcode == data.hotelcode && x.CategoryId == CategoryId && x.usehotelcode == data.gdcode).ToList();
+            if (categroyfw != null && categroyfw.Count > 0)
+            {
 
-            var scene = sceneobj == null ? 0 :int.Parse( sceneobj.scene);
-             
-            var member= TicketApi.Getmember_bymobile("", "", data.grouptype, data.mobile);
+                var hy_xx = TicketApi.Querymember_json("", "M", data.mobile);
+                var auth = new Auth_DBEntities();
+                var sceneobj = auth.ad_gd.FirstOrDefault(x => x.hotelcode == data.hotelcode && x.gdcode == data.gdcode);
+
+
+                var scene = sceneobj == null ? 0 : int.Parse(sceneobj.scene);
+
+
+                var member = TicketApi.Getmember_bymobile("", "", data.grouptype, data.mobile);
+                if (hy_xx[0].name != null)
+                {
+                    var mobile = hy_xx[0].Mobile;
+                    if (data.type == "1")
+                    {
+                        #region
+                        try
+                        {
+                            using (var db = new MPDBEntities())
+                            {
+                                //var scene = int.Parse(scene);
+                                var sflag = int.Parse(data.sflag);
+                                var config = db.Coupons.Where(x => x.hotelcode == data.hotelcode && x.sceneID == scene && x.categoryId == sflag).FirstOrDefault();
+                                //var config = db.TicketExpire_t.Where(x => x.hotelcode == data.hotelcode).FirstOrDefault();
+                                //if (config != null)
+                                //{
+                                //    if (config.deadtime != "")
+                                //    {
+                                //        data.firstts = config.deadtime;
+                                //    }
+                                //    else
+                                //    {
+                                //        data.firstts = "1800";
+                                //    }
+                                //    if (config.spacetime != "")
+                                //    {
+                                //        a = Convert.ToDouble(config.spacetime);
+                                //    }
+                                //    else
+                                //    {
+                                //        a = 0;
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    data.firstts = "1800";
+                                //    a = 0;
+                                //}
+                                if (config != null)
+                                {
+                                    if (config.Invalid != 0)
+                                    {
+                                        data.firstts = config.Invalid.ToString();
+                                    }
+                                    else
+                                    {
+                                        data.firstts = "1800";
+                                    }
+                                    if (config.again != 0)
+                                    {
+                                        a = double.Parse(config.again.ToString());
+                                    }
+                                    else
+                                    {
+                                        a = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    data.firstts = "1800";
+                                    a = 0;
+                                }
+                            }
+                            data.jycode = DateTime.Now.ToString("yyyyMMddHHmmssffff") + ran.Next(1000, 9999);//唯一
+                            data.userdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+
+
+                            data.jycode = DateTime.Now.ToString("yyyyMMddHHmmssffff") + ran.Next(1000, 9999);//唯一
+                            data.userdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                            using (var dc = new iticketEntities())
+                            {
+                                var con = dc.CAVRecord_t.Where(x => x.hotelcode == data.hotelcode && x.scene == data.scene && x.categoryid == data.CategoryId && x.mobile == mobile && x.gdcode == data.gdcode).OrderByDescending(x => x.userdate).FirstOrDefault();
+
+                                if (con == null)
+                                {
+                                    var ls = TicketApi.CAVTicketFirstTS(data);
+
+                                    if (ls.IndexOf("success") > -1)
+                                    {
+
+                                        var da = new CAVRecord_t()
+                                        {
+                                            channel = data.channel,
+                                            time = data.time,
+                                            addname = data.addname,
+                                            categoryid = data.CategoryId,
+                                            deptcode = data.deptcode,
+                                            firstts = data.firstts,
+                                            fmoney = data.fmoney,
+                                            FormulaId = data.FormulaId,
+                                            gdcode = data.gdcode,
+                                            hotelcode = data.hotelcode,
+                                            hotelcodenew = data.hotelcodenew,
+                                            jycode = data.jycode,
+                                            no = data.no,
+                                            scene = sceneobj == null ? "0" : sceneobj.scene,
+                                            sflag = data.sflag,
+                                            ticketsn = data.ticketsn,
+                                            tmoney = data.tmoney,
+                                            tp_id = data.Tp_Id,
+                                            ts = data.ts,
+                                            usercode = data.usercode,
+                                            userdate = Convert.ToDateTime(data.userdate),
+                                            usertype = data.usertype,
+                                            xfcode = data.xfcode,
+                                            xftype = data.xftype,
+                                            addtime = DateTime.Now,
+                                            mobile = data.mobile,
+                                            categoryname = data.CategoryName,
+                                            formulaname = data.FormulaName,
+                                            username = hy_xx[0].name,
+                                            bosscard = hy_xx[0].CardNo,
+                                            realbosscard = hy_xx[0].realbosscard,
+                                            rate = data.rate,
+                                            num = data.num,
+                                        };
+                                        dc.CAVRecord_t.Add(da);
+                                        dc.SaveChanges();
+                                        string M = Regex.Replace(data.mobile, "(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+
+                                        var queryall = new QueryTicketAllModel();
+                                        queryall.user = "";
+                                        queryall.token = "";
+                                        queryall.hotelgroupid = "";
+                                        queryall.hotelcode = data.hotelcode;
+                                        queryall.mode = "m";
+                                        queryall.code = data.mobile;
+                                        var pricexx = TicketApi.Queryticketall_json(queryall);
+                                        if ((data.sflag == "1" || data.sflag == "2") && data.usertype == "0")
+                                        {
+
+                                            if (pricexx != null)
+                                            {
+                                                var dx = s.SendSameSms(data.mobile, "KK", "" + M + "," + data.tmoney + "," + pricexx[0].tmoney + "", "", data.hotelcode);
+                                            }
+                                        }
+                                        if (data.sflag == "8")
+                                        {
+                                            if (member.Count > 0)
+                                            {
+
+                                                if (sceneobj != null)
+                                                {
+                                                    CommonApi.SendXf(member[0].openid, "消费点", sceneobj.scenename, "会员卡号", hy_xx[0].realbosscard == "" ? hy_xx[0].CardNo : hy_xx[0].realbosscard, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
+                                                }
+                                            }
+                                        }
+                                        jsonResult.code = ApiCode.成功;
+                                        jsonResult.msg = ls;
+                                        jsonResult.data = da;
+                                    }
+                                    else
+                                    {
+                                        jsonResult.code = ApiCode.接口调用失败;
+                                        jsonResult.msg = "失败";
+
+                                    }
+                                }
+                                else
+                                {
+                                    DateTime dt1 = Convert.ToDateTime(con.userdate);
+                                    DateTime dt2 = DateTime.Now;
+                                    TimeSpan ts = dt1.Subtract(dt2).Duration();
+                                    Double douLen = ts.TotalSeconds;
+                                    if (douLen > a)
+                                    {
+                                        var ls = TicketApi.CAVTicketFirstTS(data);
+
+                                        if (ls.IndexOf("success") > -1)
+                                        {
+                                            var da = new CAVRecord_t()
+                                            {
+                                                channel = data.channel,
+                                                time = data.time,
+                                                addname = data.addname,
+                                                categoryid = data.CategoryId,
+                                                deptcode = data.deptcode,
+                                                firstts = data.firstts,
+                                                fmoney = data.fmoney,
+                                                FormulaId = data.FormulaId,
+                                                gdcode = data.gdcode,
+                                                hotelcode = data.hotelcode,
+                                                hotelcodenew = data.hotelcodenew,
+                                                jycode = data.jycode,
+                                                no = data.no,
+                                                scene = sceneobj == null ? "0" : sceneobj.scene,
+                                                sflag = data.sflag,
+                                                ticketsn = data.ticketsn,
+                                                tmoney = data.tmoney,
+                                                tp_id = data.Tp_Id,
+                                                ts = data.ts,
+                                                usercode = data.usercode,
+                                                userdate = Convert.ToDateTime(data.userdate),
+                                                usertype = data.usertype,
+                                                xfcode = data.xfcode,
+                                                xftype = data.xftype,
+                                                addtime = DateTime.Now,
+                                                mobile = data.mobile,
+                                                categoryname = data.CategoryName,
+                                                formulaname = data.FormulaName,
+                                                username = hy_xx[0].name,
+                                                bosscard = hy_xx[0].CardNo,
+                                                realbosscard = hy_xx[0].realbosscard,
+                                                rate = data.rate,
+                                                num = data.num,
+                                            };
+                                            dc.CAVRecord_t.Add(da);
+                                            dc.SaveChanges();
+                                            string M = Regex.Replace(data.mobile, "(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+
+                                            var queryall = new QueryTicketAllModel();
+                                            queryall.user = "";
+                                            queryall.token = "";
+                                            queryall.hotelgroupid = "";
+                                            queryall.hotelcode = data.hotelcode;
+                                            queryall.mode = "m";
+                                            queryall.code = data.mobile;
+                                            var pricexx = TicketApi.Queryticketall_json(queryall);
+                                            if ((data.sflag == "1" || data.sflag == "2") && data.usertype == "0")
+                                            {
+
+                                                if (pricexx != null)
+                                                {
+                                                    var dx = s.SendSameSms(data.mobile, "KK", "" + M + "," + data.tmoney + "," + pricexx[0].tmoney + "", "", data.hotelcode);
+                                                }
+                                            }
+                                            if (data.sflag == "8")
+                                            {
+                                                if (member.Count > 0)
+                                                {
+
+
+                                                    if (sceneobj != null)
+                                                    {
+                                                        CommonApi.SendXf(member[0].openid, "消费点", sceneobj.scenename, "会员卡号", hy_xx[0].realbosscard == "" ? hy_xx[0].CardNo : hy_xx[0].realbosscard, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
+                                                    }
+                                                }
+                                            }
+                                            jsonResult.code = ApiCode.成功;
+                                            jsonResult.msg = ls;
+                                            jsonResult.data = da;
+                                        }
+                                        else
+                                        {
+                                            jsonResult.code = ApiCode.接口调用失败;
+                                            jsonResult.msg = "失败";
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        jsonResult.code = ApiCode.程序异常;
+                                        jsonResult.msg = "间隔时间未到";
+                                    }
+                                }
+
+                            }
+
+                        }
+                        catch
+                        {
+                            jsonResult.code = ApiCode.程序异常;
+                            jsonResult.msg = "程序异常";
+                        }
+                        #endregion
+                    }
+                    else if (data.type == "2")//核销
+                    {
+                        #region
+                        try
+                        {
+                            using (var db = new MPDBEntities())
+                            {
+                                //var scene = int.Parse(scene);
+                                var sflag = int.Parse(data.sflag);
+                                var config = db.Coupons.Where(x => x.hotelcode == data.hotelcode && x.sceneID == scene && x.categoryId == sflag).FirstOrDefault();
+                                //var config = db.TicketExpire_t.Where(x => x.hotelcode == data.hotelcode).FirstOrDefault();
+                                //if (config != null)
+                                //{
+                                //    if (config.deadtime != "")
+                                //    {
+                                //        data.firstts = config.deadtime;
+                                //    }
+                                //    else
+                                //    {
+                                //        data.firstts = "1800";
+                                //    }
+                                //    if (config.spacetime != "")
+                                //    {
+                                //        a = Convert.ToDouble(config.spacetime);
+                                //    }
+                                //    else
+                                //    {
+                                //        a = 0;
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    data.firstts = "1800";
+                                //    a = 0;
+                                //}
+                                if (config != null)
+                                {
+                                    if (config.Invalid != 0)
+                                    {
+                                        data.firstts = config.Invalid.ToString();
+                                    }
+                                    else
+                                    {
+                                        data.firstts = "1800";
+                                    }
+                                    if (config.again != 0)
+                                    {
+                                        a = double.Parse(config.again.ToString());
+                                    }
+                                    else
+                                    {
+                                        a = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    data.firstts = "1800";
+                                    a = 0;
+                                }
+                            }
+                            data.jycode = DateTime.Now.ToString("yyyyMMddHHmmssffff") + ran.Next(1000, 9999);//唯一
+                            data.userdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                            using (var dc = new iticketEntities())
+                            {
+                                var con = dc.CAVRecord_t.Where(x => x.hotelcode == data.hotelcode && x.scene == data.scene && x.categoryid == data.CategoryId && x.mobile == data.mobile).OrderByDescending(x => x.userdate).FirstOrDefault();
+
+                                if (con == null)
+                                {
+                                    var ls = TicketApi.CAVTicketNow(data);
+
+                                    if (ls.IndexOf("success") > -1)
+                                    {
+                                        var da = new CAVRecord_t()
+                                        {
+                                            channel = data.channel,
+                                            time = data.time,
+                                            addname = data.addname,
+                                            categoryid = data.CategoryId,
+                                            deptcode = data.deptcode,
+                                            firstts = data.firstts,
+                                            fmoney = data.fmoney,
+                                            FormulaId = data.FormulaId,
+                                            gdcode = data.gdcode,
+                                            hotelcode = data.hotelcode,
+                                            hotelcodenew = data.hotelcodenew,
+                                            jycode = data.jycode,
+                                            no = data.no,
+                                            scene = sceneobj == null ? "0" : sceneobj.scene,
+                                            sflag = data.sflag,
+                                            ticketsn = data.ticketsn,
+                                            tmoney = data.tmoney,
+                                            tp_id = data.Tp_Id,
+                                            ts = data.ts,
+                                            usercode = data.usercode,
+                                            userdate = Convert.ToDateTime(data.userdate),
+                                            usertype = data.usertype,
+                                            xfcode = data.xfcode,
+                                            xftype = data.xftype,
+                                            addtime = DateTime.Now,
+                                            mobile = data.mobile,
+                                            categoryname = data.CategoryName,
+                                            formulaname = data.FormulaName,
+                                            username = hy_xx[0].name,
+                                            bosscard = hy_xx[0].CardNo,
+                                            realbosscard = hy_xx[0].realbosscard,
+                                            rate = data.rate,
+                                            num = data.num
+                                        };
+                                        dc.CAVRecord_t.Add(da);
+                                        dc.SaveChanges();
+                                        //        // var MPDB = new MPDBEntities();
+                                        //        // var hotelInfo = MPDB.MPConfigs.Where(x => x.ShopCode == data.hotelcode).FirstOrDefault();
+
+                                        //        //var openid = TicketApi.Getmember_bymobile("", "", hotelInfo.YQTHotelgrouptype, data.mobile);
+                                        //        //if(openid.Count>0)
+                                        //        //{
+                                        //        //    var res=WxHelper.SendTemplateMsg(data.hotelcode, openid[0].openid, data.CategoryName, "1");
+                                        //        //}
+                                        jsonResult.code = ApiCode.成功;
+                                        jsonResult.msg = ls;
+                                        jsonResult.data = da;
+                                        if (member.Count > 0)
+                                        {
+                                            CommonApi.SendConsume(member[0].openid, "消费点", data.CategoryName, "1", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
+                                        }
+                                        RedisHelper.pushMsg(hy_xx[0], data);
+                                    }
+                                    else
+                                    {
+                                        jsonResult.code = ApiCode.接口调用失败;
+                                        jsonResult.msg = "失败";
+                                    }
+                                }
+                                else
+                                {
+                                    DateTime dt1 = Convert.ToDateTime(con.userdate);
+                                    DateTime dt2 = DateTime.Now;
+                                    TimeSpan ts = dt1.Subtract(dt2).Duration();
+                                    Double douLen = ts.TotalSeconds;
+                                    if (douLen > a)
+                                    {
+                                        var ls = TicketApi.CAVTicketNow(data);
+                                        if (ls.IndexOf("success") > -1)
+                                        {
+                                            var da = new CAVRecord_t()
+                                            {
+                                                channel = data.channel,
+                                                time = data.time,
+                                                addname = data.addname,
+                                                categoryid = data.CategoryId,
+                                                deptcode = data.deptcode,
+                                                firstts = data.firstts,
+                                                fmoney = data.fmoney,
+                                                FormulaId = data.FormulaId,
+                                                gdcode = data.gdcode,
+                                                hotelcode = data.hotelcode,
+                                                hotelcodenew = data.hotelcodenew,
+                                                jycode = data.jycode,
+                                                no = data.no,
+                                                scene = sceneobj == null ? "0" : sceneobj.scene,
+                                                sflag = data.sflag,
+                                                ticketsn = data.ticketsn,
+                                                tmoney = data.tmoney,
+                                                tp_id = data.Tp_Id,
+                                                ts = data.ts,
+                                                usercode = data.usercode,
+                                                userdate = Convert.ToDateTime(data.userdate),
+                                                usertype = data.usertype,
+                                                xfcode = data.xfcode,
+                                                xftype = data.xftype,
+                                                addtime = DateTime.Now,
+                                                mobile = data.mobile,
+                                                categoryname = data.CategoryName,
+                                                formulaname = data.FormulaName,
+                                                username = hy_xx[0].name,
+                                                bosscard = hy_xx[0].CardNo,
+                                                realbosscard = hy_xx[0].realbosscard,
+                                                rate = data.rate,
+                                                num = data.num
+                                            };
+                                            dc.CAVRecord_t.Add(da);
+                                            dc.SaveChanges();
+                                            jsonResult.code = ApiCode.成功;
+                                            jsonResult.msg = ls;
+                                            jsonResult.data = da;
+                                        }
+                                        else
+                                        {
+                                            jsonResult.code = ApiCode.接口调用失败;
+                                            jsonResult.msg = "失败";
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        jsonResult.code = ApiCode.程序异常;
+                                        jsonResult.msg = "间隔时间未到";
+                                    }
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            jsonResult.code = ApiCode.程序异常;
+                            jsonResult.msg = "程序异常";
+                        }
+                        #endregion
+                    }
+                    else if (data.type == "3")
+                    {
+                        #region
+                        try
+                        {
+
+                            data.jycode = DateTime.Now.ToString("yyyyMMddHHmmssffff") + ran.Next(1000, 9999);//唯一
+                            data.userdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                            using (var dc = new iticketEntities())
+                            {
+                                var con = dc.CAVRecord_t.Where(x => x.hotelcode == data.hotelcode && x.scene == data.scene && x.categoryid == data.CategoryId && x.mobile == data.mobile).OrderByDescending(x => x.userdate).FirstOrDefault();
+                                if (con == null)
+                                {
+                                    var ls = TicketApi.CAVTicketNoFirstTS(data);
+                                    if (ls.IndexOf("success") > -1)
+                                    {
+
+                                        var da = new CAVRecord_t()
+                                        {
+                                            channel = data.channel,
+                                            time = data.time,
+                                            addname = data.addname,
+                                            categoryid = data.CategoryId,
+                                            deptcode = data.deptcode,
+                                            firstts = data.firstts,
+                                            fmoney = data.fmoney,
+                                            FormulaId = data.FormulaId,
+                                            gdcode = data.gdcode,
+                                            hotelcode = data.hotelcode,
+                                            hotelcodenew = data.hotelcodenew,
+                                            jycode = data.jycode,
+                                            no = data.no,
+                                            scene = sceneobj == null ? "0" : sceneobj.scene,
+                                            sflag = data.sflag,
+                                            ticketsn = data.ticketsn,
+                                            tmoney = data.tmoney,
+                                            tp_id = data.Tp_Id,
+                                            ts = data.ts,
+                                            usercode = data.usercode,
+                                            userdate = Convert.ToDateTime(data.userdate),
+                                            usertype = data.usertype,
+                                            xfcode = data.xfcode,
+                                            xftype = data.xftype,
+                                            addtime = DateTime.Now,
+                                            mobile = data.mobile,
+                                            categoryname = data.CategoryName,
+                                            formulaname = data.FormulaName,
+                                            username = hy_xx[0].name,
+                                            bosscard = hy_xx[0].CardNo,
+                                            realbosscard = hy_xx[0].realbosscard,
+                                            rate = data.rate,
+                                            num = data.num
+                                        };
+                                        dc.CAVRecord_t.Add(da);
+                                        dc.SaveChanges();
+                                        string M = Regex.Replace(data.mobile, "(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+
+                                        var queryall = new QueryTicketAllModel();
+                                        queryall.user = "";
+                                        queryall.token = "";
+                                        queryall.hotelgroupid = "";
+                                        queryall.hotelcode = data.hotelcode;
+                                        queryall.mode = "m";
+                                        queryall.code = data.mobile;
+                                        var pricexx = TicketApi.Queryticketall_json(queryall);
+                                        if ((data.sflag == "1" || data.sflag == "2") && data.usertype == "0")
+                                        {
+                                            if (pricexx != null)
+                                            {
+                                                var dx = s.SendSameSms(data.mobile, "KK", "" + M + "," + data.tmoney + "," + pricexx[0].tmoney + "", "", data.hotelcode);
+                                            }
+                                        }
+                                        if (data.sflag == "8")
+                                        {
+                                            if (member.Count > 0)
+                                            {
+                                                // var db = new MPDBEntities();
+                                                //CommonApi.SendXf(member[0].openid,"",pricexx[0].)
+
+                                                if (sceneobj != null)
+                                                {
+                                                    CommonApi.SendXf(member[0].openid, "消费点", sceneobj.scenename, "会员卡号", hy_xx[0].realbosscard == "" ? hy_xx[0].CardNo : hy_xx[0].realbosscard, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
+                                                }
+                                            }
+                                        }
+                                        jsonResult.code = ApiCode.成功;
+                                        jsonResult.msg = ls;
+                                        jsonResult.data = da;
+                                    }
+                                    else
+                                    {
+                                        jsonResult.code = ApiCode.接口调用失败;
+                                        jsonResult.msg = "失败";
+                                    }
+                                }
+                                else
+                                {
+                                    DateTime dt1 = Convert.ToDateTime(con.userdate);
+                                    DateTime dt2 = DateTime.Now;
+                                    TimeSpan ts = dt1.Subtract(dt2).Duration();
+                                    Double douLen = ts.TotalSeconds;
+                                    if (douLen > a)
+                                    {
+                                        var ls = TicketApi.CAVTicketNoFirstTS(data);
+                                        if (ls.IndexOf("success") > -1)
+                                        {
+
+                                            var da = new CAVRecord_t()
+                                            {
+                                                channel = data.channel,
+                                                time = data.time,
+                                                addname = data.addname,
+                                                categoryid = data.CategoryId,
+                                                deptcode = data.deptcode,
+                                                firstts = data.firstts,
+                                                fmoney = data.fmoney,
+                                                FormulaId = data.FormulaId,
+                                                gdcode = data.gdcode,
+                                                hotelcode = data.hotelcode,
+                                                hotelcodenew = data.hotelcodenew,
+                                                jycode = data.jycode,
+                                                no = data.no,
+                                                scene = sceneobj == null ? "0" : sceneobj.scene,
+                                                sflag = data.sflag,
+                                                ticketsn = data.ticketsn,
+                                                tmoney = data.tmoney,
+                                                tp_id = data.Tp_Id,
+                                                ts = data.ts,
+                                                usercode = data.usercode,
+                                                userdate = Convert.ToDateTime(data.userdate),
+                                                usertype = data.usertype,
+                                                xfcode = data.xfcode,
+                                                xftype = data.xftype,
+                                                addtime = DateTime.Now,
+                                                mobile = data.mobile,
+                                                categoryname = data.CategoryName,
+                                                formulaname = data.FormulaName,
+                                                username = hy_xx[0].name,
+                                                bosscard = hy_xx[0].CardNo,
+                                                realbosscard = hy_xx[0].realbosscard,
+                                                rate = data.rate,
+                                                num = data.num
+                                            };
+                                            dc.CAVRecord_t.Add(da);
+                                            dc.SaveChanges();
+                                            string M = Regex.Replace(data.mobile, "(\\d{3})\\d{4}(\\d{4})", "$1****$2");
+
+                                            var queryall = new QueryTicketAllModel();
+                                            queryall.user = "";
+                                            queryall.token = "";
+                                            queryall.hotelgroupid = "";
+                                            queryall.hotelcode = data.hotelcode;
+                                            queryall.mode = "m";
+                                            queryall.code = data.mobile;
+                                            var pricexx = TicketApi.Queryticketall_json(queryall);
+                                            if ((data.sflag == "1" || data.sflag == "2") && data.usertype == "0")
+                                            {
+                                                if (pricexx != null)
+                                                {
+                                                    var dx = s.SendSameSms(data.mobile, "KK", "" + M + "," + data.tmoney + "," + pricexx[0].tmoney + "", "", data.hotelcode);
+                                                }
+                                            }
+                                            if (data.sflag == "8")
+                                            {
+                                                if (member.Count > 0)
+                                                {
+
+                                                    if (sceneobj != null)
+                                                    {
+                                                        CommonApi.SendXf(member[0].openid, "消费点", sceneobj.scenename, "会员卡号", hy_xx[0].realbosscard == "" ? hy_xx[0].CardNo : hy_xx[0].realbosscard, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
+                                                    }
+                                                }
+                                            }
+                                            jsonResult.code = ApiCode.成功;
+                                            jsonResult.msg = ls;
+                                            jsonResult.data = da;
+                                        }
+                                        else
+                                        {
+                                            jsonResult.code = ApiCode.接口调用失败;
+                                            jsonResult.msg = "失败";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        jsonResult.code = ApiCode.程序异常;
+                                        jsonResult.msg = "间隔时间未到";
+                                    }
+
+                                }
+                            }
+
+                        }
+                        catch
+                        {
+                            jsonResult.code = ApiCode.程序异常;
+                            jsonResult.msg = "程序异常";
+                        }
+                        #endregion
+                    }
+                    else if (data.type == "4")
+                    {
+                        #region
+                        try
+                        {
+                            using (var db = new MPDBEntities())
+                            {
+                                //var scene = int.Parse(scene);
+                                var sflag = int.Parse(data.sflag);
+                                var config = db.Coupons.Where(x => x.hotelcode == data.hotelcode && x.sceneID == scene && x.categoryId == sflag).FirstOrDefault();
+                                //var config = db.TicketExpire_t.Where(x => x.hotelcode == data.hotelcode).FirstOrDefault();
+                                //if (config != null)
+                                //{
+                                //    if (config.deadtime != "")
+                                //    {
+                                //        data.firstts = config.deadtime;
+                                //    }
+                                //    else
+                                //    {
+                                //        data.firstts = "1800";
+                                //    }
+                                //    if (config.spacetime != "")
+                                //    {
+                                //        a = Convert.ToDouble(config.spacetime);
+                                //    }
+                                //    else
+                                //    {
+                                //        a = 0;
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    data.firstts = "1800";
+                                //    a = 0;
+                                //}
+                                if (config != null)
+                                {
+                                    if (config.Invalid != 0)
+                                    {
+                                        data.firstts = config.Invalid.ToString();
+                                    }
+                                    else
+                                    {
+                                        data.firstts = "1800";
+                                    }
+                                    if (config.again != 0)
+                                    {
+                                        a = double.Parse(config.again.ToString());
+                                    }
+                                    else
+                                    {
+                                        a = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    data.firstts = "1800";
+                                    a = 0;
+                                }
+                            }
+                            data.jycode = DateTime.Now.ToString("yyyyMMddHHmmssffff") + ran.Next(1000, 9999);//唯一
+                            data.userdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                            using (var dc = new iticketEntities())
+                            {
+                                var con = dc.CAVRecord_t.Where(x => x.hotelcode == data.hotelcode && x.scene == data.scene && x.categoryid == data.CategoryId && x.mobile == mobile).OrderByDescending(x => x.userdate).FirstOrDefault();
+
+                                if (con == null)
+                                {
+                                    var ls = TicketApi.CAVTicketChnnel(data);
+                                    if (ls.IndexOf("success") > -1)
+                                    {
+                                        var da = new CAVRecord_t()
+                                        {
+                                            channel = data.channel,
+                                            time = data.time,
+                                            addname = data.addname,
+                                            categoryid = data.CategoryId,
+                                            deptcode = data.deptcode,
+                                            firstts = data.firstts,
+                                            fmoney = data.fmoney,
+                                            FormulaId = data.FormulaId,
+                                            gdcode = data.gdcode,
+                                            hotelcode = data.hotelcode,
+                                            hotelcodenew = data.hotelcodenew,
+                                            jycode = data.jycode,
+                                            no = data.no,
+                                            scene = sceneobj == null ? "0" : sceneobj.scene,
+                                            sflag = data.sflag,
+                                            ticketsn = data.ticketsn,
+                                            tmoney = data.tmoney,
+                                            tp_id = data.Tp_Id,
+                                            ts = data.ts,
+                                            usercode = data.usercode,
+                                            userdate = Convert.ToDateTime(data.userdate),
+                                            usertype = data.usertype,
+                                            xfcode = data.xfcode,
+                                            xftype = data.xftype,
+                                            addtime = DateTime.Now,
+                                            mobile = data.mobile,
+                                            categoryname = data.CategoryName,
+                                            formulaname = data.FormulaName,
+                                            username = hy_xx[0].name,
+                                            bosscard = hy_xx[0].CardNo,
+                                            realbosscard = hy_xx[0].realbosscard,
+                                            rate = data.rate,
+                                            num = data.num
+                                        };
+                                        dc.CAVRecord_t.Add(da);
+                                        dc.SaveChanges();
+                                        jsonResult.code = ApiCode.成功;
+                                        jsonResult.msg = ls;
+                                        jsonResult.data = da;
+                                    }
+                                    else
+                                    {
+                                        jsonResult.code = ApiCode.接口调用失败;
+                                        jsonResult.msg = "失败";
+                                    }
+                                }
+                                else
+                                {
+                                    DateTime dt1 = Convert.ToDateTime(con.userdate);
+                                    DateTime dt2 = DateTime.Now;
+                                    TimeSpan ts = dt1.Subtract(dt2).Duration();
+                                    Double douLen = ts.TotalSeconds;
+                                    if (douLen > a)
+                                    {
+                                        var ls = TicketApi.CAVTicketChnnel(data);
+
+                                        if (ls.IndexOf("false") == -1)
+                                        {
+                                            var da = new CAVRecord_t()
+                                            {
+                                                channel = data.channel,
+                                                time = data.time,
+                                                addname = data.addname,
+                                                categoryid = data.CategoryId,
+                                                deptcode = data.deptcode,
+                                                firstts = data.firstts,
+                                                fmoney = data.fmoney,
+                                                FormulaId = data.FormulaId,
+                                                gdcode = data.gdcode,
+                                                hotelcode = data.hotelcode,
+                                                hotelcodenew = data.hotelcodenew,
+                                                jycode = data.jycode,
+                                                no = data.no,
+                                                scene = sceneobj == null ? "0" : sceneobj.scene,
+                                                sflag = data.sflag,
+                                                ticketsn = data.ticketsn,
+                                                tmoney = data.tmoney,
+                                                tp_id = data.Tp_Id,
+                                                ts = data.ts,
+                                                usercode = data.usercode,
+                                                userdate = Convert.ToDateTime(data.userdate),
+                                                usertype = data.usertype,
+                                                xfcode = data.xfcode,
+                                                xftype = data.xftype,
+                                                addtime = DateTime.Now,
+                                                mobile = data.mobile,
+                                                categoryname = data.CategoryName,
+                                                formulaname = data.FormulaName,
+                                                username = hy_xx[0].name,
+                                                bosscard = hy_xx[0].CardNo,
+                                                realbosscard = hy_xx[0].realbosscard,
+                                                rate = data.rate,
+                                                num = data.num
+                                            };
+                                            dc.CAVRecord_t.Add(da);
+                                            dc.SaveChanges();
+                                            jsonResult.code = ApiCode.成功;
+                                            jsonResult.msg = ls;
+                                            jsonResult.data = da;
+                                        }
+                                        else
+                                        {
+                                            jsonResult.code = ApiCode.接口调用失败;
+                                            jsonResult.msg = "失败";
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        jsonResult.code = ApiCode.程序异常;
+                                        jsonResult.msg = "间隔时间未到";
+                                    }
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            jsonResult.code = ApiCode.程序异常;
+                            jsonResult.msg = "程序异常";
+                        }
+                        #endregion
+                    }
+                    else if (data.type == "5")
+                    {
+                        #region
+                        try
+                        {
+
+                            data.jycode = DateTime.Now.ToString("yyyyMMddHHmmssffff") + ran.Next(1000, 9999);//唯一
+                            data.userdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                            using (var dc = new iticketEntities())
+                            {
+                                var ls = TicketApi.CAVTicket(data);
+
+                                if (ls.IndexOf("success") > -1)
+                                {
+
+                                    var da = new CAVRecord_t()
+                                    {
+                                        channel = data.channel,
+                                        time = data.time,
+                                        addname = data.addname,
+                                        categoryid = data.CategoryId,
+                                        deptcode = data.deptcode,
+                                        firstts = data.firstts,
+                                        fmoney = data.fmoney,
+                                        FormulaId = data.FormulaId,
+                                        gdcode = data.gdcode,
+                                        hotelcode = data.hotelcode,
+                                        hotelcodenew = data.hotelcodenew,
+                                        jycode = data.jycode,
+                                        no = data.no,
+                                        scene = sceneobj == null ? "0" : sceneobj.scene,
+                                        sflag = data.sflag,
+                                        ticketsn = data.ticketsn,
+                                        tmoney = data.tmoney,
+                                        tp_id = data.Tp_Id,
+                                        ts = data.ts,
+                                        usercode = data.usercode,
+                                        userdate = Convert.ToDateTime(data.userdate),
+                                        usertype = data.usertype,
+                                        xfcode = data.xfcode,
+                                        xftype = data.xftype,
+                                        addtime = DateTime.Now,
+                                        mobile = data.mobile,
+                                        categoryname = data.CategoryName,
+                                        formulaname = data.FormulaName,
+                                        username = hy_xx[0].name,
+                                        bosscard = hy_xx[0].CardNo,
+                                        realbosscard = hy_xx[0].realbosscard,
+                                        rate = data.rate,
+                                        num = data.num
+                                    };
+                                    dc.CAVRecord_t.Add(da);
+                                    dc.SaveChanges();
+                                    jsonResult.code = ApiCode.成功;
+                                    jsonResult.msg = ls;
+                                    jsonResult.data = da;
+                                }
+                                else
+                                {
+                                    jsonResult.code = ApiCode.接口调用失败;
+                                    jsonResult.msg = "失败";
+                                }
+                            }
+
+                        }
+                        catch
+                        {
+                            jsonResult.code = ApiCode.程序异常;
+                            jsonResult.msg = "程序异常";
+                        }
+                        #endregion
+                    }
+                    else
+                    {
+                        jsonResult.code = ApiCode.程序异常;
+                        jsonResult.msg = "程序异常";
+                    }
+                }
+                else
+                {
+                    jsonResult.code = ApiCode.非会员;
+                    jsonResult.msg = "未找到会员信息";
+                }
+            }
+            else
+            {
+                jsonResult.code = ApiCode.该岗点不可使用;
+                jsonResult.msg = "该岗点不可使用";
+            }
+            return this.MyJson(jsonResult, "yyyy-MM-dd HH:mm:ss");
+        }
+
+        /// <summary>
+        /// 核销扣款
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        /// [HttpPost]
+        public JsonResult CAVTicket(CAVTicketModel data)
+        {
+            Random ran = new Random();
+            Double a = 0;
+            var hy_xx = TicketApi.Querymember_json("", "M", data.mobile);
+
+            var member = TicketApi.Getmember_bymobile("", "", data.grouptype, data.mobile);
             if (hy_xx[0].name != null)
             {
-                var mobile =hy_xx[0].Mobile;
+                var mobile = hy_xx[0].Mobile;
                 if (data.type == "1")
                 {
                     #region
                     try
                     {
-                        using (var db = new MPDBEntities())
+                        var db = new MPDBEntities();
+
+                        var config = db.TicketExpire_t.Where(x => x.hotelcode == data.hotelcode).FirstOrDefault();
+                        if (config != null)
                         {
-                            //var scene = int.Parse(scene);
-                            var sflag = int.Parse(data.sflag);
-                            var config = db.Coupons.Where(x => x.hotelcode == data.hotelcode && x.sceneID == scene && x.categoryId == sflag).FirstOrDefault();
-                            //var config = db.TicketExpire_t.Where(x => x.hotelcode == data.hotelcode).FirstOrDefault();
-                            //if (config != null)
-                            //{
-                            //    if (config.deadtime != "")
-                            //    {
-                            //        data.firstts = config.deadtime;
-                            //    }
-                            //    else
-                            //    {
-                            //        data.firstts = "1800";
-                            //    }
-                            //    if (config.spacetime != "")
-                            //    {
-                            //        a = Convert.ToDouble(config.spacetime);
-                            //    }
-                            //    else
-                            //    {
-                            //        a = 0;
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    data.firstts = "1800";
-                            //    a = 0;
-                            //}
-                            if (config != null)
+                            if (config.deadtime != "")
                             {
-                                if (config.Invalid != 0)
-                                {
-                                    data.firstts = config.Invalid.ToString();
-                                }
-                                else
-                                {
-                                    data.firstts = "1800";
-                                }
-                                if (config.again != 0)
-                                {
-                                    a = double.Parse(config.again.ToString());
-                                }
-                                else
-                                {
-                                    a = 0;
-                                }
+                                data.firstts = config.deadtime;
                             }
                             else
                             {
                                 data.firstts = "1800";
+                            }
+
+
+                            if (config.spacetime != "")
+                            {
+                                a = Convert.ToDouble(config.spacetime);
+                            }
+                            else
+                            {
                                 a = 0;
                             }
                         }
-                        data.jycode = DateTime.Now.ToString("yyyyMMddHHmmssffff") + ran.Next(1000, 9999);//唯一
-                        data.userdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        else
+                        {
+                            data.firstts = "1800";
+                            a = 0;
+                        }
 
 
-                        
                         data.jycode = DateTime.Now.ToString("yyyyMMddHHmmssffff") + ran.Next(1000, 9999);//唯一
                         data.userdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         using (var dc = new iticketEntities())
@@ -560,7 +1518,7 @@ namespace BLL.WebApi.Controllers
                                         tp_id = data.Tp_Id,
                                         ts = data.ts,
                                         usercode = data.usercode,
-                                        userdate = Convert.ToDateTime(data.userdate), 
+                                        userdate = Convert.ToDateTime(data.userdate),
                                         usertype = data.usertype,
                                         xfcode = data.xfcode,
                                         xftype = data.xftype,
@@ -568,11 +1526,11 @@ namespace BLL.WebApi.Controllers
                                         mobile = data.mobile,
                                         categoryname = data.CategoryName,
                                         formulaname = data.FormulaName,
-                                        username=hy_xx[0].name,
-                                        bosscard=hy_xx[0].CardNo,
-                                        realbosscard=hy_xx[0].realbosscard,
-                                        rate=data.rate,
-                                        num=data.num,
+                                        username = hy_xx[0].name,
+                                        bosscard = hy_xx[0].CardNo,
+                                        realbosscard = hy_xx[0].realbosscard,
+                                        rate = data.rate,
+                                        num = data.num,
                                     };
                                     dc.CAVRecord_t.Add(da);
                                     dc.SaveChanges();
@@ -588,7 +1546,7 @@ namespace BLL.WebApi.Controllers
                                     var pricexx = TicketApi.Queryticketall_json(queryall);
                                     if ((data.sflag == "1" || data.sflag == "2") && data.usertype == "0")
                                     {
-                                        
+
                                         if (pricexx != null)
                                         {
                                             var dx = s.SendSameSms(data.mobile, "KK", "" + M + "," + data.tmoney + "," + pricexx[0].tmoney + "", "", data.hotelcode);
@@ -598,10 +1556,11 @@ namespace BLL.WebApi.Controllers
                                     {
                                         if (member.Count > 0)
                                         {
-
-                                            if (sceneobj != null)
+                                            var id = int.Parse(data.scene);
+                                            var scene = db.HotelScene_t.FirstOrDefault(x => x.id == id);
+                                            if (scene != null)
                                             {
-                                                CommonApi.SendXf(member[0].openid, "消费点", sceneobj.scenename, "会员卡号", hy_xx[0].realbosscard == "" ? hy_xx[0].CardNo : hy_xx[0].realbosscard, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
+                                                CommonApi.SendXf(member[0].openid, "消费点", scene.scenename, "会员卡号", hy_xx[0].realbosscard == "" ? hy_xx[0].CardNo : hy_xx[0].realbosscard, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
                                             }
                                         }
                                     }
@@ -662,7 +1621,7 @@ namespace BLL.WebApi.Controllers
                                             bosscard = hy_xx[0].CardNo,
                                             realbosscard = hy_xx[0].realbosscard,
                                             rate = data.rate,
-                                            num=data.num,
+                                            num = data.num,
                                         };
                                         dc.CAVRecord_t.Add(da);
                                         dc.SaveChanges();
@@ -678,7 +1637,7 @@ namespace BLL.WebApi.Controllers
                                         var pricexx = TicketApi.Queryticketall_json(queryall);
                                         if ((data.sflag == "1" || data.sflag == "2") && data.usertype == "0")
                                         {
-                                           
+
                                             if (pricexx != null)
                                             {
                                                 var dx = s.SendSameSms(data.mobile, "KK", "" + M + "," + data.tmoney + "," + pricexx[0].tmoney + "", "", data.hotelcode);
@@ -688,11 +1647,11 @@ namespace BLL.WebApi.Controllers
                                         {
                                             if (member.Count > 0)
                                             {
-
-                                               
-                                                if (sceneobj != null)
+                                                var id = int.Parse(data.scene);
+                                                var scene = db.HotelScene_t.FirstOrDefault(x => x.id == id);
+                                                if (scene != null)
                                                 {
-                                                    CommonApi.SendXf(member[0].openid, "消费点", sceneobj.scenename, "会员卡号", hy_xx[0].realbosscard == "" ? hy_xx[0].CardNo : hy_xx[0].realbosscard, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
+                                                    CommonApi.SendXf(member[0].openid, "消费点", scene.scenename, "会员卡号", hy_xx[0].realbosscard == "" ? hy_xx[0].CardNo : hy_xx[0].realbosscard, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
                                                 }
                                             }
                                         }
@@ -731,47 +1690,20 @@ namespace BLL.WebApi.Controllers
                     {
                         using (var db = new MPDBEntities())
                         {
-                            //var scene = int.Parse(scene);
-                            var sflag = int.Parse(data.sflag);
-                            var config = db.Coupons.Where(x => x.hotelcode == data.hotelcode && x.sceneID == scene && x.categoryId == sflag).FirstOrDefault();
-                            //var config = db.TicketExpire_t.Where(x => x.hotelcode == data.hotelcode).FirstOrDefault();
-                            //if (config != null)
-                            //{
-                            //    if (config.deadtime != "")
-                            //    {
-                            //        data.firstts = config.deadtime;
-                            //    }
-                            //    else
-                            //    {
-                            //        data.firstts = "1800";
-                            //    }
-                            //    if (config.spacetime != "")
-                            //    {
-                            //        a = Convert.ToDouble(config.spacetime);
-                            //    }
-                            //    else
-                            //    {
-                            //        a = 0;
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    data.firstts = "1800";
-                            //    a = 0;
-                            //}
+                            var config = db.TicketExpire_t.Where(x => x.hotelcode == data.hotelcode).FirstOrDefault();
                             if (config != null)
                             {
-                                if (config.Invalid != 0)
+                                if (config.deadtime != "")
                                 {
-                                    data.firstts = config.Invalid.ToString();
+                                    data.firstts = config.deadtime;
                                 }
                                 else
                                 {
                                     data.firstts = "1800";
                                 }
-                                if (config.again != 0)
+                                if (config.spacetime != "")
                                 {
-                                    a =double.Parse( config.again.ToString());
+                                    a = Convert.ToDouble(config.spacetime);
                                 }
                                 else
                                 {
@@ -789,140 +1721,140 @@ namespace BLL.WebApi.Controllers
 
                         using (var dc = new iticketEntities())
                         {
-                            var con = dc.CAVRecord_t.Where(x => x.hotelcode == data.hotelcode && x.scene == data.scene && x.categoryid == data.CategoryId&&x.mobile==data.mobile).OrderByDescending(x => x.userdate).FirstOrDefault();
+                            //var con = dc.CAVRecord_t.Where(x => x.hotelcode == data.hotelcode && x.scene == data.scene && x.categoryid == data.CategoryId&&x.).OrderByDescending(x => x.userdate).FirstOrDefault();
 
-                            if (con == null)
+                            //if (con == null)
+                            //{
+                            var ls = TicketApi.CAVTicketNow(data);
+
+                            if (ls.IndexOf("success") > -1)
                             {
-                                var ls = TicketApi.CAVTicketNow(data);
+                                var da = new CAVRecord_t()
+                                {
+                                    channel = data.channel,
+                                    time = data.time,
+                                    addname = data.addname,
+                                    categoryid = data.CategoryId,
+                                    deptcode = data.deptcode,
+                                    firstts = data.firstts,
+                                    fmoney = data.fmoney,
+                                    FormulaId = data.FormulaId,
+                                    gdcode = data.gdcode,
+                                    hotelcode = data.hotelcode,
+                                    hotelcodenew = data.hotelcodenew,
+                                    jycode = data.jycode,
+                                    no = data.no,
+                                    scene = data.scene,
+                                    sflag = data.sflag,
+                                    ticketsn = data.ticketsn,
+                                    tmoney = data.tmoney,
+                                    tp_id = data.Tp_Id,
+                                    ts = data.ts,
+                                    usercode = data.usercode,
+                                    userdate = Convert.ToDateTime(data.userdate),
+                                    usertype = data.usertype,
+                                    xfcode = data.xfcode,
+                                    xftype = data.xftype,
+                                    addtime = DateTime.Now,
+                                    mobile = data.mobile,
+                                    categoryname = data.CategoryName,
+                                    formulaname = data.FormulaName,
+                                    username = hy_xx[0].name,
+                                    bosscard = hy_xx[0].CardNo,
+                                    realbosscard = hy_xx[0].realbosscard,
+                                    rate = data.rate,
+                                    num = data.num
+                                };
+                                dc.CAVRecord_t.Add(da);
+                                dc.SaveChanges();
+                                //        // var MPDB = new MPDBEntities();
+                                //        // var hotelInfo = MPDB.MPConfigs.Where(x => x.ShopCode == data.hotelcode).FirstOrDefault();
 
-                                if (ls.IndexOf("success") > -1)
+                                //        //var openid = TicketApi.Getmember_bymobile("", "", hotelInfo.YQTHotelgrouptype, data.mobile);
+                                //        //if(openid.Count>0)
+                                //        //{
+                                //        //    var res=WxHelper.SendTemplateMsg(data.hotelcode, openid[0].openid, data.CategoryName, "1");
+                                //        //}
+                                jsonResult.code = ApiCode.成功;
+                                jsonResult.msg = ls;
+                                jsonResult.data = da;
+                                if (member.Count > 0)
                                 {
-                                    var da = new CAVRecord_t()
-                                    {
-                                        channel = data.channel,
-                                        time = data.time,
-                                        addname = data.addname,
-                                        categoryid = data.CategoryId,
-                                        deptcode = data.deptcode,
-                                        firstts = data.firstts,
-                                        fmoney = data.fmoney,
-                                        FormulaId = data.FormulaId,
-                                        gdcode = data.gdcode,
-                                        hotelcode = data.hotelcode,
-                                        hotelcodenew = data.hotelcodenew,
-                                        jycode = data.jycode,
-                                        no = data.no,
-                                        scene = data.scene,
-                                        sflag = data.sflag,
-                                        ticketsn = data.ticketsn,
-                                        tmoney = data.tmoney,
-                                        tp_id = data.Tp_Id,
-                                        ts = data.ts,
-                                        usercode = data.usercode,
-                                        userdate = Convert.ToDateTime(data.userdate),
-                                        usertype = data.usertype,
-                                        xfcode = data.xfcode,
-                                        xftype = data.xftype,
-                                        addtime = DateTime.Now,
-                                        mobile = data.mobile,
-                                        categoryname = data.CategoryName,
-                                        formulaname = data.FormulaName,
-                                        username = hy_xx[0].name,
-                                        bosscard = hy_xx[0].CardNo,
-                                        realbosscard = hy_xx[0].realbosscard,
-                                        rate = data.rate,
-                                        num = data.num
-                                    };
-                                    dc.CAVRecord_t.Add(da);
-                                    dc.SaveChanges();
-                                    //        // var MPDB = new MPDBEntities();
-                                    //        // var hotelInfo = MPDB.MPConfigs.Where(x => x.ShopCode == data.hotelcode).FirstOrDefault();
+                                    CommonApi.SendConsume(member[0].openid, "消费点", data.CategoryName, "1", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
+                                }
+                                RedisHelper.pushMsg(hy_xx[0], data);
+                                //    }
+                                //    else
+                                //    {
+                                //        jsonResult.code = ApiCode.接口调用失败;
+                                //        jsonResult.msg = "失败";
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    DateTime dt1 = Convert.ToDateTime(con.userdate);
+                                //    DateTime dt2 = DateTime.Now;
+                                //    TimeSpan ts = dt1.Subtract(dt2).Duration();
+                                //    Double douLen = ts.TotalSeconds;
+                                //    if (douLen > a)
+                                //    {
+                                //        var ls = TicketApi.CAVTicketNow(data);
 
-                                    //        //var openid = TicketApi.Getmember_bymobile("", "", hotelInfo.YQTHotelgrouptype, data.mobile);
-                                    //        //if(openid.Count>0)
-                                    //        //{
-                                    //        //    var res=WxHelper.SendTemplateMsg(data.hotelcode, openid[0].openid, data.CategoryName, "1");
-                                    //        //}
-                                    jsonResult.code = ApiCode.成功;
-                                    jsonResult.msg = ls;
-                                    jsonResult.data = da;
-                                    if (member.Count > 0)
-                                    {
-                                        CommonApi.SendConsume(member[0].openid, "消费点", data.CategoryName, "1", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
-                                    }
-                                    RedisHelper.pushMsg(hy_xx[0], data);
-                                }
-                                else
-                                {
-                                    jsonResult.code = ApiCode.接口调用失败;
-                                    jsonResult.msg = "失败";
-                                }
-                            }
-                            else
-                            {
-                                DateTime dt1 = Convert.ToDateTime(con.userdate);
-                                DateTime dt2 = DateTime.Now;
-                                TimeSpan ts = dt1.Subtract(dt2).Duration();
-                                Double douLen = ts.TotalSeconds;
-                                if (douLen > a)
-                                {
-                                    var ls = TicketApi.CAVTicketNow(data);
-                                    if (ls.IndexOf("success") > -1)
-                                    {
-                                        var da = new CAVRecord_t()
-                                        {
-                                            channel = data.channel,
-                                            time = data.time,
-                                            addname = data.addname,
-                                            categoryid = data.CategoryId,
-                                            deptcode = data.deptcode,
-                                            firstts = data.firstts,
-                                            fmoney = data.fmoney,
-                                            FormulaId = data.FormulaId,
-                                            gdcode = data.gdcode,
-                                            hotelcode = data.hotelcode,
-                                            hotelcodenew = data.hotelcodenew,
-                                            jycode = data.jycode,
-                                            no = data.no,
-                                            scene = data.scene,
-                                            sflag = data.sflag,
-                                            ticketsn = data.ticketsn,
-                                            tmoney = data.tmoney,
-                                            tp_id = data.Tp_Id,
-                                            ts = data.ts,
-                                            usercode = data.usercode,
-                                            userdate = Convert.ToDateTime(data.userdate),
-                                            usertype = data.usertype,
-                                            xfcode = data.xfcode,
-                                            xftype = data.xftype,
-                                            addtime = DateTime.Now,
-                                            mobile = data.mobile,
-                                            categoryname = data.CategoryName,
-                                            formulaname = data.FormulaName,
-                                            username = hy_xx[0].name,
-                                            bosscard = hy_xx[0].CardNo,
-                                            realbosscard = hy_xx[0].realbosscard,
-                                            rate = data.rate,
-                                            num = data.num
-                                        };
-                                        dc.CAVRecord_t.Add(da);
-                                        dc.SaveChanges();
-                                        jsonResult.code = ApiCode.成功;
-                                        jsonResult.msg = ls;
-                                        jsonResult.data = da;
-                                    }
-                                    else
-                                    {
-                                        jsonResult.code = ApiCode.接口调用失败;
-                                        jsonResult.msg = "失败";
-                                    }
+                                //        if (ls.IndexOf("success") > -1)
+                                //        {
+                                //            var da = new CAVRecord_t()
+                                //            {
+                                //                channel = data.channel,
+                                //                time = data.time,
+                                //                addname = data.addname,
+                                //                categoryid = data.CategoryId,
+                                //                deptcode = data.deptcode,
+                                //                firstts = data.firstts,
+                                //                fmoney = data.fmoney,
+                                //                FormulaId = data.FormulaId,
+                                //                gdcode = data.gdcode,
+                                //                hotelcode = data.hotelcode,
+                                //                hotelcodenew = data.hotelcodenew,
+                                //                jycode = data.jycode,
+                                //                no = data.no,
+                                //                scene = data.scene,
+                                //                sflag = data.sflag,
+                                //                ticketsn = data.ticketsn,
+                                //                tmoney = data.tmoney,
+                                //                tp_id = data.Tp_Id,
+                                //                ts = data.ts,
+                                //                usercode = data.usercode,
+                                //                userdate = Convert.ToDateTime(data.userdate),
+                                //                usertype = data.usertype,
+                                //                xfcode = data.xfcode,
+                                //                xftype = data.xftype,
+                                //                addtime = DateTime.Now,
+                                //                mobile = data.mobile,
+                                //                categoryname = data.CategoryName,
+                                //                formulaname = data.FormulaName,
+                                //                username = hy_xx[0].name,
+                                //                bosscard = hy_xx[0].CardNo,
+                                //                realbosscard = hy_xx[0].realbosscard,
+                                //            };
+                                //            dc.CAVRecord_t.Add(da);
+                                //            dc.SaveChanges();
+                                //            jsonResult.code = ApiCode.成功;
+                                //            jsonResult.msg = ls;
+                                //            jsonResult.data = da;
+                                //        }
+                                //        else
+                                //        {
+                                //            jsonResult.code = ApiCode.接口调用失败;
+                                //            jsonResult.msg = "失败";
+                                //        }
 
-                                }
-                                else
-                                {
-                                    jsonResult.code = ApiCode.程序异常;
-                                    jsonResult.msg = "间隔时间未到";
-                                }
+                                //    }
+                                //    else
+                                //    {
+                                //        jsonResult.code = ApiCode.程序异常;
+                                //        jsonResult.msg = "间隔时间未到";
+                                //    }
+                                //}
                             }
                         }
                     }
@@ -944,185 +1876,88 @@ namespace BLL.WebApi.Controllers
 
                         using (var dc = new iticketEntities())
                         {
-                            var con = dc.CAVRecord_t.Where(x => x.hotelcode == data.hotelcode && x.scene == data.scene && x.categoryid == data.CategoryId && x.mobile == data.mobile).OrderByDescending(x => x.userdate).FirstOrDefault();
-                            if (con == null)
+                            var ls = TicketApi.CAVTicketNoFirstTS(data);
+
+                            if (ls.IndexOf("success") > -1)
                             {
-                                var ls = TicketApi.CAVTicketNoFirstTS(data);
-                                if (ls.IndexOf("success") > -1)
+
+                                var da = new CAVRecord_t()
                                 {
+                                    channel = data.channel,
+                                    time = data.time,
+                                    addname = data.addname,
+                                    categoryid = data.CategoryId,
+                                    deptcode = data.deptcode,
+                                    firstts = data.firstts,
+                                    fmoney = data.fmoney,
+                                    FormulaId = data.FormulaId,
+                                    gdcode = data.gdcode,
+                                    hotelcode = data.hotelcode,
+                                    hotelcodenew = data.hotelcodenew,
+                                    jycode = data.jycode,
+                                    no = data.no,
+                                    scene = data.scene,
+                                    sflag = data.sflag,
+                                    ticketsn = data.ticketsn,
+                                    tmoney = data.tmoney,
+                                    tp_id = data.Tp_Id,
+                                    ts = data.ts,
+                                    usercode = data.usercode,
+                                    userdate = Convert.ToDateTime(data.userdate),
+                                    usertype = data.usertype,
+                                    xfcode = data.xfcode,
+                                    xftype = data.xftype,
+                                    addtime = DateTime.Now,
+                                    mobile = data.mobile,
+                                    categoryname = data.CategoryName,
+                                    formulaname = data.FormulaName,
+                                    username = hy_xx[0].name,
+                                    bosscard = hy_xx[0].CardNo,
+                                    realbosscard = hy_xx[0].realbosscard,
+                                    rate = data.rate,
+                                    num = data.num
+                                };
+                                dc.CAVRecord_t.Add(da);
+                                dc.SaveChanges();
+                                string M = Regex.Replace(data.mobile, "(\\d{3})\\d{4}(\\d{4})", "$1****$2");
 
-                                    var da = new CAVRecord_t()
+                                var queryall = new QueryTicketAllModel();
+                                queryall.user = "";
+                                queryall.token = "";
+                                queryall.hotelgroupid = "";
+                                queryall.hotelcode = data.hotelcode;
+                                queryall.mode = "m";
+                                queryall.code = data.mobile;
+                                var pricexx = TicketApi.Queryticketall_json(queryall);
+                                if ((data.sflag == "1" || data.sflag == "2") && data.usertype == "0")
+                                {
+                                    if (pricexx != null)
                                     {
-                                        channel = data.channel,
-                                        time = data.time,
-                                        addname = data.addname,
-                                        categoryid = data.CategoryId,
-                                        deptcode = data.deptcode,
-                                        firstts = data.firstts,
-                                        fmoney = data.fmoney,
-                                        FormulaId = data.FormulaId,
-                                        gdcode = data.gdcode,
-                                        hotelcode = data.hotelcode,
-                                        hotelcodenew = data.hotelcodenew,
-                                        jycode = data.jycode,
-                                        no = data.no,
-                                        scene = data.scene,
-                                        sflag = data.sflag,
-                                        ticketsn = data.ticketsn,
-                                        tmoney = data.tmoney,
-                                        tp_id = data.Tp_Id,
-                                        ts = data.ts,
-                                        usercode = data.usercode,
-                                        userdate = Convert.ToDateTime(data.userdate),
-                                        usertype = data.usertype,
-                                        xfcode = data.xfcode,
-                                        xftype = data.xftype,
-                                        addtime = DateTime.Now,
-                                        mobile = data.mobile,
-                                        categoryname = data.CategoryName,
-                                        formulaname = data.FormulaName,
-                                        username = hy_xx[0].name,
-                                        bosscard = hy_xx[0].CardNo,
-                                        realbosscard = hy_xx[0].realbosscard,
-                                        rate = data.rate,
-                                        num = data.num
-                                    };
-                                    dc.CAVRecord_t.Add(da);
-                                    dc.SaveChanges();
-                                    string M = Regex.Replace(data.mobile, "(\\d{3})\\d{4}(\\d{4})", "$1****$2");
-
-                                    var queryall = new QueryTicketAllModel();
-                                    queryall.user = "";
-                                    queryall.token = "";
-                                    queryall.hotelgroupid = "";
-                                    queryall.hotelcode = data.hotelcode;
-                                    queryall.mode = "m";
-                                    queryall.code = data.mobile;
-                                    var pricexx = TicketApi.Queryticketall_json(queryall);
-                                    if ((data.sflag == "1" || data.sflag == "2") && data.usertype == "0")
+                                        var dx = s.SendSameSms(data.mobile, "KK", "" + M + "," + data.tmoney + "," + pricexx[0].tmoney + "", "", data.hotelcode);
+                                    }
+                                }
+                                if (data.sflag == "8")
+                                {
+                                    if (member.Count > 0)
                                     {
-                                        if (pricexx != null)
+                                        var db = new MPDBEntities();
+                                        //CommonApi.SendXf(member[0].openid,"",pricexx[0].)
+                                        var id = int.Parse(data.scene);
+                                        var scene = db.HotelScene_t.FirstOrDefault(x => x.id == id);
+                                        if (scene != null)
                                         {
-                                            var dx = s.SendSameSms(data.mobile, "KK", "" + M + "," + data.tmoney + "," + pricexx[0].tmoney + "", "", data.hotelcode);
+                                            CommonApi.SendXf(member[0].openid, "消费点", scene.scenename, "会员卡号", hy_xx[0].realbosscard == "" ? hy_xx[0].CardNo : hy_xx[0].realbosscard, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
                                         }
                                     }
-                                    if (data.sflag == "8")
-                                    {
-                                        if (member.Count > 0)
-                                        {
-                                           // var db = new MPDBEntities();
-                                            //CommonApi.SendXf(member[0].openid,"",pricexx[0].)
-
-                                            if (sceneobj != null)
-                                            {
-                                                CommonApi.SendXf(member[0].openid, "消费点", sceneobj.scenename, "会员卡号", hy_xx[0].realbosscard == "" ? hy_xx[0].CardNo : hy_xx[0].realbosscard, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
-                                            }
-                                        }
-                                    }
-                                    jsonResult.code = ApiCode.成功;
-                                    jsonResult.msg = ls;
-                                    jsonResult.data = da;
                                 }
-                                else
-                                {
-                                    jsonResult.code = ApiCode.接口调用失败;
-                                    jsonResult.msg = "失败";
-                                }
+                                jsonResult.code = ApiCode.成功;
+                                jsonResult.msg = ls;
+                                jsonResult.data = da;
                             }
                             else
                             {
-                                DateTime dt1 = Convert.ToDateTime(con.userdate);
-                                DateTime dt2 = DateTime.Now;
-                                TimeSpan ts = dt1.Subtract(dt2).Duration();
-                                Double douLen = ts.TotalSeconds;
-                                if (douLen > a)
-                                {
-                                    var ls = TicketApi.CAVTicketNoFirstTS(data);
-                                    if (ls.IndexOf("success") > -1)
-                                    {
-
-                                        var da = new CAVRecord_t()
-                                        {
-                                            channel = data.channel,
-                                            time = data.time,
-                                            addname = data.addname,
-                                            categoryid = data.CategoryId,
-                                            deptcode = data.deptcode,
-                                            firstts = data.firstts,
-                                            fmoney = data.fmoney,
-                                            FormulaId = data.FormulaId,
-                                            gdcode = data.gdcode,
-                                            hotelcode = data.hotelcode,
-                                            hotelcodenew = data.hotelcodenew,
-                                            jycode = data.jycode,
-                                            no = data.no,
-                                            scene = data.scene,
-                                            sflag = data.sflag,
-                                            ticketsn = data.ticketsn,
-                                            tmoney = data.tmoney,
-                                            tp_id = data.Tp_Id,
-                                            ts = data.ts,
-                                            usercode = data.usercode,
-                                            userdate = Convert.ToDateTime(data.userdate),
-                                            usertype = data.usertype,
-                                            xfcode = data.xfcode,
-                                            xftype = data.xftype,
-                                            addtime = DateTime.Now,
-                                            mobile = data.mobile,
-                                            categoryname = data.CategoryName,
-                                            formulaname = data.FormulaName,
-                                            username = hy_xx[0].name,
-                                            bosscard = hy_xx[0].CardNo,
-                                            realbosscard = hy_xx[0].realbosscard,
-                                            rate = data.rate,
-                                            num = data.num
-                                        };
-                                        dc.CAVRecord_t.Add(da);
-                                        dc.SaveChanges();
-                                        string M = Regex.Replace(data.mobile, "(\\d{3})\\d{4}(\\d{4})", "$1****$2");
-
-                                        var queryall = new QueryTicketAllModel();
-                                        queryall.user = "";
-                                        queryall.token = "";
-                                        queryall.hotelgroupid = "";
-                                        queryall.hotelcode = data.hotelcode;
-                                        queryall.mode = "m";
-                                        queryall.code = data.mobile;
-                                        var pricexx = TicketApi.Queryticketall_json(queryall);
-                                        if ((data.sflag == "1" || data.sflag == "2") && data.usertype == "0")
-                                        {
-                                            if (pricexx != null)
-                                            {
-                                                var dx = s.SendSameSms(data.mobile, "KK", "" + M + "," + data.tmoney + "," + pricexx[0].tmoney + "", "", data.hotelcode);
-                                            }
-                                        }
-                                        if (data.sflag == "8")
-                                        {
-                                            if (member.Count > 0)
-                                            {
-
-                                                if (sceneobj != null)
-                                                {
-                                                    CommonApi.SendXf(member[0].openid, "消费点", sceneobj.scenename, "会员卡号", hy_xx[0].realbosscard == "" ? hy_xx[0].CardNo : hy_xx[0].realbosscard, DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), "", data.hotelcode);
-                                                }
-                                            }
-                                        }
-                                        jsonResult.code = ApiCode.成功;
-                                        jsonResult.msg = ls;
-                                        jsonResult.data = da;
-                                    }
-                                    else
-                                    {
-                                        jsonResult.code = ApiCode.接口调用失败;
-                                        jsonResult.msg = "失败";
-                                    }
-                                }
-                                else
-                                {
-                                    jsonResult.code = ApiCode.程序异常;
-                                    jsonResult.msg = "间隔时间未到";
-                                }
-
+                                jsonResult.code = ApiCode.接口调用失败;
+                                jsonResult.msg = "失败";
                             }
                         }
 
@@ -1141,47 +1976,22 @@ namespace BLL.WebApi.Controllers
                     {
                         using (var db = new MPDBEntities())
                         {
-                            //var scene = int.Parse(scene);
-                            var sflag = int.Parse(data.sflag);
-                            var config = db.Coupons.Where(x => x.hotelcode == data.hotelcode && x.sceneID == scene && x.categoryId == sflag).FirstOrDefault();
-                            //var config = db.TicketExpire_t.Where(x => x.hotelcode == data.hotelcode).FirstOrDefault();
-                            //if (config != null)
-                            //{
-                            //    if (config.deadtime != "")
-                            //    {
-                            //        data.firstts = config.deadtime;
-                            //    }
-                            //    else
-                            //    {
-                            //        data.firstts = "1800";
-                            //    }
-                            //    if (config.spacetime != "")
-                            //    {
-                            //        a = Convert.ToDouble(config.spacetime);
-                            //    }
-                            //    else
-                            //    {
-                            //        a = 0;
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    data.firstts = "1800";
-                            //    a = 0;
-                            //}
+                            var config = db.TicketExpire_t.Where(x => x.hotelcode == data.hotelcode).FirstOrDefault();
                             if (config != null)
                             {
-                                if (config.Invalid != 0)
+                                if (config.deadtime != "")
                                 {
-                                    data.firstts = config.Invalid.ToString();
+                                    data.firstts = config.deadtime;
                                 }
                                 else
                                 {
                                     data.firstts = "1800";
                                 }
-                                if (config.again != 0)
+
+
+                                if (config.spacetime != "")
                                 {
-                                    a = double.Parse(config.again.ToString());
+                                    a = Convert.ToDouble(config.spacetime);
                                 }
                                 else
                                 {
@@ -1196,7 +2006,6 @@ namespace BLL.WebApi.Controllers
                         }
                         data.jycode = DateTime.Now.ToString("yyyyMMddHHmmssffff") + ran.Next(1000, 9999);//唯一
                         data.userdate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
                         using (var dc = new iticketEntities())
                         {
                             var con = dc.CAVRecord_t.Where(x => x.hotelcode == data.hotelcode && x.scene == data.scene && x.categoryid == data.CategoryId && x.mobile == mobile).OrderByDescending(x => x.userdate).FirstOrDefault();
@@ -1416,10 +2225,7 @@ namespace BLL.WebApi.Controllers
             }
             return this.MyJson(jsonResult, "yyyy-MM-dd HH:mm:ss");
         }
-        private void Cav(CAVTicketModel data)
-        {
-            
-        }
+     
         
         [HttpPost]//批量核销
         public JsonResult batchConsumeTicket(batchConsumeTicketModel data)

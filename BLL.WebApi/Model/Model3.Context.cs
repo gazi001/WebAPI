@@ -26,5 +26,6 @@ namespace BLL.WebApi.Model
         }
     
         public DbSet<CAVRecord_t> CAVRecord_t { get; set; }
+        public DbSet<Category_fw_t> Category_fw_t { get; set; }
     }
 }
