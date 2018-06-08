@@ -113,7 +113,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                                 onsalecode = item.onsalecode,
                                 ordercode = item.ordercode,
                                 sysj = item.sysj,
-                                ticketsn = item.linkticketsn,
+                                ticketsn = item1.ToString(),
                                 returncode = returncode,
                             });
                             if (JsonHelper.GetJsonValue(result, "returncode") != "success")
@@ -1036,7 +1036,6 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                                 hotelcode = hotelcode,
                                 usehotelcode = item1.ToString(),
                                 addtime = DateTime.Now,
-
                             });
                         }
                     }
@@ -1120,10 +1119,10 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             var retformula = service.RetFormula_json(data.usercode, "", data.pro_name, data.summary==""?" ":data.summary, data.id, "00", data.price==""?"0":data.price, data.pro_num==""?"999999":data.pro_num, data.hotelcode);
             if (retformula.IndexOf("success") > -1)
             {
-                var delformulafw = service.DelFormula_fw_json(data.usercode, "", data.id, data.hotelcode);
+                var delformulafw = service.DelFormula_fw_json("", "", data.id, data.hotelcode);
                 if (delformulafw.IndexOf("success") > -1)
                 {
-                    var SetFormula_fw = service.SetFormula_fw_pl_json(data.usercode, "", data.id, data.hotelcode, data.pro_arr);
+                    var SetFormula_fw = service.SetFormula_fw_pl_json("", "", data.id,  data.pro_arr,data.hotelcode);
 
                     int sum = 0;
                     if (data.arr != null && data.arr.Count > 0)
@@ -1140,7 +1139,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
         ("", "", data.arr[i].cate_name, data.arr[i].cate_code, data.arr[i].cate_summary, data.hotelcode, "", "00", "00", data.pro_num == "" ? "999999" : data.pro_num, data.arr[i].cate_type, sflg, data.arr[i].cate_start_date.ToString(), (data.arr[i].cate_start_date + data.arr[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", data.arr[i].cate_bm, data.arr[i].cate_price, "0", data.arr[i].iszs, iscz, "");
                                 if (Categoryid != "")
                                 {
-                                    SaveCatogory(data.arr, data.hotelcode, data.data_new[i], data.usercode, data.pro_num, data.yformul[0].dbid, i, sflg, isbool, Categoryid, iscz);
+                                    SaveCatogory(data.arr, data.hotelcode, data.data_new[i], data.usercode, data.pro_num, data.yformul.dbid, i, sflg, isbool, Categoryid, iscz);
                                 }
                                 else
                                 {
@@ -1153,7 +1152,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                                 var Categoryid = service.Setcategory_json("", "", data.arr[i].cate_name, data.arr[i].cate_code, data.arr[i].cate_summary, data.hotelcode, "", "00", "00", data.pro_num == "" ? "999999" : data.pro_num, data.arr[i].cate_type, sflg, data.arr[i].cate_start_date.ToString(), (data.arr[i].cate_start_date + data.arr[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", data.arr[i].cate_bm, data.arr[i].cate_price, "0", data.arr[i].iszs, iscz);
                                 if (Categoryid != "")
                                 {
-                                    SaveCatogory(data.arr, data.hotelcode, data.data_new[i], data.usercode, data.pro_num, data.yformul[0].dbid, i, sflg, isbool, Categoryid, iscz);
+                                    SaveCatogory(data.arr, data.hotelcode, data.data_new[i], data.usercode, data.pro_num, data.yformul.dbid, i, sflg, isbool, Categoryid, iscz);
                                 }
                                 else
                                 {
@@ -1249,6 +1248,45 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                 jsonResult.msg = "子券生成失败";
             }
 
+            return jsonResult;
+        }
+        #endregion
+
+        #region 修改子券范围
+        public static JsonReturn UpdateCategoryFw(UpdateCategoryFwModel data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            if (data.cate_arr != null)
+            {
+                var fwArr = data.cate_arr.Split(',');
+
+                var list = iticketdb.Category_fw_t.Where(x => x.CategoryId == data.id && x.hotelcode == data.hotelcode).ToList();
+                foreach (var item in list)
+                {
+                    iticketdb.Category_fw_t.Remove(item);
+                }
+                foreach (var item in fwArr)
+                {
+                    if (item != "")
+                    {
+                        iticketdb.Category_fw_t.Add(new Category_fw_t
+                        {
+                            CategoryId = data.id,
+                            hotelcode = data.hotelcode,
+                            usehotelcode = item.ToString(),
+                            addtime = DateTime.Now,
+                        });
+                    }
+                }
+                iticketdb.SaveChanges();
+                jsonResult.code = ApiCode.成功;
+                jsonResult.msg = "成功";
+            }
+            else
+            {
+                jsonResult.code = ApiCode.参数不全;
+                jsonResult.msg = "参数不全";
+            }
             return jsonResult;
         }
         #endregion

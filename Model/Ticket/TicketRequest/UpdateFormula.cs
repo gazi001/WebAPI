@@ -58,7 +58,7 @@ namespace KS.Model.Ticket.TicketRequest
         /// </summary>
         public string pro_num { get; set; }
 
-        public List<Yformul> yformul { get; set; }
+        public Yformul yformul { get; set; }
     }
     public class Yformul
     {

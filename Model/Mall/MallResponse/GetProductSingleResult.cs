@@ -149,6 +149,7 @@ namespace KS.Model.Mall.MallResponse
         public string scorenum { get; set; }
         public string iswxpay { get; set; }
         public string canuseticket { get; set; }
+        public string isst { get; set; }
     }
     public class GetProductSingleResult
     {

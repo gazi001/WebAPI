@@ -968,14 +968,13 @@ namespace BLL.WebApi.Controllers
         }
 
         public static object _Lock = new object();
-        
         /// <summary>
         /// 下单整合
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult PlaceOrder(PlaceOrderModel data)
+        public JsonResult PlaceOrderTest(PlaceOrderModel data)
         {
             //var _Lock = new object();
             var Getbosscard = new GetBosscardModel();
@@ -1115,6 +1114,166 @@ namespace BLL.WebApi.Controllers
         }
 
         /// <summary>
+        /// 下单整合
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult PlaceOrder(PlaceOrderModel data)
+        {
+            //var _Lock = new object();
+            var str = JsonConvert.SerializeObject(data);
+            var Getbosscard = new GetBosscardModel();
+            Getbosscard.openid = data.openid;
+            var result = CommonApi.Getbosscard(Getbosscard);
+            var IsPlaceOrder = false;
+            if (result.returncode != "false")
+            {
+                var ticketArr = data.linkticketsn.Split(',');
+                //云券通限购查询
+                foreach (var item in ticketArr)
+                {
+                    var GetFormulaInfoByFormulaidModel = new GetFormulaInfoByFormulaidModel();
+                    GetFormulaInfoByFormulaidModel.hotelcode = data.hotelcode;
+                    GetFormulaInfoByFormulaidModel.formulaid = item;
+                    var yqtxg = TicketApi.GetFormula_info_byformulaid_json(GetFormulaInfoByFormulaidModel);
+                    if (yqtxg != null)
+                    {
+                        if (Convert.ToInt64(data.num) + Convert.ToInt64(yqtxg.maxnum) <= Convert.ToInt64(yqtxg.fnum))
+                        {
+                            var GetFormulaXgModel = new GetFormulaXgModel();
+                            GetFormulaXgModel.formulaid = item;
+                            GetFormulaXgModel.hotelcode = data.hotelcode;
+                            GetFormulaXgModel.mobile = result.mobile;
+                            GetFormulaXgModel.num = data.num;
+
+                            var xgresult = TicketApi.Get_formula_xg_json(GetFormulaXgModel);
+                            if (xgresult.returncode == "true")
+                            {
+                                var GetorderByonsalecodeModel = new GetorderByonsalecodeModel();
+                                GetorderByonsalecodeModel.onsalecode = data.onsalecode;
+                                GetorderByonsalecodeModel.jgxz = data.jgxz;
+                                GetorderByonsalecodeModel.sysj = data.sysj;
+                                GetorderByonsalecodeModel.mobile = result.mobile;
+                                GetorderByonsalecodeModel.hotelcode = data.hotelcode;
+                                var scxg = MallApi.Getorder_byonsalecode_json(GetorderByonsalecodeModel);
+                                int number = 0;
+                                if (scxg.returncode != "false")
+                                {
+                                    for (int i = 0; i < scxg.success.Count; i++)
+                                    {
+                                        if (scxg.success[i].state != "3")
+                                        {
+                                            number = number + int.Parse(scxg.success[i].num);
+                                        }
+                                    }
+                                }
+                                if (number + Convert.ToInt64(data.num) <= Convert.ToInt64(data.xgnum))
+                                {
+                                    var GetproductPriceOthModel = new GetproductPriceOthModel();
+                                    GetproductPriceOthModel.jgxz = data.jgxz;
+                                    GetproductPriceOthModel.onsalecode = data.onsalecode;
+                                    GetproductPriceOthModel.sysj = data.sysj;
+                                    var stock = MallApi.GetproductPriceOth(GetproductPriceOthModel);
+                                    if (stock.success[0].num >= int.Parse(data.num))
+                                    {
+                                        IsPlaceOrder = true;
+                                        
+                                    }
+                                    else
+                                    {
+                                        jsonResult.code = ApiCode.库存不足;
+                                        jsonResult.msg = "库存不足";
+                                    }
+                                }
+                                else
+                                {
+                                    jsonResult.code = ApiCode.达到限购;
+                                    jsonResult.msg = "限购";
+                                }
+                            }
+                            else
+                            {
+                                jsonResult.code = ApiCode.达到限购;
+                                jsonResult.msg = "限购";
+                            }
+                        }
+                        else
+                        {
+                            jsonResult.code = ApiCode.云券通限购失败;
+                            jsonResult.msg = "云券通限购失败";
+                        }
+                    }
+                    else
+                    {
+                        jsonResult.code = ApiCode.接口调用失败;
+                        jsonResult.msg = "GetFormula_info_byformulaid_json接口调用失败";
+                    }
+                }
+                //var GetFormulaInfoByFormulaidModel = new GetFormulaInfoByFormulaidModel();
+                //GetFormulaInfoByFormulaidModel.hotelcode = data.hotelcode;
+                //GetFormulaInfoByFormulaidModel.formulaid = data.linkticketsn;
+                if (IsPlaceOrder)
+                {
+                    var ordercode = OrderHelper.GetRandom1(data.hotelcode);
+                    var totalprice = (decimal.Parse(data.price) * int.Parse(data.num)).ToString();
+                    var SetOrderDetailsModel = new SetOrderDetailsModel();
+                    SetOrderDetailsModel.buycode = ordercode;
+                    SetOrderDetailsModel.jgxz = data.jgxz;
+                    SetOrderDetailsModel.linkticketsn = data.linkticketsn;
+                    SetOrderDetailsModel.num = data.num;
+                    SetOrderDetailsModel.oid = result.bosscard;
+                    SetOrderDetailsModel.onsalecode = data.onsalecode;
+                    SetOrderDetailsModel.ordercode = ordercode;
+                    SetOrderDetailsModel.price = data.price;
+                    SetOrderDetailsModel.sysj = data.sysj;
+                    SetOrderDetailsModel.totalprice = totalprice;
+                    SetOrderDetailsModel.buyuseticketsn = data.buyuseticketsn;
+                    var SetOrderDetailsResult = MallApi.Setorder_details_json(SetOrderDetailsModel);
+                    var model = new SetOrderModel();
+                    model.address = "";
+                    model.bosscard = result.bosscard;
+                    model.hotelcode = data.hotelcode;
+                    model.ispay = "0";
+                    model.mobile = result.mobile;
+                    model.name = result.name;
+                    model.oid = result.bosscard;
+                    model.ordercode = ordercode;
+                    model.paycode = data.paycode;
+                    model.paymoney = totalprice;
+                    model.remark = "";
+                    model.sessionid = OrderHelper.GetRandom1("M_" + data.hotelcode);
+                    model.sex = "";
+                    model.state = "1";
+                    model.thfs = "";
+                    model.totalprice = totalprice;
+                    model.useraccount = result.cardno;
+                    model.zipcode = "";
+                    var setorderresult = MallApi.Setorder_json(model);
+                    if (setorderresult.returncode == "true" && SetOrderDetailsResult.returncode == "true")
+                    {
+                        jsonResult.code = ApiCode.成功;
+                        jsonResult.msg = "成功";
+                        jsonResult.data = ordercode;
+                    }
+                    else
+                    {
+                        jsonResult.code = ApiCode.接口调用失败;
+                        jsonResult.msg = "下单失败";
+                    }
+                }
+           
+            }
+            else
+            {
+                jsonResult.code = ApiCode.非会员;
+                jsonResult.msg = "非会员";
+            }
+            return this.MyJson(jsonResult);
+        }
+
+
+        /// <summary>
         /// 购物车下单整合
         /// </summary>
         /// <param name="data"></param>
@@ -1134,6 +1293,206 @@ namespace BLL.WebApi.Controllers
                 var GetBuyProductSingleModel = new GetBuyProductSingleModel();
                 string[] spid = data.id.Split(',');//，拼接传入的商品id
                 for (int i = 0; i < spid.Length-1; i++)//循环查商品信息
+                {
+                    var IsPlaceOrder = false;
+                    if (spid[i] != "")
+                    {
+                        GetBuyProductSingleModel.id = spid[i];
+                        var xdresult = MallApi.Getbuyproduct_single_json(GetBuyProductSingleModel);
+                        if (xdresult.returncode != "false")
+                        {
+                            var ticketArr = xdresult.success[0].linkticketsn.Split(',');
+                            foreach (var item in ticketArr)
+                            {
+                                if (item != "")
+                                {
+                                    //云券通限购查询
+                                    var GetFormulaInfoByFormulaidModel = new GetFormulaInfoByFormulaidModel();
+                                    GetFormulaInfoByFormulaidModel.hotelcode = data.hotelcode;
+                                    GetFormulaInfoByFormulaidModel.formulaid = item;
+                                    var yqtxg = TicketApi.GetFormula_info_byformulaid_json(GetFormulaInfoByFormulaidModel);
+                                    if (yqtxg != null)
+                                    {
+                                        if (Convert.ToInt64(xdresult.success[0].num) + Convert.ToInt64(yqtxg.maxnum) <= Convert.ToInt64(yqtxg.fnum))
+                                        {
+                                            GetFormulaXgModel.formulaid = item;
+                                            GetFormulaXgModel.hotelcode = xdresult.success[0].hotelcode;
+                                            GetFormulaXgModel.mobile = result.mobile;
+                                            GetFormulaXgModel.num = xdresult.success[0].num;
+                                            var xgresult = TicketApi.Get_formula_xg_json(GetFormulaXgModel);
+                                            if (xgresult.returncode == "true")
+                                            {
+                                                var GetproductPriceOthModel = new GetproductPriceOthModel();
+                                                GetproductPriceOthModel.jgxz = xdresult.success[0].jgxz;
+                                                GetproductPriceOthModel.onsalecode = xdresult.success[0].onsalecode;
+                                                GetproductPriceOthModel.sysj = xdresult.success[0].sysj;
+                                                var stock = MallApi.GetproductPriceOth(GetproductPriceOthModel);
+
+                                                var GetorderByonsalecodeModel = new GetorderByonsalecodeModel();
+                                                GetorderByonsalecodeModel.onsalecode = xdresult.success[0].onsalecode;
+                                                GetorderByonsalecodeModel.jgxz = xdresult.success[0].jgxz;
+                                                GetorderByonsalecodeModel.sysj = xdresult.success[0].sysj;
+                                                GetorderByonsalecodeModel.mobile = result.mobile;
+                                                GetorderByonsalecodeModel.hotelcode = data.hotelcode;
+                                                var scxg = MallApi.Getorder_byonsalecode_json(GetorderByonsalecodeModel);
+                                                int number = 0;
+                                                if (scxg.returncode != "false")
+                                                {
+                                                    for (int a = 0; a < scxg.success.Count; a++)
+                                                    {
+                                                        if (scxg.success[a].state != "3")
+                                                        {
+                                                            number = number + 1;
+                                                        }
+                                                    }
+                                                }
+                                                if (number + Convert.ToInt64(xdresult.success[0].num) <= Convert.ToInt64(stock.success[0].xgnum))
+                                                {
+                                                    if (stock.success[0].num >= int.Parse(xdresult.success[0].num))
+                                                    {
+                                                        //ordercode = OrderHelper.GetRandom1(xdresult.success[0].hotelcode);
+                                                        IsPlaceOrder = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        jsonResult.code = ApiCode.库存不足;
+                                                        jsonResult.msg = "库存不足";
+                                                        return this.MyJson(jsonResult);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    jsonResult.code = ApiCode.达到限购;
+                                                    jsonResult.msg = "限购";
+                                                    return this.MyJson(jsonResult);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                jsonResult.code = ApiCode.达到限购;
+                                                jsonResult.msg = "限购";
+                                                return this.MyJson(jsonResult);
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            jsonResult.code = ApiCode.云券通限购失败;
+                                            jsonResult.msg = "云券通限购失败";
+                                            return this.MyJson(jsonResult);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        jsonResult.code = ApiCode.接口调用失败;
+                                        jsonResult.msg = "GetFormula_info_byformulaid_json接口调用失败";
+                                        return this.MyJson(jsonResult);
+                                    }
+                                }
+                            }
+                            if (IsPlaceOrder)
+                            {
+                                totalprice = (decimal.Parse(xdresult.success[0].price) * int.Parse(xdresult.success[0].num)).ToString();
+                                var SetOrderDetailsModel = new SetOrderDetailsModel();
+                                SetOrderDetailsModel.buycode = ordercode;
+                                SetOrderDetailsModel.jgxz = xdresult.success[0].jgxz;
+                                SetOrderDetailsModel.linkticketsn = xdresult.success[0].linkticketsn;
+                                SetOrderDetailsModel.num = xdresult.success[0].num;
+                                SetOrderDetailsModel.oid = result.bosscard;
+                                SetOrderDetailsModel.onsalecode = xdresult.success[0].onsalecode;
+                                SetOrderDetailsModel.ordercode = ordercode;
+                                SetOrderDetailsModel.price = xdresult.success[0].price;
+                                SetOrderDetailsModel.sysj = xdresult.success[0].sysj;
+                                SetOrderDetailsModel.totalprice = totalprice;
+                                SetOrderDetailsModel.buyuseticketsn = xdresult.success[0].linkticketsn;
+                                var SetOrderDetailsResult = MallApi.Setorder_details_json(SetOrderDetailsModel);
+                            }
+                        }
+                        else
+                        {
+                            jsonResult.code = ApiCode.接口调用失败;
+
+                            jsonResult.msg = "Getbuyproduct_single_json接口调用失败";
+                            return this.MyJson(jsonResult);
+                        }
+                    }
+
+                }
+                var model = new SetOrderModel();
+                model.address = "";
+                model.bosscard = result.bosscard;
+                model.hotelcode = data.hotelcode;
+                model.ispay = "0";
+                model.mobile = result.mobile;
+                model.name = result.name;
+                model.oid = result.bosscard;
+                model.ordercode = ordercode;
+                model.paycode = data.paycode;
+                model.paymoney = totalprice;
+                model.remark = "";
+                model.sessionid = OrderHelper.GetRandom1("M_" + data.hotelcode);
+                model.sex = "";
+                model.state = "1";
+                model.thfs = "";
+                model.totalprice = totalprice;
+                model.useraccount = result.cardno;
+                model.zipcode = "";
+                var setorderresult = MallApi.Setorder_json(model);
+                if (setorderresult.returncode == "true")
+                {
+                    for (int i = 0; i < spid.Length-1; i++)
+                    {
+                        var StopBuyProductModel = new StopBuyProductModel();
+                        StopBuyProductModel.id = spid[i];
+                        StopBuyProductModel.flag = "1";
+                        var stop = MallApi.Stopbuyproduct_json(StopBuyProductModel);
+                        if (stop.returncode == "true")
+                        {
+                            jsonResult.code = ApiCode.成功;
+                            jsonResult.msg = "成功";
+                            jsonResult.data = ordercode;
+                        }
+                        else
+                        {
+                            jsonResult.code = ApiCode.接口调用失败;
+                            jsonResult.msg = "Stopbuyproduct_json接口调用失败";
+                            jsonResult.data = ordercode;
+                            return this.MyJson(jsonResult);
+                        }
+                    }
+                 }
+                else
+                {
+                    jsonResult.code = ApiCode.接口调用失败;
+                    jsonResult.msg = "下单失败";
+                }
+                
+            }
+            else
+            {
+                jsonResult.code = ApiCode.非会员;
+                jsonResult.msg = "非会员";
+            }
+            return this.MyJson(jsonResult);
+        }
+
+
+
+        [HttpPost]
+        public JsonResult MakeOrderTest(PlaceOrderModel data)
+        {
+            var _Lock = new object();
+            var ordercode = OrderHelper.GetRandom1(data.hotelcode);
+            var totalprice = "";
+            var Getbosscard = new GetBosscardModel();
+            Getbosscard.openid = data.openid;
+            var result = CommonApi.Getbosscard(Getbosscard);
+            if (result.returncode != "false")
+            {
+                var GetFormulaXgModel = new GetFormulaXgModel();
+                var GetBuyProductSingleModel = new GetBuyProductSingleModel();
+                string[] spid = data.id.Split(',');//，拼接传入的商品id
+                for (int i = 0; i < spid.Length - 1; i++)//循环查商品信息
                 {
                     GetBuyProductSingleModel.id = spid[i];
                     var xdresult = MallApi.Getbuyproduct_single_json(GetBuyProductSingleModel);
@@ -1219,7 +1578,7 @@ namespace BLL.WebApi.Controllers
                                     jsonResult.msg = "限购";
                                     return this.MyJson(jsonResult);
                                 }
-                                
+
                             }
                             else
                             {
@@ -1242,7 +1601,7 @@ namespace BLL.WebApi.Controllers
                         jsonResult.msg = "Getbuyproduct_single_json接口调用失败";
                         return this.MyJson(jsonResult);
                     }
-                    
+
                 }
                 var model = new SetOrderModel();
                 model.address = "";
@@ -1266,7 +1625,7 @@ namespace BLL.WebApi.Controllers
                 var setorderresult = MallApi.Setorder_json(model);
                 if (setorderresult.returncode == "true")
                 {
-                    for (int i = 0; i < spid.Length-1; i++)
+                    for (int i = 0; i < spid.Length - 1; i++)
                     {
                         var StopBuyProductModel = new StopBuyProductModel();
                         StopBuyProductModel.id = spid[i];
@@ -1286,13 +1645,13 @@ namespace BLL.WebApi.Controllers
                             return this.MyJson(jsonResult);
                         }
                     }
-                 }
+                }
                 else
                 {
                     jsonResult.code = ApiCode.接口调用失败;
                     jsonResult.msg = "下单失败";
                 }
-                
+
             }
             else
             {
@@ -1456,6 +1815,7 @@ namespace BLL.WebApi.Controllers
         {
             var data = JsonConvert.DeserializeObject<GetOrderTocketSNModel>(postdata);
             var result = MallApi.QueryOrder(data.hotelcode,data.ordercode);
+            var isst = "0";
             if (result[0].returncode != "false")
             {
                 List<returnData> list = new List<returnData>();
@@ -1463,6 +1823,16 @@ namespace BLL.WebApi.Controllers
                 string cpid = "";
                 for (int i = 0; i < result[0].success.Count; i++)
                 {
+                    var GetProductSingleModel = new GetProductSingleModel();
+                    GetProductSingleModel.onsalecode = result[0].success[i].onsalecode;
+                    var productInfo = MallApi.Getproduct_onsale_single_json(GetProductSingleModel);
+                    if(productInfo.success!=null&&productInfo.success.Count>0)
+                    {
+                        if (productInfo.success[0].isst == "1")
+                        {
+                            isst ="1";
+                        }
+                    }
                     cpid += result[0].success[i].buyuseticketsn + ",";
                 }
                 if (ticketdata != null)
@@ -1490,9 +1860,10 @@ namespace BLL.WebApi.Controllers
                 {
                     returnData = list,
                     QueryOrder = result,
+                    isst = isst
                 };
                 //returndata = returndata.Substring(0, returndata.Length - 1);
-                jsonResult.code = ApiCode.成功;
+                jsonResult.code  = ApiCode.成功;
                 jsonResult.msg = "成功";
                 jsonResult.data = Da;
                

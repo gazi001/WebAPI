@@ -26,6 +26,7 @@ namespace KS.Model.Mall.MallRequest
     }
     public class rtData
     {
+        public string isst { get; set; }
         public List<returnData> returnData { get; set; }
         public List<QueryOrderModel> QueryOrder { get; set; }
     }

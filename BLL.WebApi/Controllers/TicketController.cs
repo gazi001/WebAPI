@@ -459,11 +459,9 @@ namespace BLL.WebApi.Controllers
                 var hy_xx = TicketApi.Querymember_json("", "M", data.mobile);
                 var auth = new Auth_DBEntities();
                 var sceneobj = auth.ad_gd.FirstOrDefault(x => x.hotelcode == data.hotelcode && x.gdcode == data.gdcode);
-
-
+                var gdname = sceneobj == null ? "": sceneobj.gdname;
+                data.gdcode = gdname;
                 var scene = sceneobj == null ? 0 : int.Parse(sceneobj.scene);
-
-
                 var member = TicketApi.Getmember_bymobile("", "", data.grouptype, data.mobile);
                 if (hy_xx[0].name != null)
                 {
@@ -1426,6 +1424,7 @@ namespace BLL.WebApi.Controllers
             else
             {
                 jsonResult.code = ApiCode.该岗点不可使用;
+
                 jsonResult.msg = "该岗点不可使用";
             }
             return this.MyJson(jsonResult, "yyyy-MM-dd HH:mm:ss");
@@ -2441,6 +2440,24 @@ namespace BLL.WebApi.Controllers
             return this.MyJson(jsonResult);
         }
 
+        [HttpPost]//修改子券范围
+        public JsonResult UpdateCategoryFw()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<UpdateCategoryFwModel>(stream);
+                jsonResult = TicketApi.UpdateCategoryFw(data);
+                
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.Message.ToString();
+            }
+            return this.MyJson(jsonResult);
+        }
         #endregion
     }
 }
