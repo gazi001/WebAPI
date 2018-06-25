@@ -1333,6 +1333,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="totalprice" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="oid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tjcode" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>

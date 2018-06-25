@@ -212,6 +212,78 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Getplancode_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getplancode_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getplancode_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Setshopplanlinkproduct_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="plancode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="onsalecode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Setshopplanlinkproduct_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Setshopplanlinkproduct_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Delshopplanlinkproduct_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="plancode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="onsalecode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="oid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Delshopplanlinkproduct_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Delshopplanlinkproduct_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getshopplanlinkproduct_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hotelcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="plancode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="onsalecode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getshopplanlinkproduct_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getshopplanlinkproduct_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="HelloWorld">
         <s:complexType />
       </s:element>
@@ -566,6 +638,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="Getorder_out_jsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getorder_out_notimelimit_json">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="user" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Getorder_out_notimelimit_jsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Getorder_out_notimelimit_jsonResult" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1246,6 +1333,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="sessionid" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="totalprice" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="oid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tjcode" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1466,6 +1554,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="pdes" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="showstarttime" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="showendtime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="isst" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1553,6 +1642,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="pdes" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="showstarttime" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="showendtime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="isst" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2462,6 +2552,30 @@
   <wsdl:message name="Getbuttom_info_jsonSoapOut">
     <wsdl:part name="parameters" element="tns:Getbuttom_info_jsonResponse" />
   </wsdl:message>
+  <wsdl:message name="Getplancode_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getplancode_json" />
+  </wsdl:message>
+  <wsdl:message name="Getplancode_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getplancode_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Setshopplanlinkproduct_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Setshopplanlinkproduct_json" />
+  </wsdl:message>
+  <wsdl:message name="Setshopplanlinkproduct_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Setshopplanlinkproduct_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Delshopplanlinkproduct_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Delshopplanlinkproduct_json" />
+  </wsdl:message>
+  <wsdl:message name="Delshopplanlinkproduct_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Delshopplanlinkproduct_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Getshopplanlinkproduct_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getshopplanlinkproduct_json" />
+  </wsdl:message>
+  <wsdl:message name="Getshopplanlinkproduct_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getshopplanlinkproduct_jsonResponse" />
+  </wsdl:message>
   <wsdl:message name="HelloWorldSoapIn">
     <wsdl:part name="parameters" element="tns:HelloWorld" />
   </wsdl:message>
@@ -2581,6 +2695,12 @@
   </wsdl:message>
   <wsdl:message name="Getorder_out_jsonSoapOut">
     <wsdl:part name="parameters" element="tns:Getorder_out_jsonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Getorder_out_notimelimit_jsonSoapIn">
+    <wsdl:part name="parameters" element="tns:Getorder_out_notimelimit_json" />
+  </wsdl:message>
+  <wsdl:message name="Getorder_out_notimelimit_jsonSoapOut">
+    <wsdl:part name="parameters" element="tns:Getorder_out_notimelimit_jsonResponse" />
   </wsdl:message>
   <wsdl:message name="Getorder_out_new_jsonSoapIn">
     <wsdl:part name="parameters" element="tns:Getorder_out_new_json" />
@@ -3180,6 +3300,24 @@
       <wsdl:input message="tns:Getbuttom_info_jsonSoapIn" />
       <wsdl:output message="tns:Getbuttom_info_jsonSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="Getplancode_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get</wsdl:documentation>
+      <wsdl:input message="tns:Getplancode_jsonSoapIn" />
+      <wsdl:output message="tns:Getplancode_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Setshopplanlinkproduct_json">
+      <wsdl:input message="tns:Setshopplanlinkproduct_jsonSoapIn" />
+      <wsdl:output message="tns:Setshopplanlinkproduct_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Delshopplanlinkproduct_json">
+      <wsdl:input message="tns:Delshopplanlinkproduct_jsonSoapIn" />
+      <wsdl:output message="tns:Delshopplanlinkproduct_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getshopplanlinkproduct_json">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">get</wsdl:documentation>
+      <wsdl:input message="tns:Getshopplanlinkproduct_jsonSoapIn" />
+      <wsdl:output message="tns:Getshopplanlinkproduct_jsonSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="HelloWorld">
       <wsdl:input message="tns:HelloWorldSoapIn" />
       <wsdl:output message="tns:HelloWorldSoapOut" />
@@ -3259,6 +3397,10 @@
     <wsdl:operation name="Getorder_out_json">
       <wsdl:input message="tns:Getorder_out_jsonSoapIn" />
       <wsdl:output message="tns:Getorder_out_jsonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Getorder_out_notimelimit_json">
+      <wsdl:input message="tns:Getorder_out_notimelimit_jsonSoapIn" />
+      <wsdl:output message="tns:Getorder_out_notimelimit_jsonSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="Getorder_out_new_json">
       <wsdl:input message="tns:Getorder_out_new_jsonSoapIn" />
@@ -3791,6 +3933,42 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Getplancode_json">
+      <soap:operation soapAction="http://tempuri.org/Getplancode_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Setshopplanlinkproduct_json">
+      <soap:operation soapAction="http://tempuri.org/Setshopplanlinkproduct_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delshopplanlinkproduct_json">
+      <soap:operation soapAction="http://tempuri.org/Delshopplanlinkproduct_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getshopplanlinkproduct_json">
+      <soap:operation soapAction="http://tempuri.org/Getshopplanlinkproduct_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="HelloWorld">
       <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
       <wsdl:input>
@@ -3964,6 +4142,15 @@
     </wsdl:operation>
     <wsdl:operation name="Getorder_out_json">
       <soap:operation soapAction="http://tempuri.org/Getorder_out_json" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getorder_out_notimelimit_json">
+      <soap:operation soapAction="http://tempuri.org/Getorder_out_notimelimit_json" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4892,6 +5079,42 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Getplancode_json">
+      <soap12:operation soapAction="http://tempuri.org/Getplancode_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Setshopplanlinkproduct_json">
+      <soap12:operation soapAction="http://tempuri.org/Setshopplanlinkproduct_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delshopplanlinkproduct_json">
+      <soap12:operation soapAction="http://tempuri.org/Delshopplanlinkproduct_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getshopplanlinkproduct_json">
+      <soap12:operation soapAction="http://tempuri.org/Getshopplanlinkproduct_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="HelloWorld">
       <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
       <wsdl:input>
@@ -5065,6 +5288,15 @@
     </wsdl:operation>
     <wsdl:operation name="Getorder_out_json">
       <soap12:operation soapAction="http://tempuri.org/Getorder_out_json" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Getorder_out_notimelimit_json">
+      <soap12:operation soapAction="http://tempuri.org/Getorder_out_notimelimit_json" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

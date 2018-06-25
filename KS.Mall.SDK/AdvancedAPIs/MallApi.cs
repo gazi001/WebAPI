@@ -726,7 +726,7 @@ namespace KS.Mall.SDK.AdvancedAPIs
         /// <returns></returns>
         public static SetOrderResult Setorder_json(SetOrderModel data)
         {
-            var result = service.Setorder_json(data.user, data.token,data.name,data.mobile,data.address,data.zipcode,data.ordercode,data.sex,data.bosscard,data.useraccount,data.paycode,data.paymoney,data.ispay,data.state,data.remark,data.thfs,data.hotelcode,data.sessionid,data.totalprice,data.oid);
+            var result = service.Setorder_json(data.user, data.token, data.name, data.mobile, data.address, data.zipcode, data.ordercode, data.sex, data.bosscard, data.useraccount, data.paycode, data.paymoney, data.ispay, data.state, data.remark, data.thfs, data.hotelcode, data.sessionid, data.totalprice, data.oid, data.tjcode);
             result = CommonFunction.Replacebracket(result);
             var obj = JsonConvert.DeserializeObject<List<SetOrderResult>>(result)[0];
             return obj;

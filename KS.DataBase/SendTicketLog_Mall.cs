@@ -24,5 +24,7 @@ namespace KS.DataBase
         public Nullable<System.DateTime> addtime { get; set; }
         public string hotelcode { get; set; }
         public string returncode { get; set; }
+        public Nullable<int> type { get; set; }
+        public string tp_id { get; set; }
     }
 }

@@ -3428,7 +3428,8 @@ namespace KS.Mall.SDK.net.kuaishun.shopinterface {
                     string hotelcode, 
                     string sessionid, 
                     string totalprice, 
-                    string oid) {
+                    string oid, 
+                    string tjcode) {
             object[] results = this.Invoke("Setorder_json", new object[] {
                         user,
                         token,
@@ -3449,7 +3450,8 @@ namespace KS.Mall.SDK.net.kuaishun.shopinterface {
                         hotelcode,
                         sessionid,
                         totalprice,
-                        oid});
+                        oid,
+                        tjcode});
             return ((string)(results[0]));
         }
         
@@ -3474,8 +3476,9 @@ namespace KS.Mall.SDK.net.kuaishun.shopinterface {
                     string hotelcode, 
                     string sessionid, 
                     string totalprice, 
-                    string oid) {
-            this.Setorder_jsonAsync(user, token, name, mobile, address, zipcode, ordercode, sex, bosscard, useraccount, paycode, paymoney, ispay, state, remark, thfs, hotelcode, sessionid, totalprice, oid, null);
+                    string oid, 
+                    string tjcode) {
+            this.Setorder_jsonAsync(user, token, name, mobile, address, zipcode, ordercode, sex, bosscard, useraccount, paycode, paymoney, ispay, state, remark, thfs, hotelcode, sessionid, totalprice, oid, tjcode, null);
         }
         
         /// <remarks/>
@@ -3500,6 +3503,7 @@ namespace KS.Mall.SDK.net.kuaishun.shopinterface {
                     string sessionid, 
                     string totalprice, 
                     string oid, 
+                    string tjcode, 
                     object userState) {
             if ((this.Setorder_jsonOperationCompleted == null)) {
                 this.Setorder_jsonOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSetorder_jsonOperationCompleted);
@@ -3524,7 +3528,8 @@ namespace KS.Mall.SDK.net.kuaishun.shopinterface {
                         hotelcode,
                         sessionid,
                         totalprice,
-                        oid}, this.Setorder_jsonOperationCompleted, userState);
+                        oid,
+                        tjcode}, this.Setorder_jsonOperationCompleted, userState);
         }
         
         private void OnSetorder_jsonOperationCompleted(object arg) {

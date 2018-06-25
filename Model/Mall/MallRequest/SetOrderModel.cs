@@ -27,5 +27,6 @@ namespace KS.Model.Mall.MallRequest
         public string sessionid { get; set; }
         public string totalprice { get; set; }
         public string oid { get; set; }
+        public string tjcode { get; set; }
     }
 }

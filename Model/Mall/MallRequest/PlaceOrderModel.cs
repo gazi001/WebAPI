@@ -26,5 +26,6 @@ namespace KS.Model.Mall.MallRequest
         public string formulaid { get; set; }
         public string xgnum { get; set; }
         public string buyuseticketsn { get; set; }
+        public string tjcode { get; set; }
     }
 }

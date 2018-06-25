@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5bcd5ec42a074d6a893b04dc6476f9d0" Name="关系图1">
+      <Diagram DiagramId="5bcd5ec42a074d6a893b04dc6476f9d0" Name="关系图1" ZoomLevel="82">
         <EntityTypeShape EntityType="iticketModel.CAVRecord_t" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="iticketModel.Category_fw_t" Width="1.5" PointX="9.25140936730961" PointY="14.641490972899595" />
       </Diagram>

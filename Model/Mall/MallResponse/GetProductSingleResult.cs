@@ -150,6 +150,7 @@ namespace KS.Model.Mall.MallResponse
         public string iswxpay { get; set; }
         public string canuseticket { get; set; }
         public string isst { get; set; }
+        public string numnopay { get; set; }
     }
     public class GetProductSingleResult
     {

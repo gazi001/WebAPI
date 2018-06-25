@@ -29,6 +29,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
         /// 商城发券
         /// </summary>
         /// <param name="orderlist"></param>
+
         public static bool SendTicket(List<QueryOrderModel> orderlist,string user,ref string shopname)
         {
             net.kuaishun.ticketmk.Service service = new net.kuaishun.ticketmk.Service();
@@ -46,6 +47,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                     {
                         var result = service.Set_newhy_new_json(YQTOperatorId, YQTOperatorId, hotelcode, item.linkticketsn, item.mobile, hotelcode).Replace("(", "").Replace(")", "");
                         var returncode = JsonHelper.GetJsonValue(result, "returncode");
+                        var tp_id = JsonHelper.GetJsonValue(result, "tp_id");
                         iticketdb.SendTicketLog_Mall.Add(new SendTicketLog_Mall
                         {
                             addtime = DateTime.Now,
@@ -57,6 +59,8 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                             sysj = item.sysj,
                             ticketsn = item.linkticketsn,
                             returncode = returncode,
+                            type = 0,
+                            tp_id = tp_id
                         });
                         if (returncode != "success")
                         {
@@ -104,6 +108,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                         {
                             var result = service.Set_newhy_new_json(user, user, item.hotelcode, item1.ToString(), item.mobile, item.hotelcode).Replace("(", "").Replace(")", "");
                             var returncode = JsonHelper.GetJsonValue(result, "returncode");
+                            var tp_id = JsonHelper.GetJsonValue(result, "tp_id");
                             iticketdb.SendTicketLog_Mall.Add(new SendTicketLog_Mall
                             {
                                 addtime = DateTime.Now,
@@ -115,6 +120,8 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                                 sysj = item.sysj,
                                 ticketsn = item1.ToString(),
                                 returncode = returncode,
+                                type=0,
+                                tp_id = tp_id
                             });
                             if (JsonHelper.GetJsonValue(result, "returncode") != "success")
                             {
@@ -160,6 +167,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             return IsSuccess;
         }
 
+    
         public static bool SendTicketTest(List<QueryOrderModel> orderlist, string user, ref string shopname,PaySuccessServiceModel model)
         {
             net.kuaishun.ticketmk.Service service = new net.kuaishun.ticketmk.Service();
@@ -942,7 +950,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                         {
                             var isbool = GetIsBool(sflg, CreateCategoryData[i].isbool);
                             var Categoryid = service.Setcategory_cz_json
-    ("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", CreateFormulaData.pro_num == "" ? "999999" : CreateFormulaData.pro_num, CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz, "");
+    ("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00","0", CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz, "");
                             if (Categoryid != "")
                             {
                                 SaveCategory(CreateCategoryData, CreateFormulaData, dbname, i, sflg, isbool, Categoryid, iscz);
@@ -955,7 +963,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                         else
                         {
                             var isbool = GetIsBool(sflg, CreateCategoryData[i].isbool);
-                            var Categoryid = service.Setcategory_json("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", CreateFormulaData.pro_num == "" ? "999999" : CreateFormulaData.pro_num, CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz);
+                            var Categoryid = service.Setcategory_json("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", "0", CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz);
                             if (Categoryid != "")
                             {
                                 SaveCategory(CreateCategoryData, CreateFormulaData, dbname, i, sflg, isbool, Categoryid, iscz);
@@ -985,7 +993,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                 iticketdb.dbdata_t.Add(new dbdata_t
                 {
                     CategoryId = cateint,
-                    dbnameid = int.Parse(hotelcode),
+                    dbnameid = int.Parse(dbid),
                     hotelcode = hotelcode,
                     num = int.Parse(num),
                     oid = usercode,
@@ -1136,7 +1144,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                             {
                                 var isbool = GetIsBool(sflg, data.arr[i].isbool);
                                 var Categoryid = service.Setcategory_cz_json
-        ("", "", data.arr[i].cate_name, data.arr[i].cate_code, data.arr[i].cate_summary, data.hotelcode, "", "00", "00", data.pro_num == "" ? "999999" : data.pro_num, data.arr[i].cate_type, sflg, data.arr[i].cate_start_date.ToString(), (data.arr[i].cate_start_date + data.arr[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", data.arr[i].cate_bm, data.arr[i].cate_price, "0", data.arr[i].iszs, iscz, "");
+        ("", "", data.arr[i].cate_name, data.arr[i].cate_code, data.arr[i].cate_summary, data.hotelcode, "", "00", "00", "0", data.arr[i].cate_type, sflg, data.arr[i].cate_start_date.ToString(), (data.arr[i].cate_start_date + data.arr[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", data.arr[i].cate_bm, data.arr[i].cate_price, "0", data.arr[i].iszs, iscz, "");
                                 if (Categoryid != "")
                                 {
                                     SaveCatogory(data.arr, data.hotelcode, data.data_new[i], data.usercode, data.pro_num, data.yformul.dbid, i, sflg, isbool, Categoryid, iscz);
@@ -1149,7 +1157,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                             else
                             {
                                 var isbool = GetIsBool(sflg, data.arr[i].isbool);
-                                var Categoryid = service.Setcategory_json("", "", data.arr[i].cate_name, data.arr[i].cate_code, data.arr[i].cate_summary, data.hotelcode, "", "00", "00", data.pro_num == "" ? "999999" : data.pro_num, data.arr[i].cate_type, sflg, data.arr[i].cate_start_date.ToString(), (data.arr[i].cate_start_date + data.arr[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", data.arr[i].cate_bm, data.arr[i].cate_price, "0", data.arr[i].iszs, iscz);
+                                var Categoryid = service.Setcategory_json("", "", data.arr[i].cate_name, data.arr[i].cate_code, data.arr[i].cate_summary, data.hotelcode, "", "00", "00", "0", data.arr[i].cate_type, sflg, data.arr[i].cate_start_date.ToString(), (data.arr[i].cate_start_date + data.arr[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", data.arr[i].cate_bm, data.arr[i].cate_price, "0", data.arr[i].iszs, iscz);
                                 if (Categoryid != "")
                                 {
                                     SaveCatogory(data.arr, data.hotelcode, data.data_new[i], data.usercode, data.pro_num, data.yformul.dbid, i, sflg, isbool, Categoryid, iscz);
