@@ -53,6 +53,7 @@
     <Compile Include="Common\CommonRequest\GetOpenIdForWxOpenModel.cs" />
     <Compile Include="Common\CommonRequest\RegisterModel.cs" />
     <Compile Include="Common\CommonResponse\CheckOpenidResult.cs" />
+    <Compile Include="Common\CommonResponse\HotelInfoJson.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="CommoUserToken\ConmmonUserToken.cs" />
@@ -77,6 +78,8 @@
     <Compile Include="Member\AddUserSceneModel.cs" />
     <Compile Include="Member\RegisterModel.cs" />
     <Compile Include="Member\Required.cs" />
+    <Compile Include="Ticket\TicketRequest\AddFormulaAuthorizedModel.cs" />
+    <Compile Include="Ticket\TicketRequest\AuthorizedLogModel.cs" />
     <Compile Include="Ticket\TicketRequest\batchConsumeTicketModel.cs" />
     <Compile Include="Ticket\TicketRequest\CAVTicketModel.cs" />
     <Compile Include="Ticket\TicketRequest\CreateCategoryData.cs" />

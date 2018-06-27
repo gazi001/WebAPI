@@ -6,15 +6,32 @@
     <edmx:StorageModels>
     <Schema Namespace="iticketModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="iticketModelStoreContainer">
+          <EntitySet Name="AuthorizedLog_t" EntityType="iticketModel.Store.AuthorizedLog_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Category_fw_t" EntityType="iticketModel.Store.Category_fw_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Category_t" EntityType="iticketModel.Store.Category_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CAVRecord_t" EntityType="iticketModel.Store.CAVRecord_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="dbdata_t" EntityType="iticketModel.Store.dbdata_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="dbname_t" EntityType="iticketModel.Store.dbname_t" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="formula_authorized" EntityType="iticketModel.Store.formula_authorized" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Formula_fw_t" EntityType="iticketModel.Store.Formula_fw_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Formula_t" EntityType="iticketModel.Store.Formula_t" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SendTicketLog_Mall" EntityType="iticketModel.Store.SendTicketLog_Mall" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
+        <EntityType Name="AuthorizedLog_t">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="formulaid" Type="int" />
+          <Property Name="hotelcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="roomcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="returncode" Type="nvarchar" MaxLength="50" />
+          <Property Name="tp_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="status" Type="int" />
+          <Property Name="admin" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Category_fw_t">
           <Key>
             <PropertyRef Name="id" />
@@ -119,6 +136,17 @@
           <Property Name="formulaid" Type="varchar" MaxLength="50" />
           <Property Name="hotelcode" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="formula_authorized">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="formulaid" Type="int" />
+          <Property Name="hotelcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="addtime" Type="datetime" />
+          <Property Name="addname" Type="nvarchar" MaxLength="50" />
+          <Property Name="formulaname" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Formula_fw_t">
           <Key>
             <PropertyRef Name="id" />
@@ -177,6 +205,8 @@
           <EntitySet Name="Formula_fw_t" EntityType="iticketModel.Formula_fw_t" />
           <EntitySet Name="Formula_t" EntityType="iticketModel.Formula_t" />
           <EntitySet Name="SendTicketLog_Mall" EntityType="iticketModel.SendTicketLog_Mall" />
+          <EntitySet Name="formula_authorized" EntityType="iticketModel.formula_authorized" />
+          <EntitySet Name="AuthorizedLog_t" EntityType="iticketModel.AuthorizedLog_t" />
         </EntityContainer>
         <EntityType Name="Category_fw_t">
           <Key>
@@ -326,6 +356,32 @@
           <Property Type="String" Name="returncode" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="type" />
           <Property Type="String" Name="tp_id" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="formula_authorized">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="formulaid" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="addtime" Precision="3" />
+          <Property Type="String" Name="addname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="formulaname" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AuthorizedLog_t">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="formulaid" />
+          <Property Type="String" Name="hotelcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="roomcode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="addtime" Precision="3" />
+          <Property Type="String" Name="mobile" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="returncode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="tp_id" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="status" />
+          <Property Type="String" Name="admin" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -484,6 +540,34 @@
                 <ScalarProperty Name="ticketsn" ColumnName="ticketsn" />
                 <ScalarProperty Name="onsalecode" ColumnName="onsalecode" />
                 <ScalarProperty Name="ordercode" ColumnName="ordercode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formula_authorized">
+            <EntityTypeMapping TypeName="iticketModel.formula_authorized">
+              <MappingFragment StoreEntitySet="formula_authorized">
+                <ScalarProperty Name="formulaname" ColumnName="formulaname" />
+                <ScalarProperty Name="addname" ColumnName="addname" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="formulaid" ColumnName="formulaid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuthorizedLog_t">
+            <EntityTypeMapping TypeName="iticketModel.AuthorizedLog_t">
+              <MappingFragment StoreEntitySet="AuthorizedLog_t">
+                <ScalarProperty Name="admin" ColumnName="admin" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="tp_id" ColumnName="tp_id" />
+                <ScalarProperty Name="returncode" ColumnName="returncode" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="addtime" ColumnName="addtime" />
+                <ScalarProperty Name="roomcode" ColumnName="roomcode" />
+                <ScalarProperty Name="hotelcode" ColumnName="hotelcode" />
+                <ScalarProperty Name="formulaid" ColumnName="formulaid" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

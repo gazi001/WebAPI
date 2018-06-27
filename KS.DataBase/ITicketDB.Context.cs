@@ -33,5 +33,7 @@ namespace KS.DataBase
         public DbSet<Formula_fw_t> Formula_fw_t { get; set; }
         public DbSet<Formula_t> Formula_t { get; set; }
         public DbSet<SendTicketLog_Mall> SendTicketLog_Mall { get; set; }
+        public DbSet<formula_authorized> formula_authorized { get; set; }
+        public DbSet<AuthorizedLog_t> AuthorizedLog_t { get; set; }
     }
 }

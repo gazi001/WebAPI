@@ -1249,9 +1249,10 @@ namespace BLL.WebApi.Controllers
                     model.totalprice = totalprice;
                     model.useraccount = result.cardno;
                     model.zipcode = "";
+                    model.tjcode = data.tjcode;
                     var setorderresult = MallApi.Setorder_json(model);
                     if (setorderresult.returncode == "true" && SetOrderDetailsResult.returncode == "true")
-                    {
+                    { 
                         jsonResult.code = ApiCode.成功;
                         jsonResult.msg = "成功";
                         jsonResult.data = ordercode;

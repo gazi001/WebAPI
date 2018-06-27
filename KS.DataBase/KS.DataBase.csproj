@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorizedLog_t.cs">
+      <DependentUpon>ITicketDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Category_fw_t.cs">
       <DependentUpon>ITicketDB.tt</DependentUpon>
     </Compile>
@@ -61,6 +64,9 @@
       <DependentUpon>ITicketDB.tt</DependentUpon>
     </Compile>
     <Compile Include="dbname_t.cs">
+      <DependentUpon>ITicketDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="formula_authorized.cs">
       <DependentUpon>ITicketDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Formula_fw_t.cs">

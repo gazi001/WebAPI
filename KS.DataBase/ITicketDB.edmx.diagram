@@ -13,6 +13,8 @@
         <EntityTypeShape EntityType="iticketModel.Formula_fw_t" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="iticketModel.Formula_t" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="iticketModel.SendTicketLog_Mall" Width="1.5" PointX="5.8191278585321866" PointY="8.5389064292138936" />
+        <EntityTypeShape EntityType="iticketModel.formula_authorized" Width="1.5" PointX="8.4136931581486447" PointY="13.668959772991464" />
+        <EntityTypeShape EntityType="iticketModel.AuthorizedLog_t" Width="1.5" PointX="3.094110065649315" PointY="21.566214109568957" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

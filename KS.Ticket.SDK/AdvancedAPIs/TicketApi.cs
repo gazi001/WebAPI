@@ -15,6 +15,8 @@ using KS.Model.Mall.MallResponse;
 using KS.Model.Mall.MallRequest;
 using KS.DataBase;
 using RM.Common.DotNetModel;
+using RM.Common.DotNetHttp;
+using KS.Model.Common.CommonResponse;
 
 
 namespace KS.Ticket.SDK.AdvancedAPIs
@@ -963,7 +965,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                         else
                         {
                             var isbool = GetIsBool(sflg, CreateCategoryData[i].isbool);
-                            var Categoryid = service.Setcategory_json("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", "0", CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz);
+                            var Categoryid = service.Setcategory_json("", "", CreateCategoryData[i].cate_name, CreateCategoryData[i].cate_code, CreateCategoryData[i].cate_summary, CreateFormulaData.hotelcode, "", "00", "00", "0", CreateCategoryData[i].cate_type, sflg, CreateCategoryData[i].cate_start_date.ToString(), (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(), "00", "1", isbool, "0", "1", CreateCategoryData[i].cate_bm, CreateCategoryData[i].cate_price == "" ? "9999" : CreateCategoryData[i].cate_price, "0", CreateCategoryData[i].iszs, iscz);
                             if (Categoryid != "")
                             {
                                 SaveCategory(CreateCategoryData, CreateFormulaData, dbname, i, sflg, isbool, Categoryid, iscz);
@@ -1299,5 +1301,104 @@ namespace KS.Ticket.SDK.AdvancedAPIs
         }
         #endregion
         #endregion
+
+        //添加可授权产品
+        public static JsonReturn AddFormulaAuthorized(AddFormulaAuthorizedModel data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            var formula = iticketdb.formula_authorized.FirstOrDefault(x => x.hotelcode == data.hotelcode && x.formulaid == data.formulaid);
+            if (formula==null)
+            {
+                iticketdb.formula_authorized.Add(new formula_authorized
+                {
+                    formulaid = data.formulaid,
+                    hotelcode = data.hotelcode,
+                    addtime = DateTime.Now,
+                    addname = data.addname,
+                    formulaname = data.formulaname,
+                });
+                iticketdb.SaveChanges();
+                jsonResult.code = ApiCode.成功;
+                jsonResult.msg = "成功";
+            }
+            else
+            {
+                formula.formulaid=data.formulaid;
+                jsonResult.code = ApiCode.成功;
+                jsonResult.msg = "修改成功";
+ 
+            }
+            return jsonResult;
+        }
+
+        public static JsonReturn AuthorizedLog(AuthorizedLogModel data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            var formula = iticketdb.AuthorizedLog_t.FirstOrDefault(x => x.hotelcode == data.hotelcode && x.formulaid == data.formulaid&&x.mobile==data.mobile&&x.status==data.status&&x.roomcode==data.roomcode);
+            if (formula != null)
+            {
+                var postData = "hotelcode=" +data.hotelcode;
+                string info = HttpHepler.SendPost(Config.WxAPIUrl + "/API/GetWX.ashx?action=GetGZHxx", postData);
+                var hotel = JsonConvert.DeserializeObject<HotelInfoJson>(info).data[0];
+                var result = service.Set_newhy_new_json(hotel.YQTOperatorId, hotel.YQTOperatorId, data.hotelcode, formula.formulaid.ToString(), data.mobile, data.hotelcode);
+                var returncode = JsonHelper.GetJsonValue(result, "returncode");
+                var tp_id = JsonHelper.GetJsonValue(result, "tp_id");
+                if (returncode == "success")
+                {
+                    iticketdb.AuthorizedLog_t.Add(new AuthorizedLog_t
+                    {
+                        formulaid = data.formulaid,
+                        hotelcode = data.hotelcode,
+                        addtime = DateTime.Now,
+                        mobile = data.mobile,
+                        returncode = returncode,
+                        roomcode = data.roomcode,
+                        status = data.status,
+                        tp_id = data.tp_id,
+                        admin=data.admin,
+                    });
+                    iticketdb.SaveChanges();
+                    jsonResult.code = ApiCode.成功;
+                    jsonResult.msg = "成功";
+                }
+                else
+                {
+                    jsonResult.code = ApiCode.发行失败;
+                    jsonResult.msg = "发行失败";
+                }
+            }
+            else
+            {
+                formula.status = data.status;
+                jsonResult.code = ApiCode.成功;
+                jsonResult.msg = "修改成功";
+
+            }
+            return jsonResult;
+        }
+
+        public static JsonReturn GetFormulaAuthorized(AddFormulaAuthorizedModel data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            var formula = iticketdb.formula_authorized.Where(x => x.hotelcode == data.hotelcode);
+            jsonResult.code = ApiCode.成功;
+            jsonResult.msg = "成功";
+            jsonResult.data = formula;
+            return jsonResult;
+        }
+
+        public static JsonReturn DelFormulaAuthorized(AddFormulaAuthorizedModel data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            var formula = iticketdb.formula_authorized.FirstOrDefault(x => x.hotelcode == data.hotelcode && x.formulaid == data.formulaid);
+            if (formula != null)
+            {
+                iticketdb.formula_authorized.Remove(formula);
+                iticketdb.SaveChanges();
+                jsonResult.code = ApiCode.成功;
+                jsonResult.msg = "成功";
+            }
+            return jsonResult;
+        }
     }
 }

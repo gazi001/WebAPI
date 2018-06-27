@@ -2399,11 +2399,10 @@ namespace BLL.WebApi.Controllers
             {
                 jsonResult.code = ApiCode.程序异常;
                 jsonResult.msg = ex.ToString();
-           
             }
-
             return this.MyJson(jsonResult);
         }
+
         [HttpPost]//发行
         public JsonResult SetCRMTicketSn()
         {
@@ -2450,6 +2449,81 @@ namespace BLL.WebApi.Controllers
                 var data = JsonConvert.DeserializeObject<UpdateCategoryFwModel>(stream);
                 jsonResult = TicketApi.UpdateCategoryFw(data);
                 
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.Message.ToString();
+            }
+            return this.MyJson(jsonResult);
+        }
+
+        [HttpPost]//添加可授权产品
+        public JsonResult AddFormulaAuthorized()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<AddFormulaAuthorizedModel>(stream);
+                jsonResult = TicketApi.AddFormulaAuthorized(data);
+
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.Message.ToString();
+            }
+            return this.MyJson(jsonResult);
+        }
+
+        [HttpPost]//获取可授权产品列表
+        public JsonResult GetFormulaAuthorized()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<AddFormulaAuthorizedModel>(stream);
+                jsonResult = TicketApi.GetFormulaAuthorized(data);
+
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.Message.ToString();
+            }
+            return this.MyJson(jsonResult);
+        }
+
+        [HttpPost]//删除指定的授权产品
+        public JsonResult DelFormulaAuthorized()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<AddFormulaAuthorizedModel>(stream);
+                jsonResult = TicketApi.DelFormulaAuthorized(data);
+
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.Message.ToString();
+            }
+            return this.MyJson(jsonResult);
+        }
+        [HttpPost]//授权产品领用记录
+        public JsonResult AuthorizedLog()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<AuthorizedLogModel>(stream);
+                jsonResult = TicketApi.AuthorizedLog(data);
+
             }
             catch (Exception ex)
             {
