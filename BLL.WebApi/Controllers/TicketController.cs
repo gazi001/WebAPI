@@ -2532,6 +2532,44 @@ namespace BLL.WebApi.Controllers
             }
             return this.MyJson(jsonResult);
         }
+        [HttpPost]
+        public JsonResult GetAuthorizedLog()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<AuthorizedLogModel>(stream);
+                jsonResult = TicketApi.GetAuthorizedLog(data);
+
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.ToString();
+            }
+            return this.MyJson(jsonResult);
+ 
+        }
+
+        [HttpPost]
+        public JsonResult GetAuthorizedList()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<GetAuthorizedListModel>(stream);
+                jsonResult = TicketApi.GetAuthorizedList(data);
+
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.ToString();
+            }
+            return this.MyJson(jsonResult,"yyyy-MM-dd HH:mm:ss",NullValueHandling.Include);
+        }
         #endregion
     }
 }

@@ -834,7 +834,6 @@ namespace KS.Ticket.SDK.AdvancedAPIs
         public static JsonReturn CreateFormula(CreateFormulaData data)
         {
             JsonReturn jsonResult = new JsonReturn();
-
             if (data != null)
             {
                 try
@@ -860,7 +859,6 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                                 FormulaSummary = data.summary,
                                 hotelcode = data.hotelcode,
                                 //maxnum=int.Parse( data.pro_num),
-
                                 flag = 0,
                             };
                             iticketdb.Formula_t.Add(formula);
@@ -1082,7 +1080,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                     ExpireDate = CreateCategoryData[i].cate_start_date.ToString(),
                     ExpireDateend = (CreateCategoryData[i].cate_start_date + CreateCategoryData[i].cate_end_date).ToString(),
                     flag = 0,
-                    fmoney =CreateCategoryData[i].cate_price==null?decimal.Parse("0"): decimal.Parse(CreateCategoryData[i].cate_price),
+                    fmoney =CreateCategoryData[i].cate_price==""?decimal.Parse("9999"): decimal.Parse(CreateCategoryData[i].cate_price),
                     fnum = 0,
                     hotelcode = CreateFormulaData.hotelcode,
                     HotelId = CreateFormulaData.hotelcode,
@@ -1334,13 +1332,13 @@ namespace KS.Ticket.SDK.AdvancedAPIs
         public static JsonReturn AuthorizedLog(AuthorizedLogModel data)
         {
             JsonReturn jsonResult = new JsonReturn();
-            var formula = iticketdb.AuthorizedLog_t.FirstOrDefault(x => x.hotelcode == data.hotelcode && x.formulaid == data.formulaid&&x.mobile==data.mobile&&x.status==data.status&&x.roomcode==data.roomcode);
-            if (formula != null)
+            var formula = iticketdb.AuthorizedLog_t.FirstOrDefault(x => x.hotelcode == data.hotelcode &&x.status==0&&x.roomcode==data.roomcode);
+            if (formula == null)
             {
                 var postData = "hotelcode=" +data.hotelcode;
                 string info = HttpHepler.SendPost(Config.WxAPIUrl + "/API/GetWX.ashx?action=GetGZHxx", postData);
                 var hotel = JsonConvert.DeserializeObject<HotelInfoJson>(info).data[0];
-                var result = service.Set_newhy_new_json(hotel.YQTOperatorId, hotel.YQTOperatorId, data.hotelcode, formula.formulaid.ToString(), data.mobile, data.hotelcode);
+                var result = service.Set_newhy_new_json(hotel.YQTOperatorId, hotel.YQTOperatorId,data.hotelcode,data.formulaid.ToString(), data.mobile, data.hotelcode);
                 var returncode = JsonHelper.GetJsonValue(result, "returncode");
                 var tp_id = JsonHelper.GetJsonValue(result, "tp_id");
                 if (returncode == "success")
@@ -1356,6 +1354,9 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                         status = data.status,
                         tp_id = data.tp_id,
                         admin=data.admin,
+                        cardno=data.cardno,
+                        username=data.username,
+                        formulaname=data.formulaname
                     });
                     iticketdb.SaveChanges();
                     jsonResult.code = ApiCode.成功;
@@ -1369,9 +1370,20 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             }
             else
             {
-                formula.status = data.status;
-                jsonResult.code = ApiCode.成功;
-                jsonResult.msg = "修改成功";
+                if (iticketdb.AuthorizedLog_t.Any(x => x.hotelcode == data.hotelcode && x.status == 0 && x.roomcode == data.roomcode && x.mobile == data.mobile))
+                {
+                    formula.canceltime = DateTime.Now;
+                    formula.canceladmin = data.canceladmin;
+                    formula.status = data.status;
+                    iticketdb.SaveChanges();
+                    jsonResult.code = ApiCode.成功;
+                    jsonResult.msg = "修改成功";
+                }
+                else
+                {
+                    jsonResult.code = ApiCode.已存在;
+                    jsonResult.msg = "已存在";
+                }
 
             }
             return jsonResult;
@@ -1398,6 +1410,44 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                 jsonResult.code = ApiCode.成功;
                 jsonResult.msg = "成功";
             }
+            return jsonResult;
+        }
+        //https://ks.kuaishun.net/BLL/Ticket/GetAuthorizedLog
+        public static JsonReturn GetAuthorizedLog(AuthorizedLogModel data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            var log = iticketdb.AuthorizedLog_t.FirstOrDefault(x => x.hotelcode == data.hotelcode && x.status == 0 && x.roomcode == data.roomcode);
+            if (log == null)
+            {
+                jsonResult.code = ApiCode.没有实体数据;
+                jsonResult.msg = "没有实体数据";
+            }
+            else
+            {
+                jsonResult.code = ApiCode.成功;
+                jsonResult.msg = "成功";
+                jsonResult.data = log;
+            }
+          
+            return jsonResult;
+        }
+
+        public static JsonReturn GetAuthorizedList(GetAuthorizedListModel data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            var log = iticketdb.AuthorizedLog_t.Where(x => x.hotelcode == data.hotelcode &&x.addtime>=data.starttime&&x.addtime<=data.endtime).ToList();
+            if (log == null)
+            {
+                jsonResult.code = ApiCode.没有实体数据;
+                jsonResult.msg = "没有实体数据";
+            }
+            else
+            {
+                jsonResult.code = ApiCode.成功;
+                jsonResult.msg = "成功";
+                jsonResult.data = log;
+            }
+
             return jsonResult;
         }
     }

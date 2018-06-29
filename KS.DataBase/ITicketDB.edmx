@@ -31,6 +31,11 @@
           <Property Name="tp_id" Type="nvarchar" MaxLength="50" />
           <Property Name="status" Type="int" />
           <Property Name="admin" Type="nvarchar" MaxLength="50" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="cardno" Type="nvarchar" MaxLength="50" />
+          <Property Name="formulaname" Type="nvarchar" MaxLength="50" />
+          <Property Name="canceladmin" Type="nvarchar" MaxLength="50" />
+          <Property Name="canceltime" Type="datetime" />
         </EntityType>
         <EntityType Name="Category_fw_t">
           <Key>
@@ -382,6 +387,11 @@
           <Property Type="String" Name="tp_id" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="status" />
           <Property Type="String" Name="admin" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="username" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="cardno" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="formulaname" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="canceladmin" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="canceltime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -559,6 +569,11 @@
           <EntitySetMapping Name="AuthorizedLog_t">
             <EntityTypeMapping TypeName="iticketModel.AuthorizedLog_t">
               <MappingFragment StoreEntitySet="AuthorizedLog_t">
+                <ScalarProperty Name="canceltime" ColumnName="canceltime" />
+                <ScalarProperty Name="canceladmin" ColumnName="canceladmin" />
+                <ScalarProperty Name="formulaname" ColumnName="formulaname" />
+                <ScalarProperty Name="cardno" ColumnName="cardno" />
+                <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="admin" ColumnName="admin" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="tp_id" ColumnName="tp_id" />

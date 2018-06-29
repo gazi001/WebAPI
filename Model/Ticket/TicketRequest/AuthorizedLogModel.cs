@@ -17,5 +17,9 @@ namespace KS.Model.Ticket.TicketRequest
         public string returncode { get; set; }
         public string tp_id { get; set; }
         public int status { get; set; }
+        public string username { get; set; }
+        public string cardno { get; set; }
+        public string formulaname { get; set; }
+        public string canceladmin { get; set; }
     }
 }

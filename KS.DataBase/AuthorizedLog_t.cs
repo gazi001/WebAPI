@@ -24,5 +24,10 @@ namespace KS.DataBase
         public string tp_id { get; set; }
         public Nullable<int> status { get; set; }
         public string admin { get; set; }
+        public string username { get; set; }
+        public string cardno { get; set; }
+        public string formulaname { get; set; }
+        public string canceladmin { get; set; }
+        public Nullable<System.DateTime> canceltime { get; set; }
     }
 }

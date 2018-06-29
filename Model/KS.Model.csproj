@@ -84,6 +84,7 @@
     <Compile Include="Ticket\TicketRequest\CAVTicketModel.cs" />
     <Compile Include="Ticket\TicketRequest\CreateCategoryData.cs" />
     <Compile Include="Ticket\TicketRequest\CreateFormulaData.cs" />
+    <Compile Include="Ticket\TicketRequest\GetAuthorizedListModel.cs" />
     <Compile Include="Ticket\TicketRequest\GetConsumeModel.cs" />
     <Compile Include="Ticket\TicketRequest\GetticketJLHXModel.cs" />
     <Compile Include="Ticket\TicketRequest\GetticketUserByRegeditModel.cs" />
