@@ -1375,6 +1375,10 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                     formula.canceltime = DateTime.Now;
                     formula.canceladmin = data.canceladmin;
                     formula.status = data.status;
+                    if (data.status == 1)
+                    {
+                        var result = service.Changetpstate("", "", formula.tp_id, "998", data.admin, formula.hotelcode);
+                    }
                     iticketdb.SaveChanges();
                     jsonResult.code = ApiCode.成功;
                     jsonResult.msg = "修改成功";
