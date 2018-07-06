@@ -54,5 +54,24 @@ namespace BLL.WebApi.Controllers
             }
             return this.MyJson(jsonResult);
         }
+
+        [HttpPost]//修改子券范围
+        public JsonResult UpdateCategoryFw()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<UpdateCategoryFwModel>(stream);
+                jsonResult = LeagueTicketApi.UpdateCategoryFw(data);
+
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.Message.ToString();
+            }
+            return this.MyJson(jsonResult);
+        }
     }
 }

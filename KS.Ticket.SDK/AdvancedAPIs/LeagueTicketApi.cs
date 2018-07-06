@@ -370,5 +370,43 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                 iticketdb.SaveChanges();
             }
         }
+
+       
+        public static JsonReturn UpdateCategoryFw(UpdateCategoryFwModel data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            if (data.cate_arr != null)
+            {
+                var fwArr = data.cate_arr.Split(',');
+
+                var list = iticketdb.Category_fw_t.Where(x => x.CategoryId == data.id && x.hotelcode == data.hotelcode).ToList();
+                foreach (var item in list)
+                {
+                    iticketdb.Category_fw_t.Remove(item);
+                }
+                foreach (var item in fwArr)
+                {
+                    if (item != "")
+                    {
+                        iticketdb.Category_fw_t.Add(new Category_fw_t
+                        {
+                            CategoryId = data.id,
+                            hotelcode = data.hotelcode,
+                            usehotelcode = item.ToString(),
+                            addtime = DateTime.Now,
+                        });
+                    }
+                }
+                iticketdb.SaveChanges();
+                jsonResult.code = ApiCode.成功;
+                jsonResult.msg = "成功";
+            }
+            else
+            {
+                jsonResult.code = ApiCode.参数不全;
+                jsonResult.msg = "参数不全";
+            }
+            return jsonResult;
+        }
     }
 }
