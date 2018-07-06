@@ -11,5 +11,8 @@
     <Setting Name="KS_Ticket_SDK_net_kuaishun_interfacecrs_Service" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://interfacecrs.kuaishun.net/service.asmx</Value>
     </Setting>
+    <Setting Name="KS_Ticket_SDK_net_ksweixin_Service" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://ksweixin.net/service.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

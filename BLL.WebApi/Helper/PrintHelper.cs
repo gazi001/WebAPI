@@ -85,7 +85,6 @@ namespace BLL.WebApi.Helper
                 
                 throw;
             }
-        
         }
     }
 }

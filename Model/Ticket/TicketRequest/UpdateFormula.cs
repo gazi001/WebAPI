@@ -8,6 +8,7 @@ namespace KS.Model.Ticket.TicketRequest
 {
     public class UpdateFormulaData
     {
+        public string hotelcode_fw { get; set; }
         public string id { get; set; }
         /// <summary>
         /// KS-PHP-001

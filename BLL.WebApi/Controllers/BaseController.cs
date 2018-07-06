@@ -57,7 +57,7 @@ namespace BLL.WebApi.Controllers
         /// <param name="data">数据</param>
         /// <param name="format">数据格式</param>
         /// <returns>Json</returns>
-        protected JsonResult MyJson(object data, string format = "yyyy-MM-dd", NullValueHandling NullFormat = NullValueHandling.Ignore, JsonRequestBehavior behavior = JsonRequestBehavior.AllowGet)
+        protected JsonResult MyJson(object data, string format = "yyyy-MM-dd HH:mm:ss", NullValueHandling NullFormat = NullValueHandling.Ignore, JsonRequestBehavior behavior = JsonRequestBehavior.AllowGet)
         {
 
             Response.AddHeader("Access-Control-Allow-Origin", "*");

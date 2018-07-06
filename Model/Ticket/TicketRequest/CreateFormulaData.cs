@@ -20,6 +20,8 @@ namespace KS.Model.Ticket.TicketRequest
         public string pro_num { get; set; }
         [Required(ErrorMessage = "酒店代码不能为空")]
         public string hotelcode { get; set; }
+        public string hdcode { get; set; }
+        public string hotelcode_fw { get; set; }
      
     }
 }

@@ -707,7 +707,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
        // private 
         #region 产品定义
         //根据前端的传值判断sflag
-        private static string GetIsBool(string sflag, string isbool)
+        public static string GetIsBool(string sflag, string isbool)
         {
             var Isbool = "";
             switch (sflag)
@@ -724,7 +724,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             }
             return Isbool;
         }
-        private static string GetSflag(string type, string cate_xz, string cate_type = "")
+        public static string GetSflag(string type, string cate_xz, string cate_type = "")
         {
             string sflag = "";
             switch (type)
@@ -758,7 +758,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             return sflag;
         }
 
-        private static string GetIscz(string sflag)
+        public static string GetIscz(string sflag)
         {
             var Iscz = "";
             switch (sflag)
@@ -794,7 +794,7 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             }
             return Iscz;
         }
-        private static string GetProNum(string type, string num,string cate_type = "")
+        public static string GetProNum(string type, string num,string cate_type = "")
         {
             switch (type)
             {
