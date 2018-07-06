@@ -2567,7 +2567,7 @@ namespace BLL.WebApi.Controllers
             return this.MyJson(jsonResult);
         }
 
-        [HttpPost]
+        [HttpPost]//单授权记录
         public JsonResult GetAuthorizedLog()
         {
             try
@@ -2587,7 +2587,7 @@ namespace BLL.WebApi.Controllers
  
         }
 
-        [HttpPost]
+        [HttpPost]//所有授权记录
         public JsonResult GetAuthorizedList()
         {
             try
@@ -2603,6 +2603,26 @@ namespace BLL.WebApi.Controllers
                 jsonResult.msg = ex.ToString();
             }
             return this.MyJson(jsonResult,"yyyy-MM-dd HH:mm:ss",NullValueHandling.Include);
+        }
+
+        [HttpPost]//批量转赠
+        public JsonResult BatchTransfer()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<BatchTransferModel>(stream);
+                jsonResult = TicketApi.BatchTransfer(data);
+
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.Message.ToString();
+            }
+            return this.MyJson(jsonResult);
+ 
         }
         #endregion
     }

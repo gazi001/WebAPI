@@ -1558,5 +1558,53 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             }
             return jsonResult;
         }
+
+        public static JsonReturn BatchTransfer(BatchTransferModel data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            var querymodel  = new QueryTicketnewModel();
+            querymodel.user="";
+            querymodel.token="";
+            querymodel.hotelGroupId="";
+            querymodel.hotelcode=data.hotelcode;
+            querymodel.mode="mobile";
+            querymodel.code=data.oldmobile;
+            var queryticket = QueryTicketNew(querymodel);
+            if (queryticket!=null&&queryticket.Count > 0)
+            {
+                
+                var count = data.newmobilelist.Sum(x => x.count);
+                var list = queryticket.Where(x => x.bflag == "可使用" && x.FormulaId == data.formulaid).Take(count).ToList();
+                var mobilelist = new List<string>();
+                if (count == list.Count)
+                {
+                    for (int z = 0; z < count; z++)
+                    {
+                        for (int i = 0; i < data.newmobilelist.Count; i++)
+                        {
+                            for (int j = 0; j < data.newmobilelist[i].count; j++)
+                            {
+                                var res = service.Setticketsnchange(data.oldmobile, list[z].TicketSN, data.newmobilelist[i].mobile, data.grouptype, data.hotelcode, data.giftId, data.summary);
+                                var returncode = JsonHelper.GetJsonValue(res, "returncode");
+                                if (res != "success")
+                                {
+                                    mobilelist.Add(data.newmobilelist[i].mobile);
+                                }
+                            }
+                        }
+
+                    }
+                    jsonResult.code = ApiCode.成功;
+                    jsonResult.msg = "成功";
+                    jsonResult.data = mobilelist;
+                }
+                else
+                {
+                    jsonResult.code = ApiCode.转赠数量不匹配;
+                    jsonResult.msg = "转赠数量不匹配";
+                }
+            }
+            return jsonResult;
+        }
     }
 }

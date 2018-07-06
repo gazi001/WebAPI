@@ -81,6 +81,7 @@
     <Compile Include="Ticket\TicketRequest\AddFormulaAuthorizedModel.cs" />
     <Compile Include="Ticket\TicketRequest\AuthorizedLogModel.cs" />
     <Compile Include="Ticket\TicketRequest\batchConsumeTicketModel.cs" />
+    <Compile Include="Ticket\TicketRequest\BatchTransferModel.cs" />
     <Compile Include="Ticket\TicketRequest\CAVTicketModel.cs" />
     <Compile Include="Ticket\TicketRequest\CheckConsumeModel.cs" />
     <Compile Include="Ticket\TicketRequest\CreateCategoryData.cs" />

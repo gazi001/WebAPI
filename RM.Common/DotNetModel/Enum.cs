@@ -59,7 +59,9 @@ namespace RM.Common.DotNetModel
         删除产品范围失败=222,
         设定产品范围失败=223,
         该岗点不可使用=224,
-        已存在=225
+        已存在=225,
+
+        转赠数量不匹配=226,
 
     }
     public enum Flag
