@@ -82,6 +82,7 @@
     <Compile Include="Ticket\TicketRequest\AuthorizedLogModel.cs" />
     <Compile Include="Ticket\TicketRequest\batchConsumeTicketModel.cs" />
     <Compile Include="Ticket\TicketRequest\CAVTicketModel.cs" />
+    <Compile Include="Ticket\TicketRequest\CheckConsumeModel.cs" />
     <Compile Include="Ticket\TicketRequest\CreateCategoryData.cs" />
     <Compile Include="Ticket\TicketRequest\CreateFormulaData.cs" />
     <Compile Include="Ticket\TicketRequest\GetAuthorizedListModel.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Ticket\TicketRequest\TicketJLAddNotimeSetModel.cs" />
     <Compile Include="Ticket\TicketRequest\TicketJLAddTicketSNNewSetModel.cs" />
     <Compile Include="Ticket\TicketRequest\UpdateCategoryFwModel.cs" />
+    <Compile Include="Ticket\TicketRequest\UpdateConsumeLogModel.cs" />
     <Compile Include="Ticket\TicketRequest\UpdateFormula.cs" />
     <Compile Include="Ticket\TicketResponse\Getmember_bymobileResult.cs" />
     <Compile Include="Ticket\TicketResponse\GetticketJLHXResult.cs" />

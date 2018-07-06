@@ -17,6 +17,7 @@ using KS.DataBase;
 using RM.Common.DotNetModel;
 using RM.Common.DotNetHttp;
 using KS.Model.Common.CommonResponse;
+using System.Globalization;
 
 
 namespace KS.Ticket.SDK.AdvancedAPIs
@@ -1361,6 +1362,15 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                     iticketdb.SaveChanges();
                     jsonResult.code = ApiCode.成功;
                     jsonResult.msg = "成功";
+                    var list = CommonApi.GetServiceList(data.hotelcode, "6", "GetOpenIdList");
+                    if (list.data.Count > 0)
+                    {
+                        foreach (var item in list.data)
+                        {
+                            SendAuthMsg("授权成功", data.admin, data.username, "已授权", "备注", data.hotelcode, item.openid1,"AuthSuccess");
+                        }
+                    }   
+                    //SendAuthMsg("授权成功",data.admin,data.username,"已授权","备注",data.hotelcode,)
                 }
                 else
                 {
@@ -1370,6 +1380,8 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             }
             else
             {
+
+               
                 if (iticketdb.AuthorizedLog_t.Any(x => x.hotelcode == data.hotelcode && x.status == 0 && x.roomcode == data.roomcode && x.mobile == data.mobile))
                 {
                     formula.canceltime = DateTime.Now;
@@ -1378,7 +1390,16 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                     if (data.status == 1)
                     {
                         var result = service.Changetpstate("", "", formula.tp_id, "998", data.admin, formula.hotelcode);
+                        var list = CommonApi.GetServiceList(data.hotelcode, "6", "GetOpenIdList");
+                        if (list.data.Count > 0)
+                        {
+                            foreach (var item in list.data)
+                            {
+                                SendAuthMsg("授权取消", data.username, data.admin, "已取消", "备注", data.hotelcode, item.openid1, "AuthSuccess");
+                            }
+                        }   
                     }
+                   
                     iticketdb.SaveChanges();
                     jsonResult.code = ApiCode.成功;
                     jsonResult.msg = "修改成功";
@@ -1392,7 +1413,40 @@ namespace KS.Ticket.SDK.AdvancedAPIs
             }
             return jsonResult;
         }
-
+        private static void SendAuthMsg(string first, string keyword1, string keyword2, string keyword3,string remark,string hotelcode,string openid,string name)
+        {
+            var paramData = new
+            {
+                first = new
+                {
+                    value = first,
+                    color = "#173177",
+                },
+                keyword1 = new
+                {
+                    value = keyword1,
+                    color = "#173177",
+                },
+                keyword2 = new
+                {
+                    value = keyword2,
+                    color = "#173177",
+                },
+                keyword3 = new
+                {
+                    value = keyword3,
+                    color = "#173177",
+                },
+                remark = new
+                {
+                    value =remark,
+                    color = "#173177",
+                },
+            };
+            var json = JsonConvert.SerializeObject(paramData);
+            string TemplateData = "hotelcode=" + hotelcode + "&openid=" + openid + "&param=" + json + "&templateName="+name+"";
+            HttpHepler.SendPost(Config.SendTemplateUrl, TemplateData);
+        }
         public static JsonReturn GetFormulaAuthorized(AddFormulaAuthorizedModel data)
         {
             JsonReturn jsonResult = new JsonReturn();
@@ -1452,6 +1506,56 @@ namespace KS.Ticket.SDK.AdvancedAPIs
                 jsonResult.data = log;
             }
 
+            return jsonResult;
+        }
+
+        public static JsonReturn CheckConsume(List<CheckConsumeModel> data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            var list = new List<object>();
+            var listorgin = new List<object>();
+            DateTimeFormatInfo dtFormat =new DateTimeFormatInfo();
+            dtFormat.ShortDatePattern = "yyyy-MM-dd";
+            foreach (var item in data)
+            {
+                var t1 = Convert.ToDateTime(item.time, dtFormat);
+                var t2 = t1.AddDays(1);
+                var one = iticketdb.CAVRecord_t.FirstOrDefault(x => x.addtime>=t1&&x.addtime<t2&&x.xfcode==item.xfcode);
+                if (one != null)
+                {
+                    if (one.rate != item.rate || one.num != item.num)
+                    {
+                        listorgin.Add(new 
+                        {
+                            id=one.id,
+                            excel_rate = item.rate,
+                            excel_num= item.num,
+                            db_rate=one.rate,
+                            db_num=one.num,
+                            xfcode=item.xfcode
+                        });
+                    }
+                }
+            }
+          
+            jsonResult.code = ApiCode.成功;
+            jsonResult.data = listorgin;
+            return jsonResult;
+        }
+
+        public static JsonReturn UpdateConsumeLog(UpdateConsumeLogModel data)
+        {
+            JsonReturn jsonResult = new JsonReturn();
+            var one = iticketdb.CAVRecord_t.FirstOrDefault(x => x.id == data.id);
+            if (one != null)
+            {
+                one.rate = data.rate;
+                one.num = data.num;
+                one.xfcode = data.xfcode;
+                iticketdb.SaveChanges();
+                jsonResult.code = ApiCode.成功;
+                jsonResult.msg = "成功";
+            }
             return jsonResult;
         }
     }

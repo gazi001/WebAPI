@@ -319,6 +319,21 @@ namespace KS.Common.SDK.AdvancedAPIs
             }
           
         }
+
+        /// <summary>
+        /// 获取管理员列表
+        /// </summary>
+        /// <param name="hotelcode"></param>
+        /// <param name="type"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public static GetServiceListModel GetServiceList(string hotelcode, string type, string action)
+        {
+            var postData = "hotelcode=" + hotelcode + "&type=" + type;
+            var result = HttpHepler.SendPost(Config.BookingUrl + "?action=" + action, postData);
+            var list = JsonConvert.DeserializeObject<GetServiceListModel>(result);
+            return list;
+        }
     }
 
 }

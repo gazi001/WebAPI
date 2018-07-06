@@ -2225,7 +2225,6 @@ namespace BLL.WebApi.Controllers
             return this.MyJson(jsonResult, "yyyy-MM-dd HH:mm:ss");
         }
      
-        
         [HttpPost]//批量核销
         public JsonResult batchConsumeTicket(batchConsumeTicketModel data)
         {
@@ -2377,6 +2376,40 @@ namespace BLL.WebApi.Controllers
             return this.MyJson(jsonResult, "yyyy-MM-dd HH:mm:ss",NullValueHandling.Include);
         }
 
+        [HttpPost]//报表核对
+        public JsonResult CheckConsume()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<List< CheckConsumeModel>>(stream);
+                jsonResult = TicketApi.CheckConsume(data);
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.ToString();
+            }
+            return this.MyJson(jsonResult);
+        }
+        [HttpPost]
+        public JsonResult UpdateConsumeLog()
+        {
+            try
+            {
+                var sr = new StreamReader(Request.InputStream);
+                var stream = sr.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<UpdateConsumeLogModel>(stream);
+                jsonResult = TicketApi.UpdateConsumeLog(data);
+            }
+            catch (Exception ex)
+            {
+                jsonResult.code = ApiCode.程序异常;
+                jsonResult.msg = ex.ToString();
+            }
+            return this.MyJson(jsonResult);
+        }
         private bool VerifyCategroy(string hotelcode,string gdcode,string scene )
         {
             return true;
@@ -2514,6 +2547,7 @@ namespace BLL.WebApi.Controllers
             }
             return this.MyJson(jsonResult);
         }
+
         [HttpPost]//授权产品领用记录
         public JsonResult AuthorizedLog()
         {
@@ -2532,6 +2566,7 @@ namespace BLL.WebApi.Controllers
             }
             return this.MyJson(jsonResult);
         }
+
         [HttpPost]
         public JsonResult GetAuthorizedLog()
         {
@@ -2561,7 +2596,6 @@ namespace BLL.WebApi.Controllers
                 var stream = sr.ReadToEnd();
                 var data = JsonConvert.DeserializeObject<GetAuthorizedListModel>(stream);
                 jsonResult = TicketApi.GetAuthorizedList(data);
-
             }
             catch (Exception ex)
             {
